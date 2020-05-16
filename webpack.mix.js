@@ -17,12 +17,12 @@ mix.js("resources/js/app.js", "public/js").sass(
 );
 
 //versioning of assets in production for better experience
-// if (mix.inProduction()) {
-//     mix.version();
-// }
+if (mix.inProduction()) {
+    mix.version();
+}
 
 //hot reloading
-// mix.browserSync("aliahmad.test");
+mix.browserSync("aliahmad.test");
 
 // disabling mix compile notifications, which might be headache
-// mix.disableNotifications();
+mix.disableNotifications();
