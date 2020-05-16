@@ -17,7 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// here, we modify authentications routes, It will not let user
+// registeration or password reset
+Auth::routes([
+    'register' => false,
+    'reset' => false
+]);
 
 
 // can middleware will only allow the admin user to visit this route
