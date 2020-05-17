@@ -3,5 +3,5 @@
 @section('title','About')
 
 @section('content')
-Hi This is about page
+<about-section></about-section>
 @endsection

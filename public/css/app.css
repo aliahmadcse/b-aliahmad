@@ -10948,3 +10948,7 @@ nav .nav-item {
   font-family: "Montserrat", sans-serif;
 }
 
+.about .header-image .image {
+  max-width: 200px;
+}
+
