@@ -38,10 +38,10 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->is('/') ? 'active':'' }}">
                                 <a class="nav-link" href="{{ route('about') }}">About</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ request()->is('projects') ? 'active':'' }}">
                                 <a class="nav-link" href="{{ route('projects.index') }}">Portfolio</a>
                             </li>
                             <li class="nav-item">

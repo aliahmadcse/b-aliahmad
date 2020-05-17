@@ -4,5 +4,4 @@
 
 @section('content')
 Hi This is about page
-
 @endsection
