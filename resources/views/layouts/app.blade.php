@@ -19,9 +19,9 @@
 
     <body>
         <div id="app">
-            <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+            <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand text-gray" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -39,7 +39,7 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">Home</a>
+                                <a class="nav-link" href="{{ route('about.index') }}">About</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Portfolio</a>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('about');
 });
 
 // here, we modify authentications routes, It will not let user
@@ -23,6 +23,9 @@ Auth::routes([
     'register' => false,
     'reset' => false
 ]);
+
+
+Route::get('/about', 'AboutController@index')->name('about.index');
 
 
 // can middleware will only allow the admin user to visit this route
