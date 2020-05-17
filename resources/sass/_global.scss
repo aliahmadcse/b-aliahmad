@@ -1,3 +1,14 @@
 .text-gray {
     color: rgba(104, 102, 102, 0.85) !important;
 }
+
+.text-link {
+    color: $text-light;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.text-link:hover {
+    color: $text-light;
+    text-decoration-style: solid;
+}

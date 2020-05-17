@@ -16,6 +16,16 @@
                 </div>
             </div>
         </section>
+        <section class="intro">
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    <article class="lead">
+                        <p>Hi ✋, I am Ali Ahmad</p>
+                        <a href="#" class="text-link">Laravel</a>
+                    </article>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -25,7 +35,11 @@ import Typed from "typed.js";
 export default {
     mounted: function() {
         var typed = new Typed(".tag", {
-            strings: ["Ali Ahmad.", "Web Developer.", "Undergrad Student."],
+            strings: [
+                "Web Developer.",
+                "Laravel and Vue.js.",
+                "Undergrad Student."
+            ],
             typeSpeed: 30,
             backSpeed: 100,
             backDelay: 700

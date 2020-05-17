@@ -31,6 +31,7 @@ nav {
 
 // about page styles
 .about {
+    // header-image section
     .header-image {
         .image {
             max-width: 200px;
@@ -42,6 +43,13 @@ nav {
                 font-family: $font-family-open-sans;
                 font-size: $font-size-base * 1.4;
             }
+        }
+    }
+    // intro section
+    .intro {
+        article {
+            font-family: $font-family-open-sans;
+            font-size: $font-size-base * 1.3;
         }
     }
 }

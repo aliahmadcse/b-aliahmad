@@ -4,6 +4,19 @@
   color: rgba(104, 102, 102, 0.85) !important;
 }
 
+.text-link {
+  color: #555353;
+  text-decoration: underline;
+  -webkit-text-decoration-style: dotted;
+          text-decoration-style: dotted;
+}
+
+.text-link:hover {
+  color: #555353;
+  -webkit-text-decoration-style: solid;
+          text-decoration-style: solid;
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
@@ -10956,5 +10969,10 @@ nav .nav-item {
   display: inline;
   font-family: "Open Sans", sans-serif;
   font-size: 1.4rem;
+}
+
+.about .intro article {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.3rem;
 }
 

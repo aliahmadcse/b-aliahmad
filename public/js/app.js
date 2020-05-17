@@ -1931,11 +1931,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0___default.a(".tag", {
-      strings: ["Ali Ahmad.", "Web Developer.", "Undergrad Student."],
+      strings: ["Web Developer.", "Laravel and Vue.js.", "Undergrad Student."],
       typeSpeed: 30,
       backSpeed: 100,
       backDelay: 700
@@ -39219,6 +39229,20 @@ var staticRenderFns = [
             ])
           ]
         )
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "intro" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 text-center mt-3" }, [
+            _c("article", { staticClass: "lead" }, [
+              _c("p", [_vm._v("Hi ✋, I am Ali Ahmad")]),
+              _vm._v(" "),
+              _c("a", { staticClass: "text-link", attrs: { href: "#" } }, [
+                _vm._v("Laravel")
+              ])
+            ])
+          ])
+        ])
       ])
     ])
   }
