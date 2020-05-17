@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('about');
-});
+})->name('about');
 
 // here, we modify authentications routes, It will not let user
 // registeration or password reset
@@ -24,9 +24,8 @@ Auth::routes([
     'reset' => false
 ]);
 
-
-Route::get('/about', 'AboutController@index')->name('about.index');
-
+// resource controller for projects
+Route::resource('projects', 'ProjectController');
 
 // can middleware will only allow the admin user to visit this route
 // This middleware gate is defined in App\Providers\AuthServiceProvider
