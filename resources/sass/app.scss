@@ -35,8 +35,13 @@ nav {
         .image {
             max-width: 200px;
         }
-        .image:hover{
 
+        .tagline {
+            .tag {
+                display: inline;
+                font-family: $font-family-open-sans;
+                font-size: $font-size-base * 1.4;
+            }
         }
     }
 }

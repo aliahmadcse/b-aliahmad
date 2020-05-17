@@ -10952,3 +10952,9 @@ nav .nav-item {
   max-width: 200px;
 }
 
+.about .header-image .tagline .tag {
+  display: inline;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.4rem;
+}
+
