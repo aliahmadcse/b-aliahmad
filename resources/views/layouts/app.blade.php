@@ -79,20 +79,23 @@
             </main>
         </div>
 
-        <footer class="page-footer pt-3 shadow">
+        <footer class="page-footer pt-3 bg-light">
             <div class="social-links">
-                <ul class="list-unstyled list-inline">
+                <ul class="list-unstyled list-inline text-center">
                     <li class="list-inline-item">
-                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                        <a href="" class="mx-3"><i class="fab fa-linkedin social-link link-linkedin"></i></a>
                     </li>
                     <li class="list-inline-item">
-                        <a href=""><i></i></a>
+                        <a href="" class="mx-3"><i class="fab fa-twitter social-link link-twitter"></i></a>
                     </li>
                     <li class="list-inline-item">
-                        Twitter
+                        <a href="" class="mx-3"><i class="fab fa-github social-link link-github"></i></a>
                     </li>
                     <li class="list-inline-item">
-                        LinkedIn
+                        <a href="" class="mx-3"><i class="fab fa-facebook social-link link-facebook"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="" class="mx-3"><i class="fab fa-instagram social-link link-instagram"></i></a>
                     </li>
                 </ul>
             </div>

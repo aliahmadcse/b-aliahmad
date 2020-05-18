@@ -17,7 +17,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 // font-awesome
-// @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 // @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 // @import "~@fortawesome/fontawesome-free/scss/regular.scss";
@@ -37,10 +37,30 @@ nav {
 
 // footer styles
 footer {
-    width: 100%;
-    padding-bottom: 5px;
-    background: #eeebeb;
+    .social-link {
+        font-size: $font-size-base * 1.4;
+        transition: .5s ease;
+    }
+    .social-link:hover {
+        transform: scale(1.1);
+    }
+    .link-linkedin {
+        color: #0077b5;
+    }
+    .link-github {
+        color: #24292e;
+    }
+    .link-twitter {
+        color: rgba(29, 161, 242, 1);
+    }
+    .link-facebook {
+        color: rgb(66, 103, 178);
+    }
+    .link-instagram{
+        color: rgb(224, 37, 47);
+    }
 }
+
 // about page styles
 .about {
     // header-image section

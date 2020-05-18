@@ -51565,7 +51565,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 
 files.keys().map(function (key) {
-  return Vue.component(key.split("/").pop().split(".")[0], files(key)["default"]);
+  return Vue.component(key.split('/').pop().split('.')[0], files(key)["default"]);
 }); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
@@ -51575,7 +51575,7 @@ files.keys().map(function (key) {
  */
 
 var app = new Vue({
-  el: "#app"
+  el: '#app'
 });
 
 /***/ }),
