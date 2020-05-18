@@ -1941,6 +1941,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -6397,7 +6431,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n@media (max-width: 800px) {\n.row-1[data-v-3c47b283] {\n        flex-direction: column !important;\n}\n}\n", ""]);
+exports.push([module.i, "\n@media (max-width: 800px) {\n.row-1[data-v-3c47b283] {\r\n        flex-direction: column !important;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -39233,12 +39267,69 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("section", { staticClass: "intro" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 text-center mt-3" }, [
-            _c("article", { staticClass: "lead" }, [
-              _c("p", [_vm._v("Hi ✋, I am Ali Ahmad")]),
+          _c("div", { staticClass: "col-12" }, [
+            _c("article", { staticClass: "text-center mt-5" }, [
+              _c("p", [
+                _vm._v(
+                  "\n                        Hi ✋, I am Ali Ahmad.I am a web developer 💻 and loves developing websites with\n                        "
+                ),
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-link",
+                    attrs: { href: "https://laravel.com/", target: "_blank" }
+                  },
+                  [_vm._v("Laravel")]
+                ),
+                _vm._v(" and\n                        "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-link",
+                    attrs: { href: "https://vuejs.org/", target: "_blank" }
+                  },
+                  [_vm._v("Vue.js")]
+                ),
+                _vm._v(
+                  ".\n                        I have over an year of experience in development. You may want to have a look at my\n                        "
+                ),
+                _c(
+                  "a",
+                  { staticClass: "text-link", attrs: { href: "/projects" } },
+                  [_vm._v("Portfolio")]
+                ),
+                _vm._v(
+                  ".\n                        Besides this, I am an undergrad student in a well known univeristy of Pakistan, known\n                        as\n                        "
+                ),
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-link",
+                    attrs: { href: "https://www.uet.edu.pk/", target: "_blank" }
+                  },
+                  [_vm._v("UET Lahore")]
+                ),
+                _vm._v(
+                  " with majors in Computer Science 👨‍💻.\n                    "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("article", [
+              _c("p", [_vm._v("Below is the list of my top skill set:")]),
               _vm._v(" "),
-              _c("a", { staticClass: "text-link", attrs: { href: "#" } }, [
-                _vm._v("Laravel")
+              _c("ul", [
+                _c("li", [_vm._v("Laravel / Php")]),
+                _vm._v(" "),
+                _c("li", [_vm._v("Vue.js")]),
+                _vm._v(" "),
+                _c("li", [_vm._v("Relational Database (MySql)")]),
+                _vm._v(" "),
+                _c("li", [_vm._v("Version Control (Git / Github)")]),
+                _vm._v(" "),
+                _c("li", [_vm._v("Responsive Web Design")]),
+                _vm._v(" "),
+                _c("li", [_vm._v("Python")])
               ])
             ])
           ])

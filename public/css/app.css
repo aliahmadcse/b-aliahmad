@@ -10974,5 +10974,12 @@ nav .nav-item {
 .about .intro article {
   font-family: "Open Sans", sans-serif;
   font-size: 1.3rem;
+  padding: 0vw 12vw;
+}
+
+@media (max-width: 500px) {
+  .about .intro article {
+    padding: 1vw 2vw;
+  }
 }
 

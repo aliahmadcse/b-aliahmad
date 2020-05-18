@@ -18,10 +18,44 @@
         </section>
         <section class="intro">
             <div class="row">
-                <div class="col-12 text-center mt-3">
-                    <article class="lead">
-                        <p>Hi ✋, I am Ali Ahmad</p>
-                        <a href="#" class="text-link">Laravel</a>
+                <div class="col-12">
+                    <article class="text-center mt-5">
+                        <p>
+                            Hi ✋, I am Ali Ahmad.I am a web developer 💻 and loves developing websites with
+                            <a
+                                href="https://laravel.com/"
+                                class="text-link"
+                                target="_blank"
+                            >Laravel</a> and
+                            <a
+                                href="https://vuejs.org/"
+                                class="text-link"
+                                target="_blank"
+                            >Vue.js</a>.
+                            I have over an year of experience in development. You may want to have a look at my
+                            <a
+                                href="/projects"
+                                class="text-link"
+                            >Portfolio</a>.
+                            Besides this, I am an undergrad student in a well known univeristy of Pakistan, known
+                            as
+                            <a
+                                href="https://www.uet.edu.pk/"
+                                class="text-link"
+                                target="_blank"
+                            >UET Lahore</a> with majors in Computer Science 👨‍💻.
+                        </p>
+                    </article>
+                    <article>
+                        <p>Below is the list of my top skill set:</p>
+                        <ul>
+                            <li>Laravel / Php</li>
+                            <li>Vue.js</li>
+                            <li>Relational Database (MySql)</li>
+                            <li>Version Control (Git / Github)</li>
+                            <li>Responsive Web Design</li>
+                            <li>Python</li>
+                        </ul>
                     </article>
                 </div>
             </div>
