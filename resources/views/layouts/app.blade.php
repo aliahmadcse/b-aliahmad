@@ -19,7 +19,7 @@
 
     <body>
         <div id="app">
-            <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm sticky-top">
+            <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
                 <div class="container">
                     <a class="navbar-brand text-gray" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
@@ -78,6 +78,28 @@
                 </div>
             </main>
         </div>
+
+        <footer class="page-footer pt-3 shadow">
+            <div class="social-links">
+                <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item">
+                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href=""><i></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        Twitter
+                    </li>
+                    <li class="list-inline-item">
+                        LinkedIn
+                    </li>
+                </ul>
+            </div>
+            <div class="copy-right text-center">
+                <p>Copyright &copy; Ali Ahmad 2020</p>
+            </div>
+        </footer>
     </body>
 
 </html>

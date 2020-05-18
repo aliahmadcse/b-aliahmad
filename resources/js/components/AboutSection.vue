@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <article class="text-center mt-5">
                         <p>
-                            Hi ✋, I am Ali Ahmad.I am a web developer 💻 and loves developing websites with
+                            Hi ✋, I am Ali Ahmad. I am a web developer 💻 and loves developing websites with
                             <a
                                 href="https://laravel.com/"
                                 class="text-link"

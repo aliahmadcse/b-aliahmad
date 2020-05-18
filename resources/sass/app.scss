@@ -16,6 +16,12 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+// font-awesome
+// @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+// @import "~@fortawesome/fontawesome-free/scss/solid.scss";
+// @import "~@fortawesome/fontawesome-free/scss/regular.scss";
+
 // navbar styles
 nav {
     .navbar-brand {
@@ -29,6 +35,12 @@ nav {
     }
 }
 
+// footer styles
+footer {
+    width: 100%;
+    padding-bottom: 5px;
+    background: #eeebeb;
+}
 // about page styles
 .about {
     // header-image section
