@@ -3,7 +3,7 @@
         <ul class="nav nav-tabs portfolio-main" role="tablist">
             <li class="nav-item" role="presentation">
                 <router-link
-                    class="nav-link active px-5"
+                    class="nav-link px-5 prlink"
                     data-toggle="tab"
                     role="tab"
                     aria-controls="home"
@@ -13,7 +13,7 @@
             </li>
             <li class="nav-item" role="presentation">
                 <router-link
-                    class="nav-link px-5"
+                    class="nav-link px-5 prlink"
                     data-toggle="tab"
                     role="tab"
                     aria-controls="profile"
@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item" role="presentation">
                 <router-link
-                    class="nav-link px-5"
+                    class="nav-link px-5 prlink"
                     data-toggle="tab"
                     role="tab"
                     aria-controls="profile"
@@ -45,9 +45,19 @@ Vue.use(VueRouter);
 
 export default {
     props: ["projects"],
-
+    
     created: function() {
         this.$store.commit("SET_PROJECTS", this.projects);
+    },
+
+    // adding the active class to active router-link dynamically
+    mounted: function() {
+        const eleArr = document.querySelectorAll(".prlink");
+        eleArr.forEach(ele => {
+            ele.classList.contains("router-link-active")
+                ? ele.classList.add("active")
+                : "";
+        });
     },
 
     router: new VueRouter({

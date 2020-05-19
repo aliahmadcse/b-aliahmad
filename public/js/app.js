@@ -2007,6 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     projects: function projects() {
@@ -2080,6 +2081,13 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
   props: ["projects"],
   created: function created() {
     this.$store.commit("SET_PROJECTS", this.projects);
+  },
+  // adding the active class to active router-link dynamically
+  mounted: function mounted() {
+    var eleArr = document.querySelectorAll(".prlink");
+    eleArr.forEach(function (ele) {
+      ele.classList.contains("router-link-active") ? ele.classList.add("active") : "";
+    });
   },
   router: new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
     mode: "history",
@@ -39578,7 +39586,7 @@ var render = function() {
               _c(
                 "router-link",
                 {
-                  staticClass: "nav-link active px-5",
+                  staticClass: "nav-link px-5 prlink",
                   attrs: {
                     "data-toggle": "tab",
                     role: "tab",
@@ -39600,7 +39608,7 @@ var render = function() {
               _c(
                 "router-link",
                 {
-                  staticClass: "nav-link px-5",
+                  staticClass: "nav-link px-5 prlink",
                   attrs: {
                     "data-toggle": "tab",
                     role: "tab",
@@ -39622,7 +39630,7 @@ var render = function() {
               _c(
                 "router-link",
                 {
-                  staticClass: "nav-link px-5",
+                  staticClass: "nav-link px-5 prlink",
                   attrs: {
                     "data-toggle": "tab",
                     role: "tab",
@@ -55920,6 +55928,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./footer */ "./resources/js/footer.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -56235,6 +56245,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PortfolioMain_vue_vue_type_template_id_7f9930ff_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/footer.js":
+/*!********************************!*\
+  !*** ./resources/js/footer.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Here we add some jquery code to make footer stay at the
+ * bottom of the page without being sticky
+ *
+ */
+$(document).ready(function () {
+  setInterval(function () {
+    var docHeight = $(window).height();
+    var footerHeight = $("#footer").height();
+    var footerTop = $("#footer").position().top + footerHeight;
+    var marginTop = docHeight - footerTop + 10;
+    if (footerTop < docHeight) $("#footer").css("margin-top", marginTop + "px"); // padding of 30 on footer
+    else $("#footer").css("margin-top", "0px"); // console.log("docheight: " + docHeight + "\n" + "footerheight: " + footerHeight + "\n" + "footertop: " + footerTop + "\n" + "new docheight: " + $(window).height() + "\n" + "margintop: " + marginTop);
+  }, 250);
+});
 
 /***/ }),
 

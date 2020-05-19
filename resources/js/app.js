@@ -6,6 +6,8 @@
 
 require("./bootstrap");
 
+require("./footer");
+
 window.Vue = require("vue");
 
 /**

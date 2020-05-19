@@ -1,4 +1,4 @@
-<footer class="page-footer pt-3 bg-light">
+<footer class="page-footer pt-3 bg-light" id="footer">
     <div class="social-links">
         <ul class="list-unstyled list-inline text-center">
             <li class="list-inline-item">

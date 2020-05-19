@@ -16983,6 +16983,10 @@ nav .nav-item {
   font-family: "Montserrat", sans-serif;
 }
 
+footer {
+  padding-bottom: 1px;
+}
+
 footer .social-link {
   font-size: 1.4rem;
   transition: 0.5s ease;

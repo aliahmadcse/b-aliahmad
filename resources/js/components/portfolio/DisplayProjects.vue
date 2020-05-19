@@ -1,6 +1,7 @@
 <template>
     <div>
         <div v-for="project in projects" :key="project.title">
+            <!-- <img :src="project.image" alt /> -->
             <p>{{ project.title }}</p>
         </div>
     </div>
