@@ -67,6 +67,7 @@
 import Typed from "typed.js";
 
 export default {
+    // script for Typed
     mounted: function() {
         var typed = new Typed(".tag", {
             strings: [

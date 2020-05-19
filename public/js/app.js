@@ -1977,6 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  // script for Typed
   mounted: function mounted() {
     var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0___default.a(".tag", {
       strings: ["Web Developer.", "Laravel and Vue.js.", "Undergrad Student."],
