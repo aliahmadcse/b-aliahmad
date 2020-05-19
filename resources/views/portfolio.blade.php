@@ -3,5 +3,7 @@
 @section('title','Portfolio')
 
 @section('content')
-Hi, This is portfolio section
+
+<portfolio-main></portfolio-main>
+
 @endsection

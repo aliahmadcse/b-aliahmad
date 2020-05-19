@@ -5,3 +5,9 @@
 @section('content')
 <about-section></about-section>
 @endsection
+
+@section('footer')
+
+@include('layouts.footer')
+
+@endsection

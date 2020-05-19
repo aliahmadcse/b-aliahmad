@@ -27,6 +27,7 @@ Auth::routes([
 // resource controller for projects
 Route::resource('projects', 'ProjectController');
 
+
 // can middleware will only allow the admin user to visit this route
 // This middleware gate is defined in App\Providers\AuthServiceProvider
 Route::get('/home', 'HomeController@index')
