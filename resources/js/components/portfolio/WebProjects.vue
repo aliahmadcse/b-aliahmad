@@ -1,9 +1,8 @@
 <template>
     <div>
-        <!-- <div v-for="project in projects" :key="project.title">
+        <div v-for="project in projects" :key="project.title">
             <p>{{ project.title }}</p>
-        </div> -->
-        Ali
+        </div>
     </div>
 </template>
 

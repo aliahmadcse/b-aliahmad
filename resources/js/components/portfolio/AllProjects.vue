@@ -1,5 +1,5 @@
 <template>
-    <div>Machine Learning</div>
+    <div>All Projects</div>
 </template>
 
 <script>

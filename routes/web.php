@@ -32,6 +32,6 @@ Route::get('/home', 'HomeController@index')
     ->name('home');
 
 // display projects
-Route::get('projects/{any?}', 'ProjectController@index')
-    ->name('projects.index')
+Route::get('portfolio/{any?}', 'ProjectController@index')
+    ->name('portfolio')
     ->where('any', '.*');

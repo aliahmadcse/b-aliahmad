@@ -42,7 +42,7 @@
                                 <a class="nav-link" href="{{ route('about') }}">About</a>
                             </li>
                             <li class="nav-item {{ request()->is('projects') ? 'active':'' }}">
-                                <a class="nav-link" href="{{ route('projects.index') }}">Portfolio</a>
+                                <a class="nav-link" href="{{ route('portfolio') }}">Portfolio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Blog</a>

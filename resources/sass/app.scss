@@ -39,7 +39,7 @@ nav {
 footer {
     .social-link {
         font-size: $font-size-base * 1.4;
-        transition: .5s ease;
+        transition: 0.5s ease;
     }
     .social-link:hover {
         transform: scale(1.1);
@@ -56,7 +56,7 @@ footer {
     .link-facebook {
         color: rgb(66, 103, 178);
     }
-    .link-instagram{
+    .link-instagram {
         color: rgb(224, 37, 47);
     }
 }
@@ -88,6 +88,19 @@ footer {
             article {
                 padding: 1vw 2vw;
             }
+        }
+    }
+}
+
+// portfolio section
+
+// Portfolio Main component
+.portfolio-main {
+    li {
+        a {
+            font-family: $font-family-montserrat;
+            color: $teal;
+            font-size: $font-size-base;
         }
     }
 }
