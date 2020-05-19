@@ -4,6 +4,6 @@
 
 @section('content')
 
-<portfolio-main></portfolio-main>
+<portfolio-main :projects="{{ $projects }}"></portfolio-main>
 
 @endsection

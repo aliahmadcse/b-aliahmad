@@ -13,7 +13,49 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('portfolio');
+        $projects = [
+            [
+                'id' => 1,
+                'title' => "Nadias Graden Restaurant",
+                "image" => "https://hplussport.com/wp-content/uploads/2016/12/slicker-jacket_LYNDA_29941.jpg",
+                "category" => "web",
+                "github" => "#",
+                "link" => "#"
+            ],
+            [
+                'id' => 2,
+                'title' => "Hotel Reservation System",
+                "image" => "https://hplussport.com/wp-content/uploads/2016/12/ski-coat_LYNDA_29940.jpg",
+                "category" => "web",
+                "github" => "#",
+                "link" => "#"
+            ],
+            [
+                'id' => 3,
+                'title' => "Product Landing page",
+                "image" => "https://hplussport.com/wp-content/uploads/2016/12/unisex-thermal-vest_LYNDA_29944.jpg",
+                "category" => "web",
+                "github" => "#",
+                "link" => "#"
+            ],
+            [
+                'id' => 4,
+                'title' => "Books Recommendation System",
+                "image" => "https://hplussport.com/wp-content/uploads/2016/12/unisex-thermal-vest_LYNDA_29944.jpg",
+                "category" => "ml",
+                "github" => "#",
+                "link" => "#"
+            ],
+            [
+                'id' => 5,
+                'title' => "Single Neuron Implementation",
+                "image" => "https://hplussport.com/wp-content/uploads/2016/12/unisex-thermal-vest_LYNDA_29944.jpg",
+                "category" => "ml",
+                "github" => "#",
+                "link" => "#"
+            ],
+        ];
+        return view('portfolio')->with('projects', json_encode($projects));
     }
 
     /**

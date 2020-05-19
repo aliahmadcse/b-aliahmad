@@ -39,13 +39,17 @@
 
 <script>
 import VueRouter from "vue-router";
-import AllProjects from "./AllProjects";
-import WebProjects from "./WebProjects";
-import MLProjects from "./MLProjects";
+import DisplayProjects from "./DisplayProjects";
+
 Vue.use(VueRouter);
 
 export default {
-    props: [],
+    props: ["projects"],
+
+    created: function() {
+        this.$store.commit("SET_PROJECTS", this.projects);
+    },
+
     router: new VueRouter({
         mode: "history",
         base: "portfolio",
@@ -53,17 +57,17 @@ export default {
             {
                 path: "/all",
                 name: "all",
-                component: AllProjects
+                component: DisplayProjects
             },
             {
                 path: "/web",
                 name: "web",
-                component: WebProjects
+                component: DisplayProjects
             },
             {
                 path: "/ml",
                 name: "ml",
-                component: MLProjects
+                component: DisplayProjects
             },
             {
                 path: "/",
@@ -81,6 +85,5 @@ export default {
 <style scoped>
 .view-router {
     margin-top: 40px;
-
 }
 </style>

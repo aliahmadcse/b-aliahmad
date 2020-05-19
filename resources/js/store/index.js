@@ -5,18 +5,24 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        projects: [
-            {
-                title: "Nadias Graden Restaurant"
-            },
-            {
-                title:'Hotel Reservation App'
-            }
-        ]
+        projects: []
     },
+
     mutations: {
         SET_PROJECTS(state, projects) {
             state.projects = projects;
+        }
+    },
+
+    getters: {
+        projects: state => {
+            return state.projects;
+        },
+        webProjects: state => {
+            return state.projects.filter(project => project.category == "web");
+        },
+        mlProjects: state => {
+            return state.projects.filter(project => project.category == "ml");
         }
     },
     actions: {}
