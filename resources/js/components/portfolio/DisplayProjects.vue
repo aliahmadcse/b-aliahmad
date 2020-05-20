@@ -2,11 +2,18 @@
     <div class="row">
         <div class="col-sm-6 col-lg-4 mb-4" v-for="project in projects" :key="project.id">
             <div class="card h-100 project-card">
-                <img
-                    class="card-img-top"
-                    src="https://tiny.pictures/api/demo/main/example1.jpg?width=400"
-                    alt="Card image cap"
-                />
+                <a
+                    href="https://tiny.pictures/api/demo/main/example1.jpg?width=400"
+                    :data-lightbox="project.id"
+                    :data-title="project.title"
+                    :data-alt="project.title"
+                >
+                    <img
+                        class="card-img-top"
+                        src="https://tiny.pictures/api/demo/main/example1.jpg?width=400"
+                        :alt="project.title"
+                    />
+                </a>
                 <div class="card-body text-center">
                     <h5 class="card-title">
                         <em>{{ project.title }}</em>
@@ -29,6 +36,8 @@
 </template>
 
 <script>
+// lightbox2
+import lightbox2 from "lightbox2/dist/js/lightbox";
 export default {
     computed: {
         projects() {

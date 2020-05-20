@@ -22,6 +22,9 @@
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 // @import "~@fortawesome/fontawesome-free/scss/regular.scss";
 
+// lightbox2 css
+@import "~lightbox2/dist/css/lightbox.css";
+
 // navbar styles
 nav {
     .navbar-brand {
@@ -93,21 +96,31 @@ footer {
     }
 }
 
-// portfolio section
+/**
+*  portfolio section
+*/
 
 // Portfolio Main component
 .portfolio-main {
     li {
         a {
             font-family: $font-family-montserrat;
-            color: $teal;
-            font-size: $font-size-base;
+            color: $blue;
+            font-size: $font-size-base * 1.2;
         }
     }
 }
 
 // display portfolio component
 .project-card {
+    img {
+        transition: all 1s ease;
+        cursor: pointer;
+    }
+    img:hover {
+        filter: brightness(1.1) drop-shadow(1px 8px 30px #b1afaf);
+    }
+
     .card-title,
     .card-text {
         font-family: $font-family-open-sans;
