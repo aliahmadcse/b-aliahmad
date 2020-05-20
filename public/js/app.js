@@ -2008,6 +2008,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     projects: function projects() {
@@ -39539,10 +39560,63 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "row" },
     _vm._l(_vm.projects, function(project) {
-      return _c("div", { key: project.title }, [
-        _c("p", [_vm._v(_vm._s(project.title))])
-      ])
+      return _c(
+        "div",
+        { key: project.id, staticClass: "col-sm-6 col-lg-4 mb-4" },
+        [
+          _c("div", { staticClass: "card h-100 project-card" }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: {
+                src:
+                  "https://tiny.pictures/api/demo/main/example1.jpg?width=400",
+                alt: "Card image cap"
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body text-center" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _c("em", [_vm._v(_vm._s(project.title))])
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text lead" }, [
+                _vm._v(
+                  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, temporibus!"
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex justify-content-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "card-link mx-2",
+                    attrs: { href: project.github }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fab fa-github card-link-github",
+                      attrs: { title: "Learn More" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "card-link", attrs: { href: project.link } },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-external-link-alt card-link-live",
+                      attrs: { title: "Live Project" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]
+      )
     }),
     0
   )

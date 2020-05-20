@@ -19,7 +19,7 @@
 // font-awesome
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
-// @import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
 // @import "~@fortawesome/fontawesome-free/scss/regular.scss";
 
 // navbar styles
@@ -49,7 +49,7 @@ footer {
         color: #0077b5;
     }
     .link-github {
-        color: #24292e;
+        color: $github;
     }
     .link-twitter {
         color: rgba(29, 161, 242, 1);
@@ -103,5 +103,36 @@ footer {
             color: $teal;
             font-size: $font-size-base;
         }
+    }
+}
+
+// display portfolio component
+.project-card {
+    .card-title,
+    .card-text {
+        font-family: $font-family-open-sans;
+    }
+
+    .card-text {
+        font-size: $font-size-base;
+    }
+
+    .card-link-github,
+    .card-link-live {
+        font-size: $font-size-base * 1.4;
+        transition: all 0.3s ease;
+    }
+
+    .card-link-github {
+        color: $github;
+    }
+
+    .card-link-live {
+        color: $blue;
+    }
+
+    .card-link-github:hover,
+    .card-link-live:hover {
+        transform: translate3d(1px, 1px, 1px);
     }
 }

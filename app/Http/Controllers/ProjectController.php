@@ -17,7 +17,7 @@ class ProjectController extends Controller
             [
                 'id' => 1,
                 'title' => "Nadias Graden Restaurant",
-                "image" => "https://hplussport.com/wp-content/uploads/2016/12/slicker-jacket_LYNDA_29941.jpg",
+                "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
                 "category" => "web",
                 "github" => "#",
                 "link" => "#"
@@ -25,7 +25,7 @@ class ProjectController extends Controller
             [
                 'id' => 2,
                 'title' => "Hotel Reservation System",
-                "image" => "https://hplussport.com/wp-content/uploads/2016/12/ski-coat_LYNDA_29940.jpg",
+                "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
                 "category" => "web",
                 "github" => "#",
                 "link" => "#"
@@ -33,7 +33,7 @@ class ProjectController extends Controller
             [
                 'id' => 3,
                 'title' => "Product Landing page",
-                "image" => "https://hplussport.com/wp-content/uploads/2016/12/unisex-thermal-vest_LYNDA_29944.jpg",
+                "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
                 "category" => "web",
                 "github" => "#",
                 "link" => "#"
@@ -41,7 +41,7 @@ class ProjectController extends Controller
             [
                 'id' => 4,
                 'title' => "Books Recommendation System",
-                "image" => "https://hplussport.com/wp-content/uploads/2016/12/unisex-thermal-vest_LYNDA_29944.jpg",
+                "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
                 "category" => "ml",
                 "github" => "#",
                 "link" => "#"
@@ -49,7 +49,7 @@ class ProjectController extends Controller
             [
                 'id' => 5,
                 'title' => "Single Neuron Implementation",
-                "image" => "https://hplussport.com/wp-content/uploads/2016/12/unisex-thermal-vest_LYNDA_29944.jpg",
+                "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
                 "category" => "ml",
                 "github" => "#",
                 "link" => "#"
