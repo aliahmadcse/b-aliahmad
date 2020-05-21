@@ -17301,3 +17301,14 @@ footer .link-instagram {
   transform: translate3d(1px, 1px, 1px);
 }
 
+.admin-nav .nav-custom .nav-link {
+  color: #6574cd;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+}
+
+.admin-nav .nav-custom .active {
+  background: #9561e2;
+  color: #ffffff;
+}
+

@@ -6,8 +6,6 @@
                     class="nav-link px-5 prlink"
                     data-toggle="tab"
                     role="tab"
-                    aria-controls="home"
-                    aria-selected="true"
                     :to="{ name:'all' }"
                 >All</router-link>
             </li>
@@ -16,8 +14,6 @@
                     class="nav-link px-5 prlink"
                     data-toggle="tab"
                     role="tab"
-                    aria-controls="profile"
-                    aria-selected="false"
                     :to="{ name:'web' }"
                 >Web</router-link>
             </li>
@@ -26,8 +22,6 @@
                     class="nav-link px-5 prlink"
                     data-toggle="tab"
                     role="tab"
-                    aria-controls="profile"
-                    aria-selected="false"
                     :to="{ name:'ml' }"
                 >ML</router-link>
             </li>

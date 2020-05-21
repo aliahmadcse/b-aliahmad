@@ -2013,6 +2013,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2023,6 +2043,12 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
   props: ["projects"],
   created: function created() {
     this.$store.commit("SET_PROJECTS", _.cloneDeep(this.projects));
+  },
+  mounted: function mounted() {
+    var eleArr = document.querySelectorAll(".nav-link");
+    eleArr.forEach(function (ele) {
+      ele.classList.contains("router-link-active") ? ele.classList.add("active") : "";
+    });
   },
   // Here we create the routes for admin panel
   router: new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -2214,12 +2240,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _DisplayProjects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DisplayProjects */ "./resources/js/components/portfolio/DisplayProjects.vue");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -40281,21 +40301,48 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("router-link", { attrs: { to: { name: "projects.list" } } }, [
-        _vm._v("Projects")
-      ]),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "blog.posts" } } }, [
-        _vm._v("Blog")
-      ]),
-      _vm._v(" "),
-      _c("router-view")
-    ],
-    1
-  )
+  return _c("div", { staticClass: "row mt-3" }, [
+    _c("div", { staticClass: "col-lg-3 col-md-6 admin-nav" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "nav nav-custom flex-column text-center nav-pills border rounded",
+          attrs: { role: "tablist", "aria-orientation": "vertical" }
+        },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                "data-toggle": "pill",
+                role: "tab",
+                to: { name: "projects.list" }
+              }
+            },
+            [_vm._v("Projects")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                "data-toggle": "pill",
+                role: "tab",
+                to: { name: "blog.posts" }
+              }
+            },
+            [_vm._v("Blog")]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-9 col-md-6 mt-3" }, [_c("router-view")], 1)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -40535,8 +40582,6 @@ var render = function() {
                   attrs: {
                     "data-toggle": "tab",
                     role: "tab",
-                    "aria-controls": "home",
-                    "aria-selected": "true",
                     to: { name: "all" }
                   }
                 },
@@ -40557,8 +40602,6 @@ var render = function() {
                   attrs: {
                     "data-toggle": "tab",
                     role: "tab",
-                    "aria-controls": "profile",
-                    "aria-selected": "false",
                     to: { name: "web" }
                   }
                 },
@@ -40579,8 +40622,6 @@ var render = function() {
                   attrs: {
                     "data-toggle": "tab",
                     role: "tab",
-                    "aria-controls": "profile",
-                    "aria-selected": "false",
                     to: { name: "ml" }
                   }
                 },
@@ -57046,15 +57087,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/components/admin/AdminNavbar.vue ***!
   \*******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminNavbar_vue_vue_type_template_id_216b5324_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminNavbar.vue?vue&type=template&id=216b5324&scoped=true& */ "./resources/js/components/admin/AdminNavbar.vue?vue&type=template&id=216b5324&scoped=true&");
 /* harmony import */ var _AdminNavbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminNavbar.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/AdminNavbar.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AdminNavbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AdminNavbar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -57084,7 +57124,7 @@ component.options.__file = "resources/js/components/admin/AdminNavbar.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/admin/AdminNavbar.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

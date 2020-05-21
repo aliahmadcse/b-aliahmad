@@ -130,3 +130,19 @@ footer {
         transform: translate3d(1px, 1px, 1px);
     }
 }
+
+// admin navbar
+.admin-nav {
+    .nav-custom {
+        .nav-link {
+            color: $indigo;
+            font-family: $font-family-montserrat;
+            font-size: $font-size-base * 1.1;
+        }
+        .active {
+            background: $purple;
+            color: $white;
+        }
+    }
+}
+
