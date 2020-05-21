@@ -27,7 +27,7 @@ Auth::routes([
 
 // can middleware will only allow the admin user to visit this route
 // This middleware gate is defined in App\Providers\AuthServiceProvider
-Route::get('/home', 'HomeController@index')
+Route::get('home', 'HomeController@index')
     ->middleware('can:visit-admin-panel')
     ->name('home');
 

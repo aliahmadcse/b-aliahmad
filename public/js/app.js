@@ -2112,7 +2112,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["projects"],
   created: function created() {
-    this.$store.commit("SET_PROJECTS", this.projects);
+    this.$store.commit("SET_PROJECTS", _.cloneDeep(this.projects));
   },
   // adding the active class to active router-link dynamically
   mounted: function mounted() {

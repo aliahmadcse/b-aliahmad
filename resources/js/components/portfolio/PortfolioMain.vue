@@ -45,9 +45,9 @@ Vue.use(VueRouter);
 
 export default {
     props: ["projects"],
-    
+
     created: function() {
-        this.$store.commit("SET_PROJECTS", this.projects);
+        this.$store.commit("SET_PROJECTS", _.cloneDeep(this.projects));
     },
 
     // adding the active class to active router-link dynamically
