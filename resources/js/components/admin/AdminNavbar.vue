@@ -8,6 +8,7 @@
             >
                 <router-link
                     class="nav-link"
+                    :class="{active:isProjectRoute()}"
                     data-toggle="pill"
                     role="tab"
                     :to="{name:'projects.list'}"
@@ -15,6 +16,7 @@
 
                 <router-link
                     class="nav-link"
+                    :class="{active:isBlogRoute()}"
                     data-toggle="pill"
                     role="tab"
                     :to="{name:'blog.posts'}"
@@ -33,6 +35,7 @@ import VueRouter from "vue-router";
 import ProjectsNav from "./portfolio/ProjectsNav";
 import ListProjects from "./portfolio/ListProjects";
 import ViewProject from "./portfolio/ViewProject";
+import ProjectFields from "./portfolio/ProjectFields";
 
 import BlogNav from "./blog/BlogNav";
 import ListPosts from "./blog/ListPosts";
@@ -46,13 +49,13 @@ export default {
         this.$store.commit("SET_PROJECTS", _.cloneDeep(this.projects));
     },
 
-    mounted: function() {
-        const eleArr = document.querySelectorAll(".nav-link");
-        eleArr.forEach(ele => {
-            ele.classList.contains("router-link-active")
-                ? ele.classList.add("active")
-                : "";
-        });
+    methods: {
+        isProjectRoute() {
+            return this.$route.name.includes("project");
+        },
+        isBlogRoute() {
+            return this.$route.name.includes("blog");
+        }
     },
 
     // Here we create the routes for admin panel
@@ -76,6 +79,17 @@ export default {
                         path: "view",
                         name: "project.view",
                         component: ViewProject
+                    },
+                    {
+                        path: "add",
+                        name: "project.add",
+                        component: ProjectFields
+                    },
+                    {
+                        path: "edit/:id",
+                        name: "project.edit",
+                        component: ProjectFields,
+                        props: true
                     }
                 ]
             },

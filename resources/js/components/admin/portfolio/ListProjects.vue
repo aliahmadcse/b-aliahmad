@@ -1,5 +1,9 @@
 <template>
     <div>
+        <router-link
+            class="btn btn-outline-secondary mb-3 ml-3"
+            :to="{name:'project.add'}"
+        >Add Project</router-link>
         <table class="table table-striped table-responsive table-project-list">
             <thead>
                 <tr>
@@ -17,7 +21,10 @@
                     <td scope="row">Web</td>
                     <td scope="row">https://github.com/aliahmadcse/nadias-garden</td>
                     <td scope="row">
-                        <button class="btn btn-outline-secondary">View</button>
+                        <router-link
+                            class="btn btn-outline-secondary"
+                            :to="{name:'project.view'}"
+                        >View</router-link>
                     </td>
                 </tr>
             </tbody>
