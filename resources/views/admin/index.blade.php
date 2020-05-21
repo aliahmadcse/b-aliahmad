@@ -4,6 +4,6 @@
 
 @section('content')
 
-<h1>Welcome Ali</h1>
+<admin-navbar :projects="{{ $projects }}"></admin-navbar>
 
 @endsection
