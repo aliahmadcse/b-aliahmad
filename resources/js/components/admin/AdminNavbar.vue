@@ -32,6 +32,7 @@ import VueRouter from "vue-router";
 
 import ProjectsNav from "./portfolio/ProjectsNav";
 import ListProjects from "./portfolio/ListProjects";
+import ViewProject from "./portfolio/ViewProject";
 
 import BlogNav from "./blog/BlogNav";
 import ListPosts from "./blog/ListPosts";
@@ -70,6 +71,11 @@ export default {
                         path: "list",
                         name: "projects.list",
                         component: ListProjects
+                    },
+                    {
+                        path: "view",
+                        name: "project.view",
+                        component: ViewProject
                     }
                 ]
             },
