@@ -1,10 +1,21 @@
-@import "vendor";
 
 // Variables
 @import "variables";
 
 //global styles
 @import "global";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// font-awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+// @import "~@fortawesome/fontawesome-free/scss/regular.scss";
+
+// lightbox2 css
+@import "~lightbox2/dist/css/lightbox.css";
 
 // navbar styles
 nav {

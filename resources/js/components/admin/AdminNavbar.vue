@@ -16,6 +16,14 @@
 
                 <router-link
                     class="nav-link"
+                    :class="{active:isCategoryRoute()}"
+                    data-toggle="pill"
+                    role="tab"
+                    :to="{name:'project.categories'}"
+                >Project Categories</router-link>
+
+                <router-link
+                    class="nav-link"
                     :class="{active:isBlogRoute()}"
                     data-toggle="pill"
                     role="tab"
@@ -36,6 +44,9 @@ import ProjectsNav from "./portfolio/ProjectsNav";
 import ListProjects from "./portfolio/ListProjects";
 import ViewProject from "./portfolio/ViewProject";
 import ProjectFields from "./portfolio/ProjectFields";
+import CategoryList from "./portfolio/categories/CategoryList";
+import CategoryFields from "./portfolio/categories/CategoryFields";
+import ViewCategories from "./portfolio/categories/ViewCategories";
 
 import BlogNav from "./blog/BlogNav";
 import ListPosts from "./blog/ListPosts";
@@ -51,10 +62,13 @@ export default {
 
     methods: {
         isProjectRoute() {
-            return this.$route.name.includes("project");
+            return this.$route.name.includes("projects");
         },
         isBlogRoute() {
             return this.$route.name.includes("blog");
+        },
+        isCategoryRoute() {
+            return this.$route.name.includes("project.categories");
         }
     },
 
@@ -90,6 +104,23 @@ export default {
                         name: "project.edit",
                         component: ProjectFields,
                         props: true
+                    },
+
+                    // project categories route
+                    {
+                        path: "categories/list",
+                        name: "project.categories",
+                        component: CategoryList
+                    },
+                    {
+                        path: "categories/add",
+                        name: "project.categories.add",
+                        component: CategoryFields
+                    },
+                    {
+                        path: "categories/view",
+                        name: "project.categories.view",
+                        component: ViewCategories
                     }
                 ]
             },
