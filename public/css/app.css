@@ -17257,12 +17257,6 @@ footer .link-instagram {
 *  portfolio section
 */
 
-.portfolio-main li a {
-  font-family: "Montserrat", sans-serif;
-  color: #3490dc;
-  font-size: 1.2rem;
-}
-
 .project-card img {
   transition: all 1s ease;
   cursor: pointer;

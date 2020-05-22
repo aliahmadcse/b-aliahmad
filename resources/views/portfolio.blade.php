@@ -4,7 +4,7 @@
 
 @section('content')
 
-<portfolio-main :project_categories="{{ $project_categories }}"></portfolio-main>
+<display-projects :project_categories="{{ $project_categories }}"></display-projects>
 
 @endsection
 

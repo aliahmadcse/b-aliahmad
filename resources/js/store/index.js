@@ -15,7 +15,13 @@ export default new Vuex.Store({
     },
 
     getters: {
-        projects: state => {
+        categories: state => {
+            // here, I use object destructuring to unpack category
+            //  property from object
+            return state.projectCategories.map(({ category }) => category);
+        },
+
+        allProjects: state => {
             let projects = [];
             // pushing all projects into new projects array
             state.projectCategories.forEach(projectCategory => {
@@ -25,24 +31,20 @@ export default new Vuex.Store({
             return _.orderBy(projects, ["display_order"], ["asc"]);
         },
 
-        webProjects: state => {
-            let webProjects = [];
+        projectsByCategory: (state, getters) => category => {
+            let projects = [];
             state.projectCategories.forEach(projectCategory => {
-                projectCategory.category == "web"
-                    ? webProjects.push(...projectCategory.projects)
+                projectCategory.category == category
+                    ? projects.push(...projectCategory.projects)
                     : "";
             });
-            return webProjects;
-        },
-
-        mlProjects: state => {
-            let mlProjects = [];
-            state.projectCategories.forEach(projectCategory => {
-                projectCategory.category == "ml"
-                    ? mlProjects.push(...projectCategory.projects)
-                    : "";
-            });
-            return mlProjects;
+            // return projects;
+            if (projects.length > 0) {
+                return projects;
+            } else {
+                return getters.allProjects;
+            }
+            // return projects ? projects.length > 0 : getters.projects;
         }
     },
     actions: {}
