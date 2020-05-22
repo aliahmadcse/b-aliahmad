@@ -10,6 +10,7 @@
                         class="form-control"
                         id="validationServer05"
                         placeholder="Your new category name"
+                        v-model="category"
                         required
                     />
                     <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
@@ -23,7 +24,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data: function() {
+        return {
+            category: ""
+        };
+    },
+    methods: {
+        addCategory() {}
+    }
+};
 </script>
 
 <style lang="scss" scoped>

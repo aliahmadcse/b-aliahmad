@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
-use App\Project;
+use App\ProjectCategory;
 
 class HomeController extends Controller
 {
@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $projects = Project::get();
-        return view('admin.index')->with('projects', $projects);
+        $project_categories = ProjectCategory::get();
+        return view('admin.index')->with('project_categories', $project_categories);
     }
 }

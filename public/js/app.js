@@ -2320,7 +2320,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      category: ""
+    };
+  },
+  methods: {
+    addCategory: function addCategory() {}
+  }
+});
 
 /***/ }),
 
@@ -40890,33 +40900,48 @@ var render = function() {
           }
         }
       },
-      [_vm._m(0), _vm._v(" "), _vm._m(1)]
+      [
+        _c("div", { staticClass: "form-row justify-content-center" }, [
+          _c("div", { staticClass: "col-lg-8 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "validationServer05" } }, [
+              _vm._v("Please enter your category below")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.category,
+                  expression: "category"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "validationServer05",
+                placeholder: "Your new category name",
+                required: ""
+              },
+              domProps: { value: _vm.category },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.category = $event.target.value
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
     )
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row justify-content-center" }, [
-      _c("div", { staticClass: "col-lg-8 col-md-10 col-sm-12 mb-3" }, [
-        _c("label", { attrs: { for: "validationServer05" } }, [
-          _vm._v("Please enter your category below")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            id: "validationServer05",
-            placeholder: "Your new category name",
-            required: ""
-          }
-        })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -58598,11 +58623,11 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    projects: []
+    projectCategories: []
   },
   mutations: {
-    SET_PROJECTS: function SET_PROJECTS(state, projects) {
-      state.projects = projects;
+    SET_ProjectCATEGORIES: function SET_ProjectCATEGORIES(state, categories) {
+      state.projectCategories = categories;
     }
   },
   getters: {

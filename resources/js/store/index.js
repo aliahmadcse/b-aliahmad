@@ -5,12 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        projects: []
+        projectCategories: []
     },
 
     mutations: {
-        SET_PROJECTS(state, projects) {
-            state.projects = projects;
+        SET_ProjectCATEGORIES(state, categories) {
+            state.projectCategories = categories;
         }
     },
 
