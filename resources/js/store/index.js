@@ -9,20 +9,40 @@ export default new Vuex.Store({
     },
 
     mutations: {
-        SET_ProjectCATEGORIES(state, categories) {
+        SET_PROJECT_CATEGORIES(state, categories) {
             state.projectCategories = categories;
         }
     },
 
     getters: {
         projects: state => {
-            return state.projects;
+            let projects = [];
+            // pushing all projects into new projects array
+            state.projectCategories.forEach(projectCategory => {
+                projects.push(...projectCategory.projects);
+            });
+            // Here, we use lodash orderBy methods to sort projects array by display_order
+            return _.orderBy(projects, ["display_order"], ["asc"]);
         },
+
         webProjects: state => {
-            return state.projects.filter(project => project.category == "web");
+            let webProjects = [];
+            state.projectCategories.forEach(projectCategory => {
+                projectCategory.category == "web"
+                    ? webProjects.push(...projectCategory.projects)
+                    : "";
+            });
+            return webProjects;
         },
+
         mlProjects: state => {
-            return state.projects.filter(project => project.category == "ml");
+            let mlProjects = [];
+            state.projectCategories.forEach(projectCategory => {
+                projectCategory.category == "ml"
+                    ? mlProjects.push(...projectCategory.projects)
+                    : "";
+            });
+            return mlProjects;
         }
     },
     actions: {}

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\ProjectCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class ProjectCategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +16,18 @@ class ProjectCategoryController extends Controller
      */
     public function index()
     {
-        //
+
+        $project_categories = ProjectCategory::with(
+            [
+                'projects' => function ($query) {
+                    $query->orderBy('display_order', 'asc');
+                },
+            ]
+        )->get();
+
+        return Route::currentRouteName() == 'portfolio' ?
+            view('portfolio')->with('project_categories', $project_categories)
+            : '';
     }
 
     /**

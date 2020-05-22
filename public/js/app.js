@@ -2060,9 +2060,9 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["projects"],
+  props: ["project_categories"],
   created: function created() {
-    this.$store.commit("SET_PROJECTS", _.cloneDeep(this.projects));
+    this.$store.commit("SET_PROJECT_CATEGORIES", _.cloneDeep(this.project_categories));
   },
   methods: {
     isProjectRoute: function isProjectRoute() {
@@ -2438,12 +2438,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 // lightbox2
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2510,9 +2504,9 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["projects"],
+  props: ["project_categories"],
   created: function created() {
-    this.$store.commit("SET_PROJECTS", _.cloneDeep(this.projects));
+    this.$store.commit("SET_PROJECT_CATEGORIES", _.cloneDeep(this.project_categories));
   },
   // adding the active class to active router-link dynamically
   mounted: function mounted() {
@@ -41102,8 +41096,7 @@ var render = function() {
               "a",
               {
                 attrs: {
-                  href:
-                    "https://tiny.pictures/api/demo/main/example1.jpg?width=400",
+                  href: project.image,
                   "data-lightbox": project.id,
                   "data-title": project.title,
                   "data-alt": project.title
@@ -41112,11 +41105,7 @@ var render = function() {
               [
                 _c("img", {
                   staticClass: "card-img-top",
-                  attrs: {
-                    src:
-                      "https://tiny.pictures/api/demo/main/example1.jpg?width=400",
-                    alt: project.title
-                  }
+                  attrs: { src: project.image, alt: project.title }
                 })
               ]
             ),
@@ -41127,9 +41116,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "card-text lead" }, [
-                _vm._v(
-                  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, temporibus!"
-                )
+                _vm._v(_vm._s(project.description))
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "d-flex justify-content-center" }, [
@@ -41149,7 +41136,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "a",
-                  { staticClass: "card-link", attrs: { href: project.link } },
+                  { staticClass: "card-link", attrs: { href: project.live } },
                   [
                     _c("i", {
                       staticClass: "fas fa-external-link-alt card-link-live",
@@ -58618,6 +58605,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -58626,23 +58625,33 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     projectCategories: []
   },
   mutations: {
-    SET_ProjectCATEGORIES: function SET_ProjectCATEGORIES(state, categories) {
+    SET_PROJECT_CATEGORIES: function SET_PROJECT_CATEGORIES(state, categories) {
       state.projectCategories = categories;
     }
   },
   getters: {
     projects: function projects(state) {
-      return state.projects;
+      var projects = []; // pushing all projects into new projects array
+
+      state.projectCategories.forEach(function (projectCategory) {
+        projects.push.apply(projects, _toConsumableArray(projectCategory.projects));
+      }); // Here, we use lodash orderBy methods to sort projects array by display_order
+
+      return _.orderBy(projects, ["display_order"], ["asc"]);
     },
     webProjects: function webProjects(state) {
-      return state.projects.filter(function (project) {
-        return project.category == "web";
+      var webProjects = [];
+      state.projectCategories.forEach(function (projectCategory) {
+        projectCategory.category == "web" ? webProjects.push.apply(webProjects, _toConsumableArray(projectCategory.projects)) : "";
       });
+      return webProjects;
     },
     mlProjects: function mlProjects(state) {
-      return state.projects.filter(function (project) {
-        return project.category == "ml";
+      var mlProjects = [];
+      state.projectCategories.forEach(function (projectCategory) {
+        projectCategory.category == "ml" ? mlProjects.push.apply(mlProjects, _toConsumableArray(projectCategory.projects)) : "";
       });
+      return mlProjects;
     }
   },
   actions: {}

@@ -4,6 +4,6 @@
 
 @section('content')
 
-<admin-navbar :projects="{{ $project_categories }}"></admin-navbar>
+<admin-navbar :project_categories="{{ $project_categories }}"></admin-navbar>
 
 @endsection

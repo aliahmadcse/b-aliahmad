@@ -25,7 +25,5 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $project_categories = ProjectCategory::get();
-        return view('admin.index')->with('project_categories', $project_categories);
     }
 }
