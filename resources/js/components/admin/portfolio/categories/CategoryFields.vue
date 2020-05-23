@@ -4,16 +4,15 @@
         <form @submit.prevent="addCategory" class="mt-5">
             <div class="form-row justify-content-center">
                 <div class="col-lg-8 col-md-10 col-sm-12 mb-3">
-                    <label for="validationServer05">Please enter your category below</label>
+                    <label for="category">Please enter your category below</label>
                     <input
                         type="text"
                         class="form-control"
-                        id="validationServer05"
+                        id="category"
                         placeholder="Your new category name"
                         v-model="category"
-                        required
                     />
-                    <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
+                    <div class="invalid-feedback">Please provide a valid zip.</div>
                 </div>
             </div>
             <div class="text-center">
@@ -31,7 +30,20 @@ export default {
         };
     },
     methods: {
-        addCategory() {}
+        addCategory() {
+            axios
+                .post("/api/project/category/add", {
+                    category: this.category
+                })
+                .then(res => {
+                    res.status === 201 ? console.log(res.data) : "";
+                })
+                .catch(err => {
+                    err.response.status === 422
+                        ? console.log(err.response.data.errors)
+                        : "";
+                });
+        }
     }
 };
 </script>

@@ -2320,7 +2320,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2328,7 +2327,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    addCategory: function addCategory() {}
+    addCategory: function addCategory() {
+      axios.post("/api/project/category/add", {
+        category: this.category
+      }).then(function (res) {
+        res.status === 201 ? console.log(res.data) : "";
+      })["catch"](function (err) {
+        err.response.status === 422 ? console.log(err.response.data.errors) : "";
+      });
+    }
   }
 });
 
@@ -40859,7 +40866,7 @@ var render = function() {
       [
         _c("div", { staticClass: "form-row justify-content-center" }, [
           _c("div", { staticClass: "col-lg-8 col-md-10 col-sm-12 mb-3" }, [
-            _c("label", { attrs: { for: "validationServer05" } }, [
+            _c("label", { attrs: { for: "category" } }, [
               _vm._v("Please enter your category below")
             ]),
             _vm._v(" "),
@@ -40875,9 +40882,8 @@ var render = function() {
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                id: "validationServer05",
-                placeholder: "Your new category name",
-                required: ""
+                id: "category",
+                placeholder: "Your new category name"
               },
               domProps: { value: _vm.category },
               on: {
@@ -40888,7 +40894,11 @@ var render = function() {
                   _vm.category = $event.target.value
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v("Please provide a valid zip.")
+            ])
           ])
         ]),
         _vm._v(" "),
