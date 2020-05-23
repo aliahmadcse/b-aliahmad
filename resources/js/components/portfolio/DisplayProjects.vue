@@ -9,13 +9,18 @@
                     role="tab"
                 >All</a>
             </li>
-            <li v-for="category in categories" :key="category" class="nav-item" role="presentation">
+            <li
+                v-for="projectCategory in projectCategories"
+                :key="projectCategory.id"
+                class="nav-item"
+                role="presentation"
+            >
                 <a
-                    @click="getProjects(category)"
+                    @click="getProjects(projectCategory.category)"
                     class="nav-link px-5 prlink"
                     data-toggle="tab"
                     role="tab"
-                >{{ category }}</a>
+                >{{ projectCategory.category }}</a>
             </li>
         </ul>
 
@@ -77,7 +82,7 @@ export default {
     },
 
     computed: {
-        categories() {
+        projectCategories() {
             return this.$store.getters.categories;
         }
     },

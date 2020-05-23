@@ -27,7 +27,7 @@ class ProjectCategoryController extends Controller
 
         return Route::currentRouteName() == 'portfolio' ?
             view('portfolio')->with('project_categories', $project_categories)
-            : '';
+            : view('admin.index')->with('project_categories', $project_categories);
     }
 
     /**

@@ -16,9 +16,10 @@ export default new Vuex.Store({
 
     getters: {
         categories: state => {
-            // here, I use object destructuring to unpack category
-            //  property from object
-            return state.projectCategories.map(({ category }) => category);
+            return _.cloneDeep(state.projectCategories).map(projectCategory => {
+                delete projectCategory.projects;
+                return projectCategory;
+            });
         },
 
         allProjects: state => {

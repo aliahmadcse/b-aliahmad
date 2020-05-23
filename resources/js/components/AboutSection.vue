@@ -34,7 +34,7 @@
                             >Vue.js</a>.
                             I have over an year of experience in development. You may want to have a look at my
                             <a
-                                href="/projects"
+                                href="/portfolio"
                                 class="text-link"
                             >Portfolio</a>.
                             Besides this, I am an undergrad student in a well known univeristy of Pakistan, known

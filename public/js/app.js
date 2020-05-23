@@ -2373,7 +2373,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    projectCategories: function projectCategories() {
+      return this.$store.getters.categories;
+    }
+  }
+});
 
 /***/ }),
 
@@ -2462,6 +2470,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 // lightbox2
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2478,7 +2491,7 @@ __webpack_require__.r(__webpack_exports__);
     this.projects = this.$store.getters.allProjects;
   },
   computed: {
-    categories: function categories() {
+    projectCategories: function projectCategories() {
       return this.$store.getters.categories;
     }
   },
@@ -40464,7 +40477,7 @@ var staticRenderFns = [
                 ),
                 _c(
                   "a",
-                  { staticClass: "text-link", attrs: { href: "/projects" } },
+                  { staticClass: "text-link", attrs: { href: "/portfolio" } },
                   [_vm._v("Portfolio")]
                 ),
                 _vm._v(
@@ -40934,39 +40947,47 @@ var render = function() {
         [_vm._v("Add New Catgeory")]
       ),
       _vm._v(" "),
-      _c(
-        "table",
-        {
-          staticClass: "table table-striped table-responsive table-project-list"
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [_vm._v("web")]),
-              _vm._v(" "),
-              _c(
-                "td",
-                { attrs: { scope: "row" } },
-                [
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table table-striped text-center table-project-list" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.projectCategories, function(projectCategory) {
+                return _c("tr", { key: projectCategory.id }, [
+                  _c("th", { attrs: { scope: "row" } }, [
+                    _vm._v(_vm._s(projectCategory.id))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { scope: "row" } }, [
+                    _vm._v(_vm._s(projectCategory.category))
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-outline-secondary",
-                      attrs: { to: { name: "project.categories.view" } }
-                    },
-                    [_vm._v("View")]
+                    "td",
+                    { attrs: { scope: "row" } },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-outline-secondary",
+                          attrs: { to: { name: "project.categories.view" } }
+                        },
+                        [_vm._v("View")]
+                      )
+                    ],
+                    1
                   )
-                ],
-                1
-              )
-            ])
-          ])
-        ]
-      )
+                ])
+              }),
+              0
+            )
+          ]
+        )
+      ])
     ],
     1
   )
@@ -41056,11 +41077,11 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._l(_vm.categories, function(category) {
+        _vm._l(_vm.projectCategories, function(projectCategory) {
           return _c(
             "li",
             {
-              key: category,
+              key: projectCategory.id,
               staticClass: "nav-item",
               attrs: { role: "presentation" }
             },
@@ -41072,11 +41093,11 @@ var render = function() {
                   attrs: { "data-toggle": "tab", role: "tab" },
                   on: {
                     click: function($event) {
-                      return _vm.getProjects(category)
+                      return _vm.getProjects(projectCategory.category)
                     }
                   }
                 },
-                [_vm._v(_vm._s(category))]
+                [_vm._v(_vm._s(projectCategory.category))]
               )
             ]
           )
@@ -58465,11 +58486,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   },
   getters: {
     categories: function categories(state) {
-      // here, I use object destructuring to unpack category
-      //  property from object
-      return state.projectCategories.map(function (_ref) {
-        var category = _ref.category;
-        return category;
+      return _.cloneDeep(state.projectCategories).map(function (projectCategory) {
+        delete projectCategory.projects;
+        return projectCategory;
       });
     },
     allProjects: function allProjects(state) {
