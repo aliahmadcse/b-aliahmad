@@ -2328,14 +2328,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       category: "",
       errors: {
         category: []
-      }
+      },
+      id: 0
     };
+  },
+  created: function created() {
+    if (this.$route.params.id) {
+      this.id = this.$route.params.id;
+    }
+  },
+  mounted: function mounted() {
+    if (this.$route.params.id) {
+      var categoryArr = this.$store.getters.categoryById(this.id);
+      this.category = categoryArr[0].category;
+    }
   },
   methods: {
     addCategory: function addCategory() {
@@ -2356,6 +2381,28 @@ __webpack_require__.r(__webpack_exports__);
         if (err.response.status === 422) {
           _this.errors = err.response.data.errors;
           $(".btn").removeClass("disabled");
+        }
+      });
+    },
+    updateCategory: function updateCategory() {
+      var _this2 = this;
+
+      $(".btn-update").addClass("disabled");
+      axios.put("/api/project/category/update/" + this.id, {
+        category: this.category
+      }).then(function (res) {
+        _this2.$store.commit("UPDATE_PROJECT_CATEGORY", {
+          id: _this2.id,
+          category: _this2.category
+        });
+
+        _this2.$router.push({
+          name: "project.categories"
+        });
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this2.errors = err.response.data.errors;
+          $(".btn-update").removeClass("disabled");
         }
       });
     }
@@ -41014,9 +41061,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "categories-fields text-secondary" }, [
-    _c("h2", { staticClass: "text-center" }, [
-      _vm._v("Awesome 🙆‍♀️, you got a new category")
-    ]),
+    _vm.id == 0
+      ? _c("h2", { staticClass: "text-center" }, [
+          _vm._v("Awesome 🙆‍♀️, you got a new category")
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.id > 0
+      ? _c("h2", { staticClass: "text-center" }, [
+          _vm._v("Edit your category below")
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "form",
@@ -41025,7 +41080,6 @@ var render = function() {
         on: {
           submit: function($event) {
             $event.preventDefault()
-            return _vm.addCategory($event)
           }
         }
       },
@@ -41049,6 +41103,7 @@ var render = function() {
               class: { "is-invalid": _vm.errors.category.length },
               attrs: {
                 type: "text",
+                value: "",
                 id: "category",
                 name: "catgeory",
                 placeholder: "Your new category name",
@@ -41071,28 +41126,36 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "text-center" }, [
+          _vm.id == 0
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-primary text-center",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.addCategory }
+                },
+                [_vm._v("Add Category")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.id > 0
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-primary text-center btn-update",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.updateCategory }
+                },
+                [_vm._v("Update Category")]
+              )
+            : _vm._e()
+        ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-primary text-center",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("Add Category")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -58845,6 +58908,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     REMOVE_PROJECT_CATEGORY: function REMOVE_PROJECT_CATEGORY(state, id) {
       state.projectCategories = state.projectCategories.filter(function (category) {
         return category.id !== id;
+      });
+    },
+    UPDATE_PROJECT_CATEGORY: function UPDATE_PROJECT_CATEGORY(state, _ref) {
+      var id = _ref.id,
+          category = _ref.category;
+      state.projectCategories = state.projectCategories.map(function (projectCategory) {
+        if (projectCategory.id == id) {
+          projectCategory["category"] = category;
+          return projectCategory;
+        }
+
+        return projectCategory;
       });
     }
   },

@@ -74,7 +74,6 @@ class ProjectCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -84,9 +83,14 @@ class ProjectCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProjectCategory $projectCategory)
     {
-        //
+        $validated_data = $request->validate([
+            'category' => 'required|max:50|alpha'
+        ]);
+
+        $projectCategory->update($validated_data);
+        return ['status' => 204];
     }
 
     /**

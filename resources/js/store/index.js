@@ -21,6 +21,18 @@ export default new Vuex.Store({
             state.projectCategories = state.projectCategories.filter(
                 category => category.id !== id
             );
+        },
+
+        UPDATE_PROJECT_CATEGORY(state, { id, category }) {
+            state.projectCategories = state.projectCategories.map(
+                projectCategory => {
+                    if (projectCategory.id == id) {
+                        projectCategory["category"] = category;
+                        return projectCategory;
+                    }
+                    return projectCategory;
+                }
+            );
         }
     },
 
@@ -64,6 +76,6 @@ export default new Vuex.Store({
             // return projects ? projects.length > 0 : getters.projects;
         }
     },
-    
+
     actions: {}
 });

@@ -1,13 +1,15 @@
 <template>
     <div class="categories-fields text-secondary">
-        <h2 class="text-center">Awesome 🙆‍♀️, you got a new category</h2>
-        <form @submit.prevent="addCategory" class="mt-5">
+        <h2 v-if="id==0" class="text-center">Awesome 🙆‍♀️, you got a new category</h2>
+        <h2 v-if="id>0" class="text-center">Edit your category below</h2>
+        <form @submit.prevent class="mt-5">
             <div class="form-row justify-content-center">
                 <div class="col-lg-8 col-md-10 col-sm-12 mb-3">
                     <label for="category">Please enter your category below</label>
                     <input
                         type="text"
                         class="form-control"
+                        value
                         :class="{ 'is-invalid' : errors.category.length }"
                         id="category"
                         name="catgeory"
@@ -19,7 +21,18 @@
                 </div>
             </div>
             <div class="text-center">
-                <button class="btn btn-outline-primary text-center" type="submit">Add Category</button>
+                <button
+                    v-if="id==0"
+                    @click="addCategory"
+                    class="btn btn-outline-primary text-center"
+                    type="submit"
+                >Add Category</button>
+                <button
+                    v-if="id>0"
+                    @click="updateCategory"
+                    class="btn btn-outline-primary text-center btn-update"
+                    type="submit"
+                >Update Category</button>
             </div>
         </form>
     </div>
@@ -32,8 +45,22 @@ export default {
             category: "",
             errors: {
                 category: []
-            }
+            },
+            id: 0
         };
+    },
+
+    created: function() {
+        if (this.$route.params.id) {
+            this.id = this.$route.params.id;
+        }
+    },
+
+    mounted: function() {
+        if (this.$route.params.id) {
+            const categoryArr = this.$store.getters.categoryById(this.id);
+            this.category = categoryArr[0].category;
+        }
     },
 
     methods: {
@@ -53,6 +80,27 @@ export default {
                     if (err.response.status === 422) {
                         this.errors = err.response.data.errors;
                         $(".btn").removeClass("disabled");
+                    }
+                });
+        },
+
+        updateCategory() {
+            $(".btn-update").addClass("disabled");
+            axios
+                .put("/api/project/category/update/" + this.id, {
+                    category: this.category
+                })
+                .then(res => {
+                    this.$store.commit("UPDATE_PROJECT_CATEGORY", {
+                        id: this.id,
+                        category: this.category
+                    });
+                    this.$router.push({ name: "project.categories" });
+                })
+                .catch(err => {
+                    if (err.response.status === 422) {
+                        this.errors = err.response.data.errors;
+                        $(".btn-update").removeClass("disabled");
                     }
                 });
         }
