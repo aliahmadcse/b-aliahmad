@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Passport::routes();
+
         // Here I am defining a gate for better security of my app
         //it will only let a user access admin panel, if he/she is a
         // root user
