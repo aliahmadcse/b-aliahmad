@@ -8,11 +8,13 @@
                     <input
                         type="text"
                         class="form-control"
+                        :class="{ 'is-invalid' : errors.category.length }"
                         id="category"
+                        name="catgeory"
                         placeholder="Your new category name"
                         v-model="category"
                     />
-                    <div class="invalid-feedback">Please provide a valid zip.</div>
+                    <div class="invalid-feedback">{{ errors.category[0] }}</div>
                 </div>
             </div>
             <div class="text-center">
@@ -26,22 +28,31 @@
 export default {
     data: function() {
         return {
-            category: ""
+            category: "",
+            errors: {
+                category: []
+            }
         };
     },
+
     methods: {
         addCategory() {
+            $(".btn").addClass("disabled");
             axios
                 .post("/api/project/category/add", {
                     category: this.category
                 })
                 .then(res => {
-                    res.status === 201 ? console.log(res.data) : "";
+                    if (res.status === 201) {
+                        this.$store.commit("ADD_PROJECT_CATEGORY", res.data);
+                        this.$router.push({ name: "project.categories" });
+                    }
                 })
                 .catch(err => {
-                    err.response.status === 422
-                        ? console.log(err.response.data.errors)
-                        : "";
+                    if (err.response.status === 422) {
+                        this.errors = err.response.data.errors;
+                        $(".btn").removeClass("disabled");
+                    }
                 });
         }
     }

@@ -49,7 +49,7 @@ class ProjectCategoryController extends Controller
     public function store(Request $request)
     {
         $validated_data = $request->validate([
-            'category' => 'required'
+            'category' => 'required|max:50|alpha'
         ]);
         $category = ProjectCategory::create($validated_data);
         return response()->json($category, 201);

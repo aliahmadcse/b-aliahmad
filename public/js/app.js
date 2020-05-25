@@ -2320,20 +2320,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      category: ""
+      category: "",
+      errors: {
+        category: []
+      }
     };
   },
   methods: {
     addCategory: function addCategory() {
+      var _this = this;
+
+      $(".btn").addClass("disabled");
       axios.post("/api/project/category/add", {
         category: this.category
       }).then(function (res) {
-        res.status === 201 ? console.log(res.data) : "";
+        if (res.status === 201) {
+          _this.$store.commit("ADD_PROJECT_CATEGORY", res.data);
+
+          _this.$router.push({
+            name: "project.categories"
+          });
+        }
       })["catch"](function (err) {
-        err.response.status === 422 ? console.log(err.response.data.errors) : "";
+        if (err.response.status === 422) {
+          _this.errors = err.response.data.errors;
+          $(".btn").removeClass("disabled");
+        }
       });
     }
   }
@@ -40880,9 +40897,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
+              class: { "is-invalid": _vm.errors.category.length },
               attrs: {
                 type: "text",
                 id: "category",
+                name: "catgeory",
                 placeholder: "Your new category name"
               },
               domProps: { value: _vm.category },
@@ -40897,7 +40916,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v("Please provide a valid zip.")
+              _vm._v(_vm._s(_vm.errors.category[0]))
             ])
           ])
         ]),
@@ -58492,6 +58511,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   mutations: {
     SET_PROJECT_CATEGORIES: function SET_PROJECT_CATEGORIES(state, categories) {
       state.projectCategories = categories;
+    },
+    ADD_PROJECT_CATEGORY: function ADD_PROJECT_CATEGORY(state, category) {
+      state.projectCategories.push(category);
     }
   },
   getters: {

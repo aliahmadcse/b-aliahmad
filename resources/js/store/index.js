@@ -11,6 +11,10 @@ export default new Vuex.Store({
     mutations: {
         SET_PROJECT_CATEGORIES(state, categories) {
             state.projectCategories = categories;
+        },
+
+        ADD_PROJECT_CATEGORY(state, category) {
+            state.projectCategories.push(category);
         }
     },
 
