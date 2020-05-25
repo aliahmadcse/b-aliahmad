@@ -20,7 +20,7 @@
                         <td scope="row">
                             <router-link
                                 class="btn btn-outline-secondary"
-                                :to="{name:'project.categories.view'}"
+                                :to="{name:'project.categories.view',params:{id:projectCategory.id}}"
                             >View</router-link>
                         </td>
                     </tr>

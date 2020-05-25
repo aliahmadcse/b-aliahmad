@@ -57,7 +57,10 @@ export default {
     props: ["project_categories"],
 
     created: function() {
-        this.$store.commit("SET_PROJECT_CATEGORIES", _.cloneDeep(this.project_categories));
+        this.$store.commit(
+            "SET_PROJECT_CATEGORIES",
+            _.cloneDeep(this.project_categories)
+        );
     },
 
     methods: {
@@ -118,7 +121,13 @@ export default {
                         component: CategoryFields
                     },
                     {
-                        path: "categories/view",
+                        path: "categories/edit/:id",
+                        name: "project.categories.edit",
+                        component: CategoryFields,
+                        props: true
+                    },
+                    {
+                        path: "categories/view/:id",
                         name: "project.categories.view",
                         component: ViewCategories
                     }

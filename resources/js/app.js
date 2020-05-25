@@ -39,6 +39,17 @@ files.keys().map(key =>
 
 import store from "./store";
 
+// global reuseable methods are defined in mixins
+Vue.mixin({
+    methods: {
+        formatDateTime: function(ISODate) {
+            let date = new Date(ISODate);
+            return `${date.getFullYear()}-${date.getMonth() +
+                1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+        }
+    }
+});
+
 const app = new Vue({
     el: "#app",
     // here, We make store instance available to all child components

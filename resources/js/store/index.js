@@ -26,6 +26,12 @@ export default new Vuex.Store({
             });
         },
 
+        categoryById: state => id => {
+            return state.projectCategories.filter(
+                category => category.id == id
+            );
+        },
+
         allProjects: state => {
             let projects = [];
             // pushing all projects into new projects array
