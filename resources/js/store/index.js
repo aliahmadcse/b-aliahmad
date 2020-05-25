@@ -15,6 +15,12 @@ export default new Vuex.Store({
 
         ADD_PROJECT_CATEGORY(state, category) {
             state.projectCategories.push(category);
+        },
+
+        REMOVE_PROJECT_CATEGORY(state, id) {
+            state.projectCategories = state.projectCategories.filter(
+                category => category.id !== id
+            );
         }
     },
 
@@ -58,5 +64,6 @@ export default new Vuex.Store({
             // return projects ? projects.length > 0 : getters.projects;
         }
     },
+    
     actions: {}
 });

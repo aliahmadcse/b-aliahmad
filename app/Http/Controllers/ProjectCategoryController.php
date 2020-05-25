@@ -95,8 +95,9 @@ class ProjectCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProjectCategory $projectCategory)
     {
-        //
+        $projectCategory->delete();
+        return response()->json('Category deleted succesfully', 204);
     }
 }

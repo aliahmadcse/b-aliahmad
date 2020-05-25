@@ -2327,6 +2327,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2452,6 +2453,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2462,7 +2503,24 @@ __webpack_require__.r(__webpack_exports__);
     this.projectCategory = this.$store.getters.categoryById(this.$route.params.id);
   },
   methods: {
-    deleteCategory: function deleteCategory() {}
+    deleteCategory: function deleteCategory(id) {
+      var _this = this;
+
+      $(".btn-danger").addClass("disabled");
+      axios["delete"]("/api/project/category/delete/" + id).then(function (res) {
+        if (res.status === 204) {
+          $("#confirmModel").modal("hide");
+
+          _this.$store.commit("REMOVE_PROJECT_CATEGORY", id);
+
+          _this.$router.push({
+            name: "project.categories"
+          });
+        }
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }
   }
 });
 
@@ -40993,7 +41051,8 @@ var render = function() {
                 type: "text",
                 id: "category",
                 name: "catgeory",
-                placeholder: "Your new category name"
+                placeholder: "Your new category name",
+                autofocus: ""
               },
               domProps: { value: _vm.category },
               on: {
@@ -41205,10 +41264,9 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-outline-danger",
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteCategory(category.id)
-                    }
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#confirmModel"
                   }
                 },
                 [_vm._v("Delete")]
@@ -41216,13 +41274,93 @@ var render = function() {
             ],
             1
           )
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "confirmModel",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _vm._v("Are you sure, You want to delete this category")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteCategory(category.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
       ])
     }),
     0
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Modal title")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -58703,6 +58841,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     ADD_PROJECT_CATEGORY: function ADD_PROJECT_CATEGORY(state, category) {
       state.projectCategories.push(category);
+    },
+    REMOVE_PROJECT_CATEGORY: function REMOVE_PROJECT_CATEGORY(state, id) {
+      state.projectCategories = state.projectCategories.filter(function (category) {
+        return category.id !== id;
+      });
     }
   },
   getters: {

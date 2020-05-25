@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +13,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('project/category/add', 'ProjectCategoryController@store');
+
+Route::delete('project/category/delete/{projectCategory}', 'ProjectCategoryController@destroy');

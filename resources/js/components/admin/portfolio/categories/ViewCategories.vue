@@ -18,9 +18,49 @@
                         :to="{name:'project.categories.edit',params:{id:category.id}}"
                     >Edit</router-link>
                     <button
-                        @click="deleteCategory(category.id)"
                         class="btn btn-outline-danger"
+                        data-toggle="modal"
+                        data-target="#confirmModel"
                     >Delete</button>
+                </div>
+            </div>
+
+            <!-- Model for delete confirmation -->
+            <div
+                class="modal fade"
+                id="confirmModel"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure, You want to delete this category</div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                            >Close</button>
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                @click="deleteCategory(category.id)"
+                            >Delete</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,7 +82,19 @@ export default {
     },
 
     methods: {
-        deleteCategory: function() {}
+        deleteCategory: function(id) {
+            $(".btn-danger").addClass("disabled");
+            axios
+                .delete("/api/project/category/delete/" + id)
+                .then(res => {
+                    if (res.status === 204) {
+                        $("#confirmModel").modal("hide");
+                        this.$store.commit("REMOVE_PROJECT_CATEGORY", id);
+                        this.$router.push({ name: "project.categories" });
+                    }
+                })
+                .catch(err => console.log(err));
+        }
     }
 };
 </script>

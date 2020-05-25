@@ -13,6 +13,7 @@
                         name="catgeory"
                         placeholder="Your new category name"
                         v-model="category"
+                        autofocus
                     />
                     <div class="invalid-feedback">{{ errors.category[0] }}</div>
                 </div>
