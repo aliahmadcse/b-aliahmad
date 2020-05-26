@@ -55,7 +55,6 @@
                                 data-dismiss="modal"
                             >Close</button>
                             <button
-                                v-loading="'Submitting...'"
                                 type="button"
                                 class="btn btn-danger"
                                 @click="deleteCategory(category.id)"
@@ -69,8 +68,8 @@
 </template>
 
 <script>
-import formLoading from "vue2-form-loading";
-Vue.use(formLoading);
+import VueLoading from "vuejs-loading-plugin";
+Vue.use(VueLoading);
 
 export default {
     data: function() {
@@ -88,16 +87,21 @@ export default {
     methods: {
         deleteCategory: function(id) {
             $(".btn-danger").addClass("disabled");
+            this.$loading(true);
             axios
                 .delete("/api/project/category/delete/" + id)
                 .then(res => {
                     if (res.status === 204) {
                         $("#confirmModel").modal("hide");
                         this.$store.commit("REMOVE_PROJECT_CATEGORY", id);
+                        this.$loading(false);
                         this.$router.push({ name: "project.categories" });
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    this.$loading(false);
+                    console.log(err);
+                });
         }
     }
 };

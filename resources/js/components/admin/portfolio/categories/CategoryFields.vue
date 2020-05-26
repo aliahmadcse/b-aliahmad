@@ -39,8 +39,9 @@
 </template>
 
 <script>
-import Vue from "vue";
 import formLoading from "vue2-form-loading";
+import VueLoading from "vuejs-loading-plugin";
+Vue.use(VueLoading);
 Vue.use(formLoading);
 
 export default {
@@ -69,6 +70,7 @@ export default {
 
     methods: {
         addCategory() {
+            this.$loading(true);
             $(".btn").addClass("disabled");
             axios
                 .post("/api/project/category/add", {
@@ -77,6 +79,7 @@ export default {
                 .then(res => {
                     if (res.status === 201) {
                         this.$store.commit("ADD_PROJECT_CATEGORY", res.data);
+                        this.$loading(false);
                         this.$router.push({ name: "project.categories" });
                     }
                 })
@@ -84,12 +87,14 @@ export default {
                     if (err.response.status === 422) {
                         this.errors = err.response.data.errors;
                         $(".btn").removeClass("disabled");
+                        this.$loading(false);
                     }
                 });
         },
 
         updateCategory() {
             $(".btn-update").addClass("disabled");
+            this.$loading(true);
             axios
                 .put("/api/project/category/update/" + this.id, {
                     category: this.category
@@ -99,12 +104,14 @@ export default {
                         id: this.id,
                         category: this.category
                     });
+                    this.$loading(false);
                     this.$router.push({ name: "project.categories" });
                 })
                 .catch(err => {
                     if (err.response.status === 422) {
                         this.errors = err.response.data.errors;
                         $(".btn-update").removeClass("disabled");
+                        this.$loading(false);
                     }
                 });
         }
