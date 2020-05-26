@@ -2301,6 +2301,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue2_form_loading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-form-loading */ "./node_modules/vue2-form-loading/src/vue2-form-loading.js");
 //
 //
 //
@@ -2341,6 +2344,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue2_form_loading__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2471,6 +2477,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_form_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-form-loading */ "./node_modules/vue2-form-loading/src/vue2-form-loading.js");
 //
 //
 //
@@ -2540,6 +2547,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
+Vue.use(vue2_form_loading__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -41076,6 +41086,14 @@ var render = function() {
     _c(
       "form",
       {
+        directives: [
+          {
+            name: "loading",
+            rawName: "v-loading",
+            value: "Submitting...",
+            expression: "'Submitting...'"
+          }
+        ],
         staticClass: "mt-5",
         on: {
           submit: function($event) {
@@ -41376,6 +41394,14 @@ var render = function() {
                     _c(
                       "button",
                       {
+                        directives: [
+                          {
+                            name: "loading",
+                            rawName: "v-loading",
+                            value: "Submitting...",
+                            expression: "'Submitting...'"
+                          }
+                        ],
                         staticClass: "btn btn-danger",
                         attrs: { type: "button" },
                         on: {
@@ -56611,6 +56637,80 @@ module.exports = Vue;
 
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./vue.common.dev.js */ "./node_modules/vue/dist/vue.common.dev.js")
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vue2-form-loading/src/vue2-form-loading.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/vue2-form-loading/src/vue2-form-loading.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install (Vue, options) {
+    Vue.directive('loading', function (form, binding) {
+      let button = {
+        label:
+          typeof binding.value === 'object'
+            ? binding.value.html
+            : binding.value,
+        className: typeof binding.value === 'object' ? binding.value.class : ''
+      }
+
+      form.addEventListener('submit', function (event) {
+        // disable submit button
+        let submit = form.querySelector('[type="submit"]')
+        submit.disabled = true
+        if (button.className !== '') {
+          submit.classList.add(button.className)
+        }
+
+        if (submit.tagName === 'INPUT') {
+          if (binding.value) {
+            submit.value = button.label
+          } else {
+            submit.value = submit.value + '...'
+          }
+        } else {
+          if (binding.value) {
+            submit.innerHTML = button.label
+          } else {
+            submit.innerHTML = submit.value + '...'
+          }
+        }
+        // disable all inputs
+        let inputs = form.querySelectorAll('input, select, textarea')
+        inputs.forEach(function (element) {
+          if (element.tagName === 'SELECT' || element.type === 'range') {
+            createHiddenInput(element, form)
+            element.disabled = true
+          } else if (element.type === 'radio' || element.type === 'checkbox') {
+            if (element.checked) {
+              createHiddenInput(element, form)
+            }
+            element.disabled = true
+          } else {
+            element.readOnly = true
+          }
+        })
+      })
+    })
+  }
+});
+
+function createHiddenInput (element, form) {
+  // create a hidden input
+  var input = document.createElement('input')
+  input.setAttribute('type', 'hidden')
+  input.setAttribute('name', element.name)
+  input.setAttribute('value', element.value)
+  // append input to the form.
+  form.appendChild(input)
 }
 
 

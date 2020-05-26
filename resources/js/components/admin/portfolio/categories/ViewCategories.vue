@@ -55,6 +55,7 @@
                                 data-dismiss="modal"
                             >Close</button>
                             <button
+                                v-loading="'Submitting...'"
                                 type="button"
                                 class="btn btn-danger"
                                 @click="deleteCategory(category.id)"
@@ -68,6 +69,9 @@
 </template>
 
 <script>
+import formLoading from "vue2-form-loading";
+Vue.use(formLoading);
+
 export default {
     data: function() {
         return {
