@@ -2,7 +2,7 @@
     <div class="categories-fields text-secondary">
         <h2 v-if="id==0" class="text-center">Awesome 🙆‍♀️, you got a new category</h2>
         <h2 v-if="id>0" class="text-center">Edit your category below</h2>
-        <form v-loading="'Submitting...'" @submit.prevent class="mt-5">
+        <form @submit.prevent class="mt-5">
             <div class="form-row justify-content-center">
                 <div class="col-lg-8 col-md-10 col-sm-12 mb-3">
                     <label for="category">Please enter your category below</label>
@@ -39,10 +39,8 @@
 </template>
 
 <script>
-import formLoading from "vue2-form-loading";
 import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
-Vue.use(formLoading);
 
 export default {
     data: function() {
@@ -121,6 +119,4 @@ export default {
 
 <style lang="scss" scoped>
 // @import "~@/variables";
-
-
 </style>
