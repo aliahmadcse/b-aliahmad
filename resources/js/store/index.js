@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import Axios from "axios";
 
 Vue.use(Vuex);
 
@@ -11,6 +10,9 @@ export default new Vuex.Store({
     },
 
     mutations: {
+        SET_PROJECTS(state, projects) {
+            state.projects = projects;
+        },
         SET_PROJECT_CATEGORIES(state, categories) {
             state.projectCategories = categories;
         },
@@ -52,6 +54,15 @@ export default new Vuex.Store({
             );
         },
 
+        /**
+         * return a project based on id
+         * @param {int} id id of project
+         * @returns {array} an array consisiting of single project object
+         */
+        projectById: state => id => {
+            return state.projects.filter(project => project.id == id);
+        },
+
         allProjects: state => {
             let projects = [];
             // pushing all projects into new projects array
@@ -84,9 +95,11 @@ export default new Vuex.Store({
             axios
                 .get("/api/projects")
                 .then(res => {
-                    console.log(res.data);
+                    commit("SET_PROJECTS", res.data);
                 })
-                .catch();
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 });

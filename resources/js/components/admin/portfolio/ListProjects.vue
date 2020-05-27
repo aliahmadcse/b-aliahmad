@@ -2,7 +2,7 @@
     <div>
         <router-link
             class="btn btn-outline-secondary mb-3 ml-3"
-            :to="{name:'project.add'}"
+            :to="{name:'projects.add'}"
         >Add Project</router-link>
         <table class="table table-striped table-responsive table-project-list">
             <thead>
@@ -15,15 +15,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td scope="row">nadias</td>
-                    <td scope="row">Web</td>
-                    <td scope="row">https://github.com/aliahmadcse/nadias-garden</td>
+                <tr v-for="project in projects" :key="project.id">
+                    <th scope="row">{{ project.id }}</th>
+                    <td scope="row">{{ project.title }}</td>
+                    <td scope="row">{{ project.category.category }}</td>
+                    <td scope="row">{{ project.github }}</td>
                     <td scope="row">
                         <router-link
                             class="btn btn-outline-secondary"
-                            :to="{name:'project.view'}"
+                            :to="{name:'projects.view',params:{id:project.id}}"
                         >View</router-link>
                     </td>
                 </tr>
@@ -33,9 +33,26 @@
 </template>
 
 <script>
+import VueLoading from "vuejs-loading-plugin";
+Vue.use(VueLoading);
+
 export default {
     mounted: function() {
-        this.$store.dispatch("getProjects");
+        if (this.$store.state.projects.length == 0) {
+            this.$store.dispatch("getProjects");
+        }
+    },
+    created: function() {},
+
+    computed: {
+        projects: function() {
+            if (this.$store.state.projects == 0) {
+                this.$loading(true);
+            } else {
+                this.$loading(false);
+            }
+            return this.$store.state.projects;
+        }
     }
 };
 </script>

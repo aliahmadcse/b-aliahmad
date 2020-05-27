@@ -2090,16 +2090,16 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
         name: "projects.list",
         component: _portfolio_ListProjects__WEBPACK_IMPORTED_MODULE_2__["default"]
       }, {
-        path: "view",
-        name: "project.view",
+        path: "view/:id",
+        name: "projects.view",
         component: _portfolio_ViewProject__WEBPACK_IMPORTED_MODULE_3__["default"]
       }, {
         path: "add",
-        name: "project.add",
+        name: "projects.add",
         component: _portfolio_ProjectFields__WEBPACK_IMPORTED_MODULE_4__["default"]
       }, {
         path: "edit/:id",
-        name: "project.edit",
+        name: "projects.edit",
         component: _portfolio_ProjectFields__WEBPACK_IMPORTED_MODULE_4__["default"],
         props: true
       }, // project categories route
@@ -2190,6 +2190,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-loading-plugin */ "./node_modules/vuejs-loading-plugin/index.js");
 //
 //
 //
@@ -2224,9 +2225,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    this.$store.dispatch("getProjects");
+    if (this.$store.state.projects.length == 0) {
+      this.$store.dispatch("getProjects");
+    }
+  },
+  created: function created() {},
+  computed: {
+    projects: function projects() {
+      if (this.$store.state.projects == 0) {
+        this.$loading(true);
+      } else {
+        this.$loading(false);
+      }
+
+      return this.$store.state.projects;
+    }
   }
 });
 
@@ -2284,13 +2301,135 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-loading-plugin */ "./node_modules/vuejs-loading-plugin/index.js");
 //
 //
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_0__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    if (this.$store.state.projects.length == 0) {
+      this.$store.dispatch("getProjects");
+    }
+  },
+  computed: {
+    project: function project() {
+      if (this.$store.state.projects == 0) {
+        this.$loading(true);
+      } else {
+        this.$loading(false);
+      }
+
+      return this.$store.getters.projectById(this.$route.params.id);
+    }
+  },
+  methods: {
+    deleteProject: function deleteProject(id) {
+      var _this = this;
+
+      $(".btn-danger").addClass("disabled");
+      this.$loading(true);
+      axios["delete"]("/api/project/category/delete/" + id).then(function (res) {
+        if (res.status === 204) {
+          $("#confirmModel").modal("hide");
+
+          _this.$store.commit("REMOVE_PROJECT_CATEGORY", id);
+
+          _this.$loading(false);
+
+          _this.$router.push({
+            name: "project.categories"
+          });
+        }
+      })["catch"](function (err) {
+        _this.$loading(false);
+
+        console.log(err);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -41005,7 +41144,7 @@ var render = function() {
         "router-link",
         {
           staticClass: "btn btn-outline-secondary mb-3 ml-3",
-          attrs: { to: { name: "project.add" } }
+          attrs: { to: { name: "projects.add" } }
         },
         [_vm._v("Add Project")]
       ),
@@ -41018,35 +41157,50 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [_vm._v("nadias")]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [_vm._v("Web")]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v("https://github.com/aliahmadcse/nadias-garden")
-              ]),
-              _vm._v(" "),
-              _c(
-                "td",
-                { attrs: { scope: "row" } },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-outline-secondary",
-                      attrs: { to: { name: "project.view" } }
-                    },
-                    [_vm._v("View")]
-                  )
-                ],
-                1
-              )
-            ])
-          ])
+          _c(
+            "tbody",
+            _vm._l(_vm.projects, function(project) {
+              return _c("tr", { key: project.id }, [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(project.id))
+                ]),
+                _vm._v(" "),
+                _c("td", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(project.title))
+                ]),
+                _vm._v(" "),
+                _c("td", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(project.category.category))
+                ]),
+                _vm._v(" "),
+                _c("td", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(project.github))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { attrs: { scope: "row" } },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-outline-secondary",
+                        attrs: {
+                          to: {
+                            name: "projects.view",
+                            params: { id: project.id }
+                          }
+                        }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ],
+                  1
+                )
+              ])
+            }),
+            0
+          )
         ]
       )
     ],
@@ -41142,9 +41296,184 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    I am viewing the project\n")])
+  return _c(
+    "div",
+    _vm._l(_vm.project, function(proj) {
+      return _c("div", { key: proj.id }, [
+        _c("dl", { staticClass: "row text-center" }, [
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Id:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [_vm._v(_vm._s(proj.id))]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Category:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [
+            _vm._v(_vm._s(proj.category.category))
+          ]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Title:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [_vm._v(_vm._s(proj.title))]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Description:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [
+            _vm._v(_vm._s(proj.description))
+          ]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Display Order:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [
+            _vm._v(_vm._s(proj.display_order))
+          ]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Github:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [_vm._v(_vm._s(proj.github))]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Live:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [_vm._v(_vm._s(proj.live))]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Image:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [
+            _c("img", {
+              staticClass: "img-fluid img-thumbnail rounded",
+              attrs: { src: proj.image, alt: proj.title }
+            })
+          ]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Created at:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [
+            _vm._v(_vm._s(_vm.formatDateTime(proj.created_at)))
+          ]),
+          _vm._v(" "),
+          _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Updated at:")]),
+          _vm._v(" "),
+          _c("dd", { staticClass: "col-sm-9" }, [
+            _vm._v(_vm._s(_vm.formatDateTime(proj.updated_at)))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row mt-3" }, [
+          _c(
+            "div",
+            { staticClass: "col-12 d-flex justify-content-center" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-outline-secondary mr-5",
+                  attrs: {
+                    to: { name: "projects.edit", params: { id: proj.id } }
+                  }
+                },
+                [_vm._v("Edit")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-danger",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#confirmModel"
+                  }
+                },
+                [_vm._v("Delete")]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "confirmModel",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _vm._v("Are you sure, You want to delete this project?")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteProject(proj.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      ])
+    }),
+    0
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Confirm Delete ❌ ?")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -41512,7 +41841,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Modal title")]
+        [_vm._v("Confirm Delete ❌ ?")]
       ),
       _vm._v(" "),
       _c(
@@ -59088,8 +59417,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -59104,7 +59431,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
@@ -59112,6 +59438,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     projects: []
   },
   mutations: {
+    SET_PROJECTS: function SET_PROJECTS(state, projects) {
+      state.projects = projects;
+    },
     SET_PROJECT_CATEGORIES: function SET_PROJECT_CATEGORIES(state, categories) {
       state.projectCategories = categories;
     },
@@ -59150,6 +59479,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         });
       };
     },
+
+    /**
+     * return a project based on id
+     * @param {int} id id of project
+     * @returns {array} an array consisiting of single project object
+     */
+    projectById: function projectById(state) {
+      return function (id) {
+        return state.projects.filter(function (project) {
+          return project.id == id;
+        });
+      };
+    },
     allProjects: function allProjects(state) {
       var projects = []; // pushing all projects into new projects array
 
@@ -59180,8 +59522,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref2.commit,
           state = _ref2.state;
       axios.get("/api/projects").then(function (res) {
-        console.log(res.data);
-      })["catch"]();
+        commit("SET_PROJECTS", res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }
 }));

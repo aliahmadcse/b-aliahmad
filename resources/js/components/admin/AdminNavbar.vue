@@ -93,18 +93,18 @@ export default {
                         component: ListProjects
                     },
                     {
-                        path: "view",
-                        name: "project.view",
+                        path: "view/:id",
+                        name: "projects.view",
                         component: ViewProject
                     },
                     {
                         path: "add",
-                        name: "project.add",
+                        name: "projects.add",
                         component: ProjectFields
                     },
                     {
                         path: "edit/:id",
-                        name: "project.edit",
+                        name: "projects.edit",
                         component: ProjectFields,
                         props: true
                     },
