@@ -278,7 +278,7 @@ section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Open Sans", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
@@ -6617,7 +6617,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -6742,7 +6742,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -17187,10 +17187,6 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
 }
 
-.login-card {
-  font-family: "Open Sans", sans-serif;
-}
-
 nav .navbar-brand {
   font-family: "Lexend Deca", sans-serif;
   font-size: 1.5rem;
@@ -17241,12 +17237,10 @@ footer .link-instagram {
 
 .about .header-image .tagline .tag {
   display: inline;
-  font-family: "Open Sans", sans-serif;
   font-size: 1.4rem;
 }
 
 .about .intro article {
-  font-family: "Open Sans", sans-serif;
   font-size: 1.3rem;
   padding: 0vw 12vw;
 }
@@ -17269,11 +17263,6 @@ footer .link-instagram {
 .project-card img:hover {
   -webkit-filter: brightness(1.1) drop-shadow(1px 8px 30px #b1afaf);
           filter: brightness(1.1) drop-shadow(1px 8px 30px #b1afaf);
-}
-
-.project-card .card-title,
-.project-card .card-text {
-  font-family: "Open Sans", sans-serif;
 }
 
 .project-card .card-text {
@@ -17308,9 +17297,5 @@ footer .link-instagram {
 .admin-nav .nav-custom .active {
   background: #9561e2;
   color: #ffffff;
-}
-
-.table-project-list {
-  font-family: "Open Sans", sans-serif;
 }
 
