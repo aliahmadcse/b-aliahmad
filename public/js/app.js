@@ -2225,7 +2225,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {}
+  mounted: function mounted() {
+    this.$store.dispatch("getProjects");
+  }
 });
 
 /***/ }),
@@ -41020,9 +41022,7 @@ var render = function() {
             _c("tr", [
               _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
               _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v("Nadias Graden Restaurant")
-              ]),
+              _c("td", { attrs: { scope: "row" } }, [_vm._v("nadias")]),
               _vm._v(" "),
               _c("td", { attrs: { scope: "row" } }, [_vm._v("Web")]),
               _vm._v(" "),
@@ -59088,6 +59088,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -59102,10 +59104,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    projectCategories: []
+    projectCategories: [],
+    projects: []
   },
   mutations: {
     SET_PROJECT_CATEGORIES: function SET_PROJECT_CATEGORIES(state, categories) {
@@ -59171,7 +59175,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       };
     }
   },
-  actions: {}
+  actions: {
+    getProjects: function getProjects(_ref2) {
+      var commit = _ref2.commit,
+          state = _ref2.state;
+      axios.get("/api/projects").then(function (res) {
+        console.log(res.data);
+      })["catch"]();
+    }
+  }
 }));
 
 /***/ }),

@@ -11,7 +11,7 @@ class ProjectCategory extends Model
     /**
      * defines relationship with the project model
      *
-     * @return one to many relationship
+     * @return One to Many relationship
      */
     public function projects()
     {

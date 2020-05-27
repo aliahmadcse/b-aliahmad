@@ -1,11 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Axios from "axios";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        projectCategories: []
+        projectCategories: [],
+        projects: []
     },
 
     mutations: {
@@ -77,5 +79,14 @@ export default new Vuex.Store({
         }
     },
 
-    actions: {}
+    actions: {
+        getProjects({ commit, state }) {
+            axios
+                .get("/api/projects")
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch();
+        }
+    }
 });

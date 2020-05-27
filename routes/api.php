@@ -17,3 +17,5 @@ Route::post('project/category/add', 'ProjectCategoryController@store');
 Route::delete('project/category/delete/{projectCategory}', 'ProjectCategoryController@destroy');
 
 Route::put('project/category/update/{projectCategory}', 'ProjectCategoryController@update');
+
+Route::get('projects','ProjectController@index');

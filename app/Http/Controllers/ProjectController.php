@@ -3,61 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Project;
 
 class ProjectController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * Returns listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // $projects = [
-        //     [
-        //         'id' => 1,
-        //         'title' => "Nadias Graden Restaurant",
-        //         "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
-        //         "category" => "web",
-        //         "github" => "#",
-        //         "link" => "#"
-        //     ],
-        //     [
-        //         'id' => 2,
-        //         'title' => "Hotel Reservation System",
-        //         "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
-        //         "category" => "web",
-        //         "github" => "#",
-        //         "link" => "#"
-        //     ],
-        //     [
-        //         'id' => 3,
-        //         'title' => "Product Landing page",
-        //         "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
-        //         "category" => "web",
-        //         "github" => "#",
-        //         "link" => "#"
-        //     ],
-        //     [
-        //         'id' => 4,
-        //         'title' => "Books Recommendation System",
-        //         "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
-        //         "category" => "ml",
-        //         "github" => "#",
-        //         "link" => "#"
-        //     ],
-        //     [
-        //         'id' => 5,
-        //         'title' => "Single Neuron Implementation",
-        //         "image" => "https://b.imge.to/2019/07/19/5Oj5H.png",
-        //         "category" => "ml",
-        //         "github" => "#",
-        //         "link" => "#"
-        //     ],
-        // ];
+        $projects = Project::with([
+            'category' => function ($query) {
+                $query->select('id', 'category');
+            }
+        ])
+            ->orderBy('display_order', 'asc')
+            ->get();
 
-        // return view('portfolio')->with('projects', );
+        return response()->json($projects, 200);
     }
 
     /**

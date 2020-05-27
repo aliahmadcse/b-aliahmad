@@ -17,7 +17,7 @@
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td scope="row">Nadias Graden Restaurant</td>
+                    <td scope="row">nadias</td>
                     <td scope="row">Web</td>
                     <td scope="row">https://github.com/aliahmadcse/nadias-garden</td>
                     <td scope="row">
@@ -34,7 +34,9 @@
 
 <script>
 export default {
-    methods: {}
+    mounted: function() {
+        this.$store.dispatch("getProjects");
+    }
 };
 </script>
 
