@@ -17187,6 +17187,10 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
 }
 
+.login-card {
+  font-family: "Open Sans", sans-serif;
+}
+
 nav .navbar-brand {
   font-family: "Lexend Deca", sans-serif;
   font-size: 1.5rem;

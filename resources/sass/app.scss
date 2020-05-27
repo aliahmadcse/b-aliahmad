@@ -1,4 +1,3 @@
-
 // Variables
 @import "variables";
 
@@ -16,6 +15,11 @@
 
 // lightbox2 css
 @import "~lightbox2/dist/css/lightbox.css";
+
+// login form styles
+.login-card {
+    font-family: $font-family-open-sans;
+}
 
 // navbar styles
 nav {
@@ -94,7 +98,6 @@ footer {
 
 // Portfolio Main component
 .portfolio-main {
-    
 }
 
 // display portfolio component
