@@ -9,7 +9,6 @@
                     <input
                         type="text"
                         class="form-control"
-                        value
                         :class="{ 'is-invalid' : errors.category.length }"
                         id="category"
                         name="catgeory"

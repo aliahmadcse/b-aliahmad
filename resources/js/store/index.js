@@ -13,7 +13,7 @@ export default new Vuex.Store({
         SET_PROJECTS(state, projects) {
             state.projects = projects;
         },
-        
+
         /**
          * This mutation removes the project a specific entry from
          * projects array
@@ -103,14 +103,18 @@ export default new Vuex.Store({
 
     actions: {
         getProjects({ commit, state }) {
-            axios
-                .get("/api/projects")
-                .then(res => {
-                    commit("SET_PROJECTS", res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            return new Promise((resolve, reject) => {
+                axios
+                    .get("/api/projects")
+                    .then(res => {
+                        commit("SET_PROJECTS", res.data);
+                        resolve("Success");
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        reject("Failed");
+                    });
+            });
         }
     }
 });
