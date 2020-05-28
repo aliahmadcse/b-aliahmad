@@ -13,6 +13,17 @@ export default new Vuex.Store({
         SET_PROJECTS(state, projects) {
             state.projects = projects;
         },
+        
+        /**
+         * This mutation removes the project a specific entry from
+         * projects array
+         * @param {object} state the state object
+         * @param {integer} id the id of the project to be removed
+         */
+        REMOVE_PROJECT(state, id) {
+            state.projects = state.projects.filter(proj => proj.id !== id);
+        },
+
         SET_PROJECT_CATEGORIES(state, categories) {
             state.projectCategories = categories;
         },

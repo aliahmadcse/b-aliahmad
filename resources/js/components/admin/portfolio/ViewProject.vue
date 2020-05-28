@@ -1,6 +1,20 @@
 <template>
     <div>
         <div v-for="proj in project" :key="proj.id">
+            <div class="row mb-4 action-row">
+                <div class="col-12 d-flex justify-content-center">
+                    <router-link
+                        class="btn btn-outline-secondary mr-5"
+                        :to="{name:'projects.edit',params:{id:proj.id}}"
+                    >Edit</router-link>
+                    <button
+                        class="btn btn-outline-danger"
+                        data-toggle="modal"
+                        data-target="#confirmModel"
+                    >Delete</button>
+                </div>
+            </div>
+
             <dl class="row text-center">
                 <dt class="col-sm-3">Id:</dt>
                 <dd class="col-sm-9">{{ proj.id }}</dd>
@@ -16,28 +30,19 @@
                 <dd class="col-sm-9">{{ proj.github }}</dd>
                 <dt class="col-sm-3">Live:</dt>
                 <dd class="col-sm-9">{{ proj.live }}</dd>
-                <dt class="col-sm-3">Image:</dt>
-                <dd class="col-sm-9">
-                    <img :src="proj.image" class="img-fluid img-thumbnail rounded" :alt="proj.title" />
-                </dd>
                 <dt class="col-sm-3">Created at:</dt>
                 <dd class="col-sm-9">{{ formatDateTime(proj.created_at) }}</dd>
                 <dt class="col-sm-3">Updated at:</dt>
                 <dd class="col-sm-9">{{ formatDateTime(proj.updated_at) }}</dd>
+                <dt class="col-sm-3">Image:</dt>
+                <dd class="col-sm-9">
+                    <img
+                        :src="proj.image"
+                        class="img-fluid img-thumbnail rounded"
+                        :alt="proj.title"
+                    />
+                </dd>
             </dl>
-            <div class="row mt-3">
-                <div class="col-12 d-flex justify-content-center">
-                    <router-link
-                        class="btn btn-outline-secondary mr-5"
-                        :to="{name:'projects.edit',params:{id:proj.id}}"
-                    >Edit</router-link>
-                    <button
-                        class="btn btn-outline-danger"
-                        data-toggle="modal"
-                        data-target="#confirmModel"
-                    >Delete</button>
-                </div>
-            </div>
 
             <!-- Model for delete confirmation -->
             <div
@@ -106,15 +111,15 @@ export default {
     methods: {
         deleteProject: function(id) {
             $(".btn-danger").addClass("disabled");
+            $("#confirmModel").modal("hide");
             this.$loading(true);
             axios
-                .delete("/api/project/category/delete/" + id)
+                .delete("/api/project/delete/" + id)
                 .then(res => {
                     if (res.status === 204) {
-                        $("#confirmModel").modal("hide");
-                        this.$store.commit("REMOVE_PROJECT_CATEGORY", id);
+                        this.$store.commit("REMOVE_PROJECT", id);
                         this.$loading(false);
-                        this.$router.push({ name: "project.categories" });
+                        this.$router.push({ name: "projects.list" });
                     }
                 })
                 .catch(err => {
@@ -127,4 +132,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.action-row {
+    margin-right: 15rem;
+}
+@media (max-width: 1000px) {
+    .action-row {
+        margin-right: 0px;
+    }
+}
 </style>

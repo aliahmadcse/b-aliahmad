@@ -18,4 +18,6 @@ Route::delete('project/category/delete/{projectCategory}', 'ProjectCategoryContr
 
 Route::put('project/category/update/{projectCategory}', 'ProjectCategoryController@update');
 
-Route::get('projects','ProjectController@index');
+Route::get('projects', 'ProjectController@index');
+
+Route::delete('project/delete/{project}', 'ProjectController@destroy');

@@ -29,7 +29,7 @@
                 <div class="card h-100 project-card">
                     <a
                         :href="project.image"
-                        :data-lightbox="project.id"
+                        data-lightbox="project-image"
                         :data-title="project.title"
                         :data-alt="project.title"
                     >
