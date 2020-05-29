@@ -2318,6 +2318,94 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2383,6 +2471,15 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
     return created;
   }(),
+  computed: {
+    categories: function categories() {
+      return this.$store.getters.categories;
+    },
+    totalProjects: function totalProjects() {
+      var NoOfProjects = this.$store.state.projects.length + 1;
+      return NoOfProjects;
+    }
+  },
   methods: {
     addProject: function addProject() {
       var _this = this;
@@ -42283,7 +42380,7 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "form-row justify-content-center" }, [
-          _c("div", { staticClass: "col-lg-8 col-md-10 col-sm-12 mb-3" }, [
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
             _c("label", { attrs: { for: "title" } }, [_vm._v("Project title")]),
             _vm._v(" "),
             _c("input", {
@@ -42317,6 +42414,232 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "invalid-feedback" }, [
               _vm._v(_vm._s(_vm.errors.title[0]))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "description" } }, [
+              _vm._v("Project Description")
+            ]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.project.description,
+                  expression: "project.description"
+                }
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.errors.description.length },
+              attrs: {
+                id: "description",
+                name: "description",
+                rows: "2",
+                placeholder: "Description..."
+              },
+              domProps: { value: _vm.project.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.project, "description", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(_vm._s(_vm.errors.description[0]))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "category" } }, [
+              _vm._v("Project Category")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.project.project_category_id,
+                    expression: "project.project_category_id"
+                  }
+                ],
+                staticClass: "custom-select",
+                class: { "is-invalid": _vm.errors.category.length },
+                attrs: { id: "category", name: "category" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.project,
+                      "project_category_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.categories, function(category) {
+                return _c(
+                  "option",
+                  { key: category.id, domProps: { value: category.id } },
+                  [_vm._v(_vm._s(_vm.capitalize(category.category)))]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(_vm._s(_vm.errors.category[0]))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "github" } }, [_vm._v("Github Link")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.project.github,
+                  expression: "project.github"
+                }
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.errors.github.length },
+              attrs: {
+                type: "text",
+                id: "github",
+                name: "github",
+                placeholder: "Github URL ..."
+              },
+              domProps: { value: _vm.project.github },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.project, "github", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(_vm._s(_vm.errors.github[0]))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "live" } }, [_vm._v("Live Link")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.project.live,
+                  expression: "project.live"
+                }
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.errors.live.length },
+              attrs: {
+                type: "text",
+                id: "live",
+                name: "live",
+                placeholder: "Live URL ..."
+              },
+              domProps: { value: _vm.project.live },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.project, "live", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(_vm._s(_vm.errors.live[0]))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "display-order" } }, [
+              _vm._v("Display Order")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.project.display_order,
+                    expression: "project.display_order"
+                  }
+                ],
+                staticClass: "custom-select",
+                class: { "is-invalid": _vm.errors.display_order.length },
+                attrs: { id: "display-order", name: "display-order" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.project,
+                      "display_order",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.totalProjects, function(item) {
+                return _c("option", { key: item, domProps: { value: item } }, [
+                  _vm._v(_vm._s(item))
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(_vm._s(_vm.errors.display_order[0]))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "image" } }, [_vm._v("Project Image")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "custom-file",
+              class: { "is-invalid": _vm.errors.image.length },
+              attrs: { type: "file", id: "image", name: "image" }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(_vm._s(_vm.errors.image[0]))
             ])
           ])
         ]),
@@ -59539,6 +59862,15 @@ Vue.mixin({
     formatDateTime: function formatDateTime(ISODate) {
       var date = new Date(ISODate);
       return "".concat(date.getFullYear(), "-").concat(date.getMonth() + 1, "-").concat(date.getDate(), " ").concat(date.getHours(), ":").concat(date.getMinutes());
+    },
+
+    /**
+     * This function capitalize the first letter of string
+     * @param {string} str string to capitalize
+     * @returns {string} a new string with first letter capitalized
+     */
+    capitalize: function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     }
   }
 });

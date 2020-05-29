@@ -4,7 +4,8 @@
         <h2 v-if="project.id>0" class="text-center">Edit your project below</h2>
         <form @submit.prevent class="mt-5">
             <div class="form-row justify-content-center">
-                <div class="col-lg-8 col-md-10 col-sm-12 mb-3">
+                <!-- title -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
                     <label for="title">Project title</label>
                     <input
                         type="text"
@@ -18,7 +19,94 @@
                     />
                     <div class="invalid-feedback">{{ errors.title[0] }}</div>
                 </div>
+                <!-- description -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
+                    <label for="description">Project Description</label>
+                    <textarea
+                        class="form-control"
+                        :class="{ 'is-invalid' : errors.description.length }"
+                        id="description"
+                        name="description"
+                        rows="2"
+                        placeholder="Description..."
+                        v-model="project.description"
+                    ></textarea>
+                    <div class="invalid-feedback">{{ errors.description[0] }}</div>
+                </div>
+                <!-- category -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
+                    <label for="category">Project Category</label>
+                    <select
+                        class="custom-select"
+                        :class="{ 'is-invalid' : errors.category.length }"
+                        id="category"
+                        name="category"
+                        v-model="project.project_category_id"
+                    >
+                        <option
+                            v-for="category in categories"
+                            :key="category.id"
+                            :value="category.id"
+                        >{{ capitalize(category.category) }}</option>
+                    </select>
+                    <div class="invalid-feedback">{{ errors.category[0] }}</div>
+                </div>
+                <!-- github url -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
+                    <label for="github">Github Link</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        :class="{ 'is-invalid' : errors.github.length }"
+                        id="github"
+                        name="github"
+                        placeholder="Github URL ..."
+                        v-model="project.github"
+                    />
+                    <div class="invalid-feedback">{{ errors.github[0] }}</div>
+                </div>
+                <!-- live url -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
+                    <label for="live">Live Link</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        :class="{ 'is-invalid' : errors.live.length }"
+                        id="live"
+                        name="live"
+                        placeholder="Live URL ..."
+                        v-model="project.live"
+                    />
+                    <div class="invalid-feedback">{{ errors.live[0] }}</div>
+                </div>
+                <!-- display order -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
+                    <label for="display-order">Display Order</label>
+                    <select
+                        class="custom-select"
+                        :class="{ 'is-invalid' : errors.display_order.length }"
+                        id="display-order"
+                        name="display-order"
+                        v-model="project.display_order"
+                    >
+                        <option v-for="item in totalProjects" :key="item" :value="item">{{ item }}</option>
+                    </select>
+                    <div class="invalid-feedback">{{ errors.display_order[0] }}</div>
+                </div>
+                <!-- Image -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
+                    <label for="image">Project Image</label>
+                    <input
+                        type="file"
+                        class="custom-file"
+                        :class="{ 'is-invalid' : errors.image.length }"
+                        id="image"
+                        name="image"
+                    />
+                    <div class="invalid-feedback">{{ errors.image[0] }}</div>
+                </div>
             </div>
+            <!-- submit buttons -->
             <div class="text-center">
                 <button
                     v-if="project.id==0"
@@ -78,6 +166,17 @@ export default {
             )[0];
         }
         this.$loading(false);
+    },
+
+    computed: {
+        categories: function() {
+            return this.$store.getters.categories;
+        },
+
+        totalProjects: function() {
+            const NoOfProjects = this.$store.state.projects.length + 1;
+            return NoOfProjects;
+        }
     },
 
     methods: {

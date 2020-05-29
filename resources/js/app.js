@@ -46,6 +46,15 @@ Vue.mixin({
             let date = new Date(ISODate);
             return `${date.getFullYear()}-${date.getMonth() +
                 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+        },
+
+        /**
+         * This function capitalize the first letter of string
+         * @param {string} str string to capitalize
+         * @returns {string} a new string with first letter capitalized
+         */
+        capitalize: function(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
         }
     }
 });
