@@ -28,6 +28,10 @@ export default new Vuex.Store({
             state.projectCategories = categories;
         },
 
+        ADD_PROJECT(state, project) {
+            state.project.push(project);
+        },
+
         ADD_PROJECT_CATEGORY(state, category) {
             state.projectCategories.push(category);
         },

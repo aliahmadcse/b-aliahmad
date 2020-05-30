@@ -44,7 +44,11 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated_data = $request->validate([
+            'category' => 'required|max:50|alpha'
+        ]);
+        $project = Project::create($validated_data);
+        return response()->json($project, 201);
     }
 
     /**

@@ -184,12 +184,10 @@ export default {
             this.$loading(true);
             $(".btn").addClass("disabled");
             axios
-                .post("/api/project/category/add", {
-                    category: this.category
-                })
+                .post("/api/project/add", this.project)
                 .then(res => {
                     if (res.status === 201) {
-                        this.$store.commit("ADD_PROJECT_CATEGORY", res.data);
+                        this.$store.commit("ADD_PROJECT", res.data);
                         this.$loading(false);
                         this.$router.push({ name: "project.categories" });
                     }

@@ -2486,11 +2486,9 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
       this.$loading(true);
       $(".btn").addClass("disabled");
-      axios.post("/api/project/category/add", {
-        category: this.category
-      }).then(function (res) {
+      axios.post("/api/project/add", this.project).then(function (res) {
         if (res.status === 201) {
-          _this.$store.commit("ADD_PROJECT_CATEGORY", res.data);
+          _this.$store.commit("ADD_PROJECT", res.data);
 
           _this.$loading(false);
 
@@ -60922,6 +60920,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     SET_PROJECT_CATEGORIES: function SET_PROJECT_CATEGORIES(state, categories) {
       state.projectCategories = categories;
+    },
+    ADD_PROJECT: function ADD_PROJECT(state, project) {
+      state.project.push(project);
     },
     ADD_PROJECT_CATEGORY: function ADD_PROJECT_CATEGORY(state, category) {
       state.projectCategories.push(category);
