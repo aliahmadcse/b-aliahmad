@@ -2428,8 +2428,6 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         },
         success: function success(file, res) {
           file.filename = res;
-          console.log(res);
-          console.log(file);
         }
       },
       project: {
@@ -2502,6 +2500,9 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
     }
   },
   methods: {
+    /**
+     * Handles the project create request
+     */
     addProject: function addProject() {
       var _this = this;
 
@@ -2526,13 +2527,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         }
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          var errors = err.response.data.errors;
-
-          for (var error in errors) {
-            if (errors.hasOwnProperty(error)) {
-              _this.errors[error] = errors[error];
-            }
-          }
+          _this.assignErrors(err.response.data.errors);
 
           $(".btn").removeClass("disabled");
         }
@@ -2540,6 +2535,10 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         _this.$loading(false);
       });
     },
+
+    /**
+     * Handles the update project request
+     */
     updateProject: function updateProject() {
       var _this2 = this;
 
@@ -2560,12 +2559,27 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         });
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this2.errors = err.response.data.errors;
-          $(".btn-update").removeClass("disabled");
+          _this2.assignErrors(err.response.data.errors);
 
-          _this2.$loading(false);
+          $(".btn-update").removeClass("disabled");
         }
+
+        _this2.$loading(false);
       });
+    },
+
+    /**
+     * Assign errors to the errors data object
+     *
+     * @param {object} errors the errors object returned from server
+     * @returns void
+     */
+    assignErrors: function assignErrors(errors) {
+      for (var error in errors) {
+        if (errors.hasOwnProperty(error)) {
+          this.errors[error] = errors[error];
+        }
+      }
     }
   }
 });

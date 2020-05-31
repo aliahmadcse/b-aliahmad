@@ -149,8 +149,6 @@ export default {
                 },
                 success(file, res) {
                     file.filename = res;
-                    console.log(res);
-                    console.log(file);
                 }
             },
 
@@ -202,6 +200,9 @@ export default {
     },
 
     methods: {
+        /**
+         * Handles the project create request
+         */
         addProject() {
             this.$loading(true);
             $(".btn").addClass("disabled");
@@ -221,18 +222,16 @@ export default {
                 })
                 .catch(err => {
                     if (err.response.status === 422) {
-                        const errors = err.response.data.errors;
-                        for (const error in errors) {
-                            if (errors.hasOwnProperty(error)) {
-                                this.errors[error] = errors[error];
-                            }
-                        }
+                        this.assignErrors(err.response.data.errors);
                         $(".btn").removeClass("disabled");
                     }
                     this.$loading(false);
                 });
         },
 
+        /**
+         * Handles the update project request
+         */
         updateProject() {
             $(".btn-update").addClass("disabled");
             this.$loading(true);
@@ -250,11 +249,26 @@ export default {
                 })
                 .catch(err => {
                     if (err.response.status === 422) {
-                        this.errors = err.response.data.errors;
+                        this.assignErrors(err.response.data.errors);
                         $(".btn-update").removeClass("disabled");
-                        this.$loading(false);
                     }
+                    this.$loading(false);
                 });
+        },
+
+        /**
+         * Assign errors to the errors data object
+         *
+         * @param {object} errors the errors object returned from server
+         * @returns void
+         */
+
+        assignErrors: function(errors) {
+            for (const error in errors) {
+                if (errors.hasOwnProperty(error)) {
+                    this.errors[error] = errors[error];
+                }
+            }
         }
     }
 };
