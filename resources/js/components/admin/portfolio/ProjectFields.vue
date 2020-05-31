@@ -95,14 +95,13 @@
                 </div>
                 <!-- Image -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="image">Project Image</label>
-                    <input
-                        type="file"
-                        class="custom-file"
+                    <label for="dropzone">Project Image</label>
+                    <vue-dropzone
                         :class="{ 'is-invalid' : errors.image.length }"
-                        id="image"
-                        name="image"
-                    />
+                        ref="dropzone"
+                        id="dropzone"
+                        :options="dropzoneOptions"
+                    ></vue-dropzone>
                     <div class="invalid-feedback">{{ errors.image[0] }}</div>
                 </div>
             </div>
@@ -126,12 +125,28 @@
 </template>
 
 <script>
+import vue2Dropzone from "vue2-dropzone";
+import "vue2-dropzone/dist/vue2Dropzone.min.css";
+
 import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
 
 export default {
+    components: {
+        vueDropzone: vue2Dropzone
+    },
+
     data: function() {
         return {
+            dropzoneOptions: {
+                url: "/api/project/image/add",
+                thumbnailWidth: 200,
+                headers: {
+                    "X-CSRF-TOKEN": document.head.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content
+                }
+            },
             project: {
                 id: 0,
                 title: "",

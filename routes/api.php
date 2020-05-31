@@ -23,3 +23,4 @@ Route::get('projects', 'ProjectController@index');
 Route::delete('project/delete/{project}', 'ProjectController@destroy');
 
 Route::post('project/add', 'ProjectController@store');
+Route::post('project/image/add', 'ProjectController@storeImage');

@@ -52,6 +52,20 @@ class ProjectController extends Controller
     }
 
     /**
+     * Store the image to storage public directory
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeImage(Request $request)
+    {
+        $file = $request->file('file');
+        $dir = "public/images";
+        $path = $file->store($dir);
+        return str_replace("$dir/", '', $path);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
