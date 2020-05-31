@@ -1,7 +1,7 @@
 <template>
     <div class="categories-fields text-secondary">
-        <h2 v-if="project.id==0" class="text-center">Hmm 🎦, Got a new project.</h2>
-        <h2 v-if="project.id>0" class="text-center">Edit your project below</h2>
+        <h2 v-if="id==0" class="text-center">Hmm 🎦, Got a new project.</h2>
+        <h2 v-if="id>0" class="text-center">Edit your project below</h2>
         <form @submit.prevent class="mt-5">
             <div class="form-row justify-content-center">
                 <!-- title -->
@@ -35,12 +35,12 @@
                 </div>
                 <!-- category -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="category">Project Category</label>
+                    <label for="project_category_id">Project Category</label>
                     <select
                         class="custom-select"
-                        :class="{ 'is-invalid' : errors.category.length }"
-                        id="category"
-                        name="category"
+                        :class="{ 'is-invalid' : errors.project_category_id.length }"
+                        id="project_category_id"
+                        name="project_category_id"
                         v-model="project.project_category_id"
                     >
                         <option
@@ -49,7 +49,7 @@
                             :value="category.id"
                         >{{ capitalize(category.category) }}</option>
                     </select>
-                    <div class="invalid-feedback">{{ errors.category[0] }}</div>
+                    <div class="invalid-feedback">{{ errors.project_category_id[0] }}</div>
                 </div>
                 <!-- github url -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
@@ -108,13 +108,13 @@
             <!-- submit buttons -->
             <div class="text-center">
                 <button
-                    v-if="project.id==0"
+                    v-if="id==0"
                     @click="addProject"
                     class="btn btn-outline-primary text-center"
                     type="submit"
                 >Add Project</button>
                 <button
-                    v-if="project.id>0"
+                    v-if="id>0"
                     @click="updateProject"
                     class="btn btn-outline-primary text-center btn-update"
                     type="submit"
@@ -138,6 +138,7 @@ export default {
 
     data: function() {
         return {
+            id: 0,
             dropzoneOptions: {
                 url: "/api/project/image/add",
                 thumbnailWidth: 200,
@@ -145,22 +146,27 @@ export default {
                     "X-CSRF-TOKEN": document.head.querySelector(
                         'meta[name="csrf-token"]'
                     ).content
+                },
+                success(file, res) {
+                    file.filename = res;
+                    console.log(res);
+                    console.log(file);
                 }
             },
+
             project: {
-                id: 0,
                 title: "",
                 description: "",
-                category: "",
+                project_category_id: "",
                 image: "",
-                display_order: 0,
+                display_order: null,
                 github: "",
                 live: ""
             },
             errors: {
                 title: [],
                 description: [],
-                category: [],
+                project_category_id: [],
                 image: [],
                 display_order: [],
                 github: [],
@@ -176,6 +182,7 @@ export default {
             await promise;
         }
         if (this.$route.params.id) {
+            this.id = this.$route.params.id;
             this.project = this.$store.getters.projectById(
                 this.$route.params.id
             )[0];
@@ -198,21 +205,31 @@ export default {
         addProject() {
             this.$loading(true);
             $(".btn").addClass("disabled");
+            // grabbing the uploaded file unique name assigned by laravel
+            let files = this.$refs.dropzone.getAcceptedFiles();
+            if (files.length > 0 && files[0].filename) {
+                this.project.image = files[0].filename;
+            }
             axios
                 .post("/api/project/add", this.project)
                 .then(res => {
                     if (res.status === 201) {
                         this.$store.commit("ADD_PROJECT", res.data);
                         this.$loading(false);
-                        this.$router.push({ name: "project.categories" });
+                        this.$router.push({ name: "projects.list" });
                     }
                 })
                 .catch(err => {
                     if (err.response.status === 422) {
-                        this.errors = err.response.data.errors;
+                        const errors = err.response.data.errors;
+                        for (const error in errors) {
+                            if (errors.hasOwnProperty(error)) {
+                                this.errors[error] = errors[error];
+                            }
+                        }
                         $(".btn").removeClass("disabled");
-                        this.$loading(false);
                     }
+                    this.$loading(false);
                 });
         },
 

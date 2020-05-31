@@ -29,7 +29,7 @@ export default new Vuex.Store({
         },
 
         ADD_PROJECT(state, project) {
-            state.project.push(project);
+            state.projects.push(project);
         },
 
         ADD_PROJECT_CATEGORY(state, category) {

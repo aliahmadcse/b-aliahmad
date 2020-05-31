@@ -45,9 +45,21 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validated_data = $request->validate([
-            'category' => 'required|max:50|alpha'
+            'title' => 'required',
+            'description' => 'required',
+            'project_category_id' => 'required',
+            'image' => 'required',
+            'display_order' => 'required',
+            'github' => 'nullable',
+            'live' => 'nullable'
         ]);
         $project = Project::create($validated_data);
+        // loading relationship of project with category
+        $project->load([
+            'category' => function ($query) {
+                $query->select('id', 'category');
+            }
+        ]);
         return response()->json($project, 201);
     }
 
@@ -62,7 +74,7 @@ class ProjectController extends Controller
         $file = $request->file('file');
         $dir = "public/images";
         $path = $file->store($dir);
-        return str_replace("$dir/", '', $path);
+        return str_replace("public", '/storage', $path);
     }
 
     /**

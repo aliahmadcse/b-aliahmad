@@ -2419,27 +2419,32 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
   },
   data: function data() {
     return {
+      id: 0,
       dropzoneOptions: {
         url: "/api/project/image/add",
         thumbnailWidth: 200,
         headers: {
           "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content
+        },
+        success: function success(file, res) {
+          file.filename = res;
+          console.log(res);
+          console.log(file);
         }
       },
       project: {
-        id: 0,
         title: "",
         description: "",
-        category: "",
+        project_category_id: "",
         image: "",
-        display_order: 0,
+        display_order: null,
         github: "",
         live: ""
       },
       errors: {
         title: [],
         description: [],
-        category: [],
+        project_category_id: [],
         image: [],
         display_order: [],
         github: [],
@@ -2467,6 +2472,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
             case 5:
               if (this.$route.params.id) {
+                this.id = this.$route.params.id;
                 this.project = this.$store.getters.projectById(this.$route.params.id)[0];
               }
 
@@ -2500,7 +2506,14 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
       var _this = this;
 
       this.$loading(true);
-      $(".btn").addClass("disabled");
+      $(".btn").addClass("disabled"); // grabbing the uploaded file unique name assigned by laravel
+
+      var files = this.$refs.dropzone.getAcceptedFiles();
+
+      if (files.length > 0 && files[0].filename) {
+        this.project.image = files[0].filename;
+      }
+
       axios.post("/api/project/add", this.project).then(function (res) {
         if (res.status === 201) {
           _this.$store.commit("ADD_PROJECT", res.data);
@@ -2508,16 +2521,23 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
           _this.$loading(false);
 
           _this.$router.push({
-            name: "project.categories"
+            name: "projects.list"
           });
         }
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this.errors = err.response.data.errors;
-          $(".btn").removeClass("disabled");
+          var errors = err.response.data.errors;
 
-          _this.$loading(false);
+          for (var error in errors) {
+            if (errors.hasOwnProperty(error)) {
+              _this.errors[error] = errors[error];
+            }
+          }
+
+          $(".btn").removeClass("disabled");
         }
+
+        _this.$loading(false);
       });
     },
     updateProject: function updateProject() {
@@ -42388,13 +42408,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "categories-fields text-secondary" }, [
-    _vm.project.id == 0
+    _vm.id == 0
       ? _c("h2", { staticClass: "text-center" }, [
           _vm._v("Hmm 🎦, Got a new project.")
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.project.id > 0
+    _vm.id > 0
       ? _c("h2", { staticClass: "text-center" }, [
           _vm._v("Edit your project below")
         ])
@@ -42488,7 +42508,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
-            _c("label", { attrs: { for: "category" } }, [
+            _c("label", { attrs: { for: "project_category_id" } }, [
               _vm._v("Project Category")
             ]),
             _vm._v(" "),
@@ -42504,8 +42524,11 @@ var render = function() {
                   }
                 ],
                 staticClass: "custom-select",
-                class: { "is-invalid": _vm.errors.category.length },
-                attrs: { id: "category", name: "category" },
+                class: { "is-invalid": _vm.errors.project_category_id.length },
+                attrs: {
+                  id: "project_category_id",
+                  name: "project_category_id"
+                },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -42535,7 +42558,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(_vm._s(_vm.errors.category[0]))
+              _vm._v(_vm._s(_vm.errors.project_category_id[0]))
             ])
           ]),
           _vm._v(" "),
@@ -42684,7 +42707,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "text-center" }, [
-          _vm.project.id == 0
+          _vm.id == 0
             ? _c(
                 "button",
                 {
@@ -42696,7 +42719,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.project.id > 0
+          _vm.id > 0
             ? _c(
                 "button",
                 {
@@ -61006,7 +61029,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.projectCategories = categories;
     },
     ADD_PROJECT: function ADD_PROJECT(state, project) {
-      state.project.push(project);
+      state.projects.push(project);
     },
     ADD_PROJECT_CATEGORY: function ADD_PROJECT_CATEGORY(state, category) {
       state.projectCategories.push(category);
