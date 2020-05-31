@@ -37,20 +37,18 @@ import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
 
 export default {
-    mounted: function() {
+    mounted: async function() {
+        this.$loading(true);
         if (this.$store.state.projects.length == 0) {
-            this.$store.dispatch("getProjects");
+            let promise = this.$store.dispatch("getProjects");
+            await promise;
         }
+        this.$loading(false);
     },
     created: function() {},
 
     computed: {
         projects: function() {
-            if (this.$store.state.projects == 0) {
-                this.$loading(true);
-            } else {
-                this.$loading(false);
-            }
             return this.$store.state.projects;
         }
     }

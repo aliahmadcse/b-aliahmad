@@ -86,13 +86,13 @@ export default {
 
     methods: {
         deleteCategory: function(id) {
+            $("#confirmModel").modal("hide");
             $(".btn-danger").addClass("disabled");
             this.$loading(true);
             axios
                 .delete("/api/project/category/delete/" + id)
                 .then(res => {
                     if (res.status === 204) {
-                        $("#confirmModel").modal("hide");
                         this.$store.commit("REMOVE_PROJECT_CATEGORY", id);
                         this.$loading(false);
                         this.$router.push({ name: "project.categories" });
