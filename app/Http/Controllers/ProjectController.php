@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -75,6 +76,20 @@ class ProjectController extends Controller
         $dir = "public/images";
         $path = $file->store($dir);
         return str_replace("public", '/storage', $path);
+    }
+
+    /**
+     * Deletes an image from storage
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteImage(Request $request)
+    {
+        $imagePath = $request->input('imgPath');
+        $imageName = str_replace('/storage/images/', '', $imagePath);
+        Storage::delete('/public/images/' . $imageName);
+        return ['success' => 200];
     }
 
     /**

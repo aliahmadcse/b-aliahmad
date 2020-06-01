@@ -96,7 +96,21 @@
                 <!-- Image -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
                     <label for="dropzone">Project Image</label>
-
+                    <img
+                        v-if="id>0 && project.image"
+                        :src="project.image "
+                        class="img-fluid img-thumbnail rounded"
+                        :alt="project.title"
+                    />
+                    <vue-dropzone
+                        ref="dropzone"
+                        id="dropzone"
+                        :useCustomSlot="true"
+                        :destroyDropzone="false"
+                        :options="dropzoneOptions"
+                        @vdropzone-success="uploadImageSuccess"
+                        @vdropzone-removed-file="removeImage"
+                    >{{ customSlot }}</vue-dropzone>
                     <div class="invalid-feedback">{{ errors.image[0] }}</div>
                 </div>
             </div>
@@ -120,13 +134,34 @@
 </template>
 
 <script>
+import vue2Dropzone from "vue2-dropzone";
+import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
 
 export default {
+    components: {
+        vueDropzone: vue2Dropzone
+    },
+
     data: function() {
         return {
             id: 0,
+
+            // dropzone configurations
+            dropzoneOptions: {
+                url: "/api/project/image/add",
+                thumbnailWidth: 150,
+                maxFilesize: 1,
+                maxFiles: 1,
+                addRemoveLinks: true,
+                acceptedFiles: ".png,.gif,.jpg,.jpeg",
+                headers: {
+                    "X-CSRF-TOKEN": document.head.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content
+                }
+            },
 
             project: {
                 title: "",
@@ -170,12 +205,39 @@ export default {
         },
 
         totalProjects: function() {
-            const NoOfProjects = this.$store.state.projects.length + 1;
-            return NoOfProjects;
+            const NoOfProjects = this.$store.state.projects.length;
+            if (this.$route.params.id) return NoOfProjects;
+            return NoOfProjects + 1;
+        },
+        customSlot: function() {
+            return this.id === 0
+                ? "Drop an image 📸 here to upload"
+                : "Drop an image 📸 here to update";
         }
     },
 
     methods: {
+        uploadImageSuccess: function(file, res) {
+            this.project.image = res;
+        },
+
+        removeImage: function(file, error, xhr) {
+            const imagePath = file.xhr.response;
+            console.log(imagePath);
+            axios
+                .delete("/api/project/image/delete", {
+                    data: {
+                        imgPath: imagePath
+                    }
+                })
+                .then(res => {
+                    console.log(res);
+                    this.project.image = "";
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
         /**
          * Handles the project create request
          */
@@ -248,4 +310,7 @@ export default {
 
 <style lang="scss" scoped>
 // @import "~@/variables";
+.invalid-feedback {
+    display: block;
+}
 </style>
