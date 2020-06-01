@@ -46,6 +46,14 @@ class ProjectController extends Controller
      */
     public function store(UpsertProject $request)
     {
+        // incrementing display_order, if newly coming already exist
+        $display_order = $request->validated()['display_order'];
+        $existingProject = Project::where('display_order', $display_order)->first();
+        if ($existingProject) {
+            Project::where('display_order', '>=', $display_order)
+                ->increment('display_order', 1);
+        }
+
         $project = Project::create($request->validated());
         // loading relationship of project with category
         $project->load([
@@ -115,10 +123,18 @@ class ProjectController extends Controller
      */
     public function update(UpsertProject $request, Project $project)
     {
+        $oldOrder = $project->display_order;
+        $newOrder = $request->validated()['display_order'];
+        if ($oldOrder !== $newOrder) {
+            Project::where('display_order', '>=', $newOrder)
+                ->increment('display_order', 1);
+        }
         // removing old image from storage
-        $imagePath = $project->image;
-        $imageName = str_replace('/storage/images/', '', $imagePath);
-        Storage::delete('/public/images/' . $imageName);
+        if ($project->image !== $request->validated()['image']) {
+            $imagePath = $project->image;
+            $imageName = str_replace('/storage/images/', '', $imagePath);
+            Storage::delete('/public/images/' . $imageName);
+        }
 
         // updating project
         $project->update($request->validated());
@@ -134,6 +150,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $display_order = $project->display_order;
+        $project->where('display_order', '>', $display_order)
+            ->decrement('display_order', 1);
         $project->delete();
         return response()->json('Project deleted successfully', 204);
     }
