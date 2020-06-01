@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpsertProject;
 use Illuminate\Http\Request;
 use App\Project;
 use Illuminate\Support\Facades\Storage;
@@ -43,18 +44,9 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UpsertProject $request)
     {
-        $validated_data = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'project_category_id' => 'required',
-            'image' => 'required',
-            'display_order' => 'required',
-            'github' => 'nullable',
-            'live' => 'nullable'
-        ]);
-        $project = Project::create($validated_data);
+        $project = Project::create($request->validated());
         // loading relationship of project with category
         $project->load([
             'category' => function ($query) {
@@ -121,25 +113,15 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(UpsertProject $request, Project $project)
     {
-        $validated_data = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'project_category_id' => 'required',
-            'image' => 'required',
-            'display_order' => 'required',
-            'github' => 'nullable',
-            'live' => 'nullable'
-        ]);
-
         // removing old image from storage
         $imagePath = $project->image;
         $imageName = str_replace('/storage/images/', '', $imagePath);
         Storage::delete('/public/images/' . $imageName);
 
         // updating project
-        $project->update($validated_data);
+        $project->update($request->validated());
 
         return ['status' => 204];
     }
