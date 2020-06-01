@@ -266,20 +266,15 @@ export default {
         /**
          * Handles the update project request
          */
-        updateProject() {
+        updateProject: function() {
             $(".btn-update").addClass("disabled");
             this.$loading(true);
             axios
-                .put("/api/project/category/update/" + this.id, {
-                    category: this.category
-                })
+                .put("/api/project/update/" + this.id, this.project)
                 .then(res => {
-                    this.$store.commit("UPDATE_PROJECT_CATEGORY", {
-                        id: this.id,
-                        category: this.category
-                    });
+                    this.$store.dispatch("getProjects");
                     this.$loading(false);
-                    this.$router.push({ name: "project.categories" });
+                    this.$router.push({ name: "projects.list" });
                 })
                 .catch(err => {
                     if (err.response.status === 422) {

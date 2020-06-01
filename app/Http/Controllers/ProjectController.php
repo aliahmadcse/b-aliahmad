@@ -121,9 +121,27 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $validated_data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'project_category_id' => 'required',
+            'image' => 'required',
+            'display_order' => 'required',
+            'github' => 'nullable',
+            'live' => 'nullable'
+        ]);
+
+        // removing old image from storage
+        $imagePath = $project->image;
+        $imageName = str_replace('/storage/images/', '', $imagePath);
+        Storage::delete('/public/images/' . $imageName);
+
+        // updating project
+        $project->update($validated_data);
+
+        return ['status' => 204];
     }
 
     /**

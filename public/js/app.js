@@ -2604,18 +2604,13 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
       $(".btn-update").addClass("disabled");
       this.$loading(true);
-      axios.put("/api/project/category/update/" + this.id, {
-        category: this.category
-      }).then(function (res) {
-        _this3.$store.commit("UPDATE_PROJECT_CATEGORY", {
-          id: _this3.id,
-          category: _this3.category
-        });
+      axios.put("/api/project/update/" + this.id, this.project).then(function (res) {
+        _this3.$store.dispatch("getProjects");
 
         _this3.$loading(false);
 
         _this3.$router.push({
-          name: "project.categories"
+          name: "projects.list"
         });
       })["catch"](function (err) {
         if (err.response.status === 422) {
