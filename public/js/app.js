@@ -2553,14 +2553,14 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
     removeImage: function removeImage(file, error, xhr) {
       var _this = this;
 
-      var imagePath = file.xhr.response;
-      console.log(imagePath);
+      var imagePath = file.xhr.response; // console.log(imagePath);
+
       axios["delete"]("/api/project/image/delete", {
         data: {
           imgPath: imagePath
         }
       }).then(function (res) {
-        console.log(res);
+        // console.log(res);
         _this.project.image = "";
       })["catch"](function (err) {
         console.log(err);

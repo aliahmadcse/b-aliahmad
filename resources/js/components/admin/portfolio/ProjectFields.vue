@@ -223,7 +223,7 @@ export default {
 
         removeImage: function(file, error, xhr) {
             const imagePath = file.xhr.response;
-            console.log(imagePath);
+            // console.log(imagePath);
             axios
                 .delete("/api/project/image/delete", {
                     data: {
@@ -231,7 +231,7 @@ export default {
                     }
                 })
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     this.project.image = "";
                 })
                 .catch(err => {

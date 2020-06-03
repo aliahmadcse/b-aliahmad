@@ -12,12 +12,14 @@
 |
 */
 
+// project category routes
 Route::post('project/category/add', 'ProjectCategoryController@store');
 
 Route::delete('project/category/delete/{projectCategory}', 'ProjectCategoryController@destroy');
 
 Route::put('project/category/update/{projectCategory}', 'ProjectCategoryController@update');
 
+// project routes
 Route::get('projects', 'ProjectController@index');
 
 Route::delete('project/delete/{project}', 'ProjectController@destroy');
@@ -29,3 +31,6 @@ Route::put('project/update/{project}', 'ProjectController@update');
 Route::post('project/image/add', 'ProjectController@storeImage');
 
 Route::delete('project/image/delete', 'ProjectController@deleteImage');
+
+
+// blog route

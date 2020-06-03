@@ -12,8 +12,8 @@ $factory->define(Project::class, function (Faker $faker) {
         'project_category_id' => $faker->randomElement($project_category_ids),
         'title' => $faker->realText(10),
         'description' => $faker->realText(50),
-        'image' => $faker->imageUrl($width = 500, $height = 500),
-        'display_order' => $faker->unique()->randomDigitNotNull,
+        'image' => $faker->image($dir = 'public/faker', $width = 1000, $height = 1000),
+        'display_order' => $faker->numberBetween($min = 1, $max = 1000),
         'github' => $faker->url,
         'live' => $faker->url
     ];
