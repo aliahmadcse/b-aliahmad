@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
-use App\ProjectCategory;
 
 class HomeController extends Controller
 {
@@ -19,11 +17,12 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard for admin.
+     * Show the Home view.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        return view('about');
     }
 }

@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('about');
-})->name('about');
+Route::get('/', 'HomeController@index')->name('about');
 
 // here, we modify authentications routes, It will not let user
 // registeration or password reset
