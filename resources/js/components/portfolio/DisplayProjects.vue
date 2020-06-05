@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- catgeory navbar -->
         <ul class="nav nav-tabs portfolio-main" role="tablist">
             <li class="nav-item" role="presentation">
                 <a

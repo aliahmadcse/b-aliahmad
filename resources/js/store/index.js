@@ -95,13 +95,8 @@ export default new Vuex.Store({
                     ? projects.push(...projectCategory.projects)
                     : "";
             });
-            // return projects;
-            if (projects.length > 0) {
-                return projects;
-            } else {
-                return getters.allProjects;
-            }
-            // return projects ? projects.length > 0 : getters.projects;
+
+            return projects.length > 0 ? projects : getters.allProjects;
         }
     },
 

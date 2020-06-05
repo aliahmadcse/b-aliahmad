@@ -3176,6 +3176,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // lightbox2
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -61180,14 +61181,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         var projects = [];
         state.projectCategories.forEach(function (projectCategory) {
           projectCategory.category == category ? projects.push.apply(projects, _toConsumableArray(projectCategory.projects)) : "";
-        }); // return projects;
-
-        if (projects.length > 0) {
-          return projects;
-        } else {
-          return getters.allProjects;
-        } // return projects ? projects.length > 0 : getters.projects;
-
+        });
+        return projects.length > 0 ? projects : getters.allProjects;
       };
     }
   },
