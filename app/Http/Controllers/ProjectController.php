@@ -74,8 +74,10 @@ class ProjectController extends Controller
     {
         $file = $request->file('file');
         $dir = "public/images";
-        $path = $file->store($dir);
-        return str_replace("public", '/storage', $path);
+        // $path = $file->store('project', 's3');
+        // return str_replace("public", '/storage', $path);
+        Storage::disk('s3')->put('xo1u1n70b8rq/project', $file);
+        // return $path;
     }
 
     /**
