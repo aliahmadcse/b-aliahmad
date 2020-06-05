@@ -20,7 +20,7 @@ Route::get('/', function () {
 // here, we modify authentications routes, It will not let user
 // registeration or password reset
 Auth::routes([
-    'register' => true,
+    'register' => false,
     'reset' => false
 ]);
 
