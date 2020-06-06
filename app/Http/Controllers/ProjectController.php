@@ -73,11 +73,9 @@ class ProjectController extends Controller
     public function storeImage(Request $request)
     {
         $file = $request->file('file');
-        $dir = "public/images";
-        // $path = $file->store('project', 's3');
-        // return str_replace("public", '/storage', $path);
-        Storage::disk('s3')->put('xo1u1n70b8rq/project', $file);
-        // return $path;
+        $dir = "xo1u1n70b8rq/public/projects";
+        $path = $file->store($dir, 's3');
+        return Storage::disk('s3')->url($path);
     }
 
     /**
@@ -88,9 +86,9 @@ class ProjectController extends Controller
      */
     public function deleteImage(Request $request)
     {
-        $imagePath = $request->input('imgPath');
-        $imageName = str_replace('/storage/images/', '', $imagePath);
-        Storage::delete('/public/images/' . $imageName);
+        $imageURL = $request->input('imgPath');
+        $imageName = basename($imageURL);
+        Storage::disk('s3')->delete('xo1u1n70b8rq/public/projects/' . $imageName);
         return ['success' => 200];
     }
 
@@ -133,9 +131,9 @@ class ProjectController extends Controller
         }
         // removing old image from storage
         if ($project->image !== $request->validated()['image']) {
-            $imagePath = $project->image;
-            $imageName = str_replace('/storage/images/', '', $imagePath);
-            Storage::delete('/public/images/' . $imageName);
+            $imageURL = $project->image;
+            $imageName = basename($imageURL);
+            Storage::disk('s3')->delete('xo1u1n70b8rq/public/projects/' . $imageName);
         }
 
         // updating project
@@ -155,6 +153,12 @@ class ProjectController extends Controller
         $display_order = $project->display_order;
         $project->where('display_order', '>', $display_order)
             ->decrement('display_order', 1);
+
+        //deleting image
+        $imageURL = $project->image;
+        $imageName = basename($imageURL);
+        Storage::disk('s3')->delete('xo1u1n70b8rq/public/projects/' . $imageName);
+
         $project->delete();
         return response()->json('Project deleted successfully', 204);
     }
