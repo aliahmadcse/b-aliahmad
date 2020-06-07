@@ -38,7 +38,7 @@ Vue.component(
     require("./components/portfolio/DisplayProjects.vue").default
 );
 Vue.component(
-    "display-projects",
+    "blog-nav",
     require("./components/blog/BlogNav.vue").default
 );
 Vue.component(
