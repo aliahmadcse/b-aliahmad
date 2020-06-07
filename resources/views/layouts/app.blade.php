@@ -55,8 +55,8 @@
                             <li class="nav-item {{ request()->is('portfolio') ? 'active':'' }}">
                                 <a class="nav-link" href="{{ route('portfolio') }}">Portfolio</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Blog</a>
+                            <li class="nav-item {{ request()->is('blog') ? 'active':'' }}">
+                                <a class="nav-link" href="{{ route('blog') }}">Blog</a>
                             </li>
                             @auth
                             <li class="nav-item dropdown">
