@@ -21,6 +21,8 @@ class CreateBlogsTable extends Migration
             $table->longText('body')->comment('The post body');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('blog_tag_id')->references('id')->on('blog_tags');
         });
     }
 
