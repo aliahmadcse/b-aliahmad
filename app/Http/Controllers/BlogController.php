@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Blog;
 
 class BlogController extends Controller
 {
@@ -13,7 +14,22 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('blog');
+        $blogs = Blog::with([
+            'tag' => function ($query) {
+                $query->select('id', 'tag');
+            }
+        ])->select(
+            'id',
+            'blog_tag_id',
+            'title',
+            'description',
+            'is_published',
+            'created_at',
+            'updated_at'
+        )->where('is_published', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('blog', compact('blogs'));
     }
 
     /**

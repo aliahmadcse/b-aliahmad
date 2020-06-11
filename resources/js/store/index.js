@@ -6,10 +6,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         projectCategories: [],
-        projects: []
+        projects: [],
+        blogs: [],
+        blogTags: []
     },
 
     mutations: {
+        SET_BLOGS(state, blogs) {
+            state.blogs = blogs;
+        },
+
         SET_PROJECTS(state, projects) {
             state.projects = projects;
         },

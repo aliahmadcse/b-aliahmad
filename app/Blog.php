@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
-    protected $fillable = [];
+    protected $fillable = [
+        'blog_tag_id',
+        'title',
+        'description',
+        'body',
+        'is_published'
+    ];
 
     /**
      * Defines an inverse relation of hasMany with Blog tags
@@ -15,6 +21,6 @@ class Blog extends Model
      */
     public function tag()
     {
-        return $this->belongsTo('App/BlogTag');
+        return $this->belongsTo('App\BlogTag', 'blog_tag_id', 'id');
     }
 }

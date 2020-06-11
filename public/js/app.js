@@ -3126,6 +3126,11 @@ __webpack_require__.r(__webpack_exports__);
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["blogs"],
+  created: function created() {
+    this.$store.commit("SET_BLOGS", _.cloneDeep(this.blogs));
+    console.log(this.$store.state.blogs);
+  },
   router: new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
     mode: "history",
     base: "blog",
@@ -3148,8 +3153,6 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -43529,7 +43532,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    My first blog post\n")])
+  return _c("div", [_vm._v("My first blog post")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -61298,9 +61301,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     projectCategories: [],
-    projects: []
+    projects: [],
+    blogs: [],
+    blogTags: []
   },
   mutations: {
+    SET_BLOGS: function SET_BLOGS(state, blogs) {
+      state.blogs = blogs;
+    },
     SET_PROJECTS: function SET_PROJECTS(state, projects) {
       state.projects = projects;
     },

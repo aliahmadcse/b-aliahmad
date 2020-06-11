@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogTag extends Model
 {
-    protected $fillable = [];
+    protected $fillable = [
+        'tag'
+    ];
 
     /**
      * Defines BlogTag relationship with blogPosts
@@ -15,6 +17,6 @@ class BlogTag extends Model
      */
     public function posts()
     {
-        return $this->hasMany('App\Blog');
+        return $this->hasMany('App\Blog', 'blog_tag_id', 'id');
     }
 }
