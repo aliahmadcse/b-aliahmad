@@ -16,6 +16,7 @@ class CreateBlogsTable extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('blog_tag_id')->index('blog_tag_id');
+            $table->unsignedBigInteger('author_id')->index('author_id');
             $table->string('title', 255)->comment('Post title');
             $table->text('description')->comment('Post description');
             $table->longText('body')->comment('The post body');
@@ -25,6 +26,7 @@ class CreateBlogsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('blog_tag_id')->references('id')->on('blog_tags');
+            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 

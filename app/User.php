@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'avatar'
     ];
 
     /**
@@ -37,4 +37,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Defines a one to many relationship with Blog model
+     *
+     * @return one to many relationship
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Blog', 'author_id', 'id');
+    }
 }

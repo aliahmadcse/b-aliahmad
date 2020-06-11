@@ -3179,6 +3179,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     blogs: function blogs() {
@@ -7798,7 +7810,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Mo
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".card .tag[data-v-a9c9b65e] {\n  margin: 1px;\n}\n.card img[data-v-a9c9b65e] {\n  height: 200px;\n}", ""]);
+exports.push([module.i, ".card .tag[data-v-a9c9b65e] {\n  margin: 1px;\n}\n.card .card-img[data-v-a9c9b65e] {\n  height: 200px;\n}\n.card .author-avatar[data-v-a9c9b65e] {\n  max-width: 30px;\n  max-height: 30px;\n}\n.card .author-name[data-v-a9c9b65e] {\n  text-decoration: none;\n}\n.card .card-title[data-v-a9c9b65e] {\n  color: #24292e;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 1.6rem;\n}\n.card .card-description[data-v-a9c9b65e] {\n  color: #555353;\n  font-size: 1.2rem;\n}", ""]);
 
 // exports
 
@@ -43627,7 +43639,7 @@ var render = function() {
           _c("div", { staticClass: "row no-gutters" }, [
             _c("div", { staticClass: "col-md-4" }, [
               _c("img", {
-                staticClass: "card-img mt-4 mr-5",
+                staticClass: "card-img mt-4",
                 attrs: { src: blog.image, alt: "" }
               })
             ]),
@@ -43642,13 +43654,17 @@ var render = function() {
                   _vm._v(_vm._s(blog.title))
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
+                _c("p", { staticClass: "card-text card-description" }, [
                   _vm._v(_vm._s(blog.description))
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "card-text float-right" }, [
-                  _c("small", { staticClass: "text-muted" }, [
-                    _vm._v(_vm._s(_vm.blogDate(blog.created_at)))
+                _c("div", { staticClass: "d-flex justify-content-between" }, [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v(_vm._s(_vm.blogDate(blog.created_at)))
+                    ])
                   ])
                 ])
               ])
@@ -43660,7 +43676,27 @@ var render = function() {
     0
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex align-items-center" }, [
+      _c("img", {
+        staticClass: "author-avatar img-fluid rounded-circle mr-2",
+        attrs: { src: "images/profile.jpg", alt: "" }
+      }),
+      _vm._v(" "),
+      _c("p", { staticClass: "card-text" }, [
+        _c(
+          "a",
+          { staticClass: "author-name text-secondary", attrs: { href: "/" } },
+          [_vm._v("Ali Ahmad")]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

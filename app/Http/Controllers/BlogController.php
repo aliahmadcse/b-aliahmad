@@ -17,6 +17,9 @@ class BlogController extends Controller
         $blogs = Blog::with([
             'tag' => function ($query) {
                 $query->select('id', 'tag');
+            },
+            'author' => function ($query) {
+                $query->select('id', 'name', 'avatar');
             }
         ])->select(
             'id',
