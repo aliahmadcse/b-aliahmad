@@ -13,6 +13,7 @@ $factory->define(Blog::class, function (Faker $faker) {
         'title' => $faker->sentence($nbWords = 8, $variableNbWords = true),
         'description' => $faker->realText($maxNbChar = 200, $indexSize = 1),
         'body' => $faker->realText($maxNbChar = 2500, $indexSize = 1),
+        'image' => $faker->imageUrl($width = 1000, $height = 540),
         'is_published' => 1
     ];
 });

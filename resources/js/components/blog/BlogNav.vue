@@ -15,7 +15,6 @@ export default {
 
     created: function() {
         this.$store.commit("SET_BLOGS", _.cloneDeep(this.blogs));
-        console.log(this.$store.state.blogs);
     },
 
     router: new VueRouter({

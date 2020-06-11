@@ -23,6 +23,7 @@ class BlogController extends Controller
             'blog_tag_id',
             'title',
             'description',
+            'image',
             'is_published',
             'created_at',
             'updated_at'

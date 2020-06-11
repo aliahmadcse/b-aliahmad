@@ -37,10 +37,7 @@ Vue.component(
     "display-projects",
     require("./components/portfolio/DisplayProjects.vue").default
 );
-Vue.component(
-    "blog-nav",
-    require("./components/blog/BlogNav.vue").default
-);
+Vue.component("blog-nav", require("./components/blog/BlogNav.vue").default);
 Vue.component(
     "admin-navbar",
     require("./components/admin/AdminNavbar.vue").default

@@ -19,6 +19,7 @@ class CreateBlogsTable extends Migration
             $table->string('title', 255)->comment('Post title');
             $table->text('description')->comment('Post description');
             $table->longText('body')->comment('The post body');
+            $table->string('image', 255)->comment('Post header image');
             $table->boolean('is_published')->comment('Either the post is published or not. 0 indicates saved draft while 1 indicates published');
             $table->timestamps();
             $table->softDeletes();

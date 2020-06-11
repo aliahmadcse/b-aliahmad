@@ -11,6 +11,7 @@ class Blog extends Model
         'title',
         'description',
         'body',
+        'image',
         'is_published'
     ];
 
