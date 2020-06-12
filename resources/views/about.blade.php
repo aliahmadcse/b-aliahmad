@@ -3,7 +3,7 @@
 @section('title','About')
 
 @section('content')
-<about-section></about-section>
+<about-section :user="{{ $user }}"></about-section>
 @endsection
 
 @section('footer')

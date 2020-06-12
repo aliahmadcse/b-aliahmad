@@ -18,10 +18,13 @@ Route::get('/', 'HomeController@index')->name('about');
 // here, we modify authentications routes, It will not let user
 // registeration or password reset
 Auth::routes([
-    'register' => true,
+    'register' => false,
     'reset' => false
 ]);
 
+// User resource controller routes
+Route::resource('user', 'UserController')
+    ->middleware('can:visit-admin-panel');
 
 // can middleware will only allow the admin user to visit this route
 // This middleware gate is defined in App\Providers\AuthServiceProvider

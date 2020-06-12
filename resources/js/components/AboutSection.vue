@@ -5,7 +5,7 @@
                 <div>
                     <img
                         class="image rounded-circle img-fluid img-thumbnail"
-                        src="/images/profile.jpg"
+                        :src="user.avatar"
                         alt="profile"
                     />
                 </div>
@@ -67,6 +67,8 @@
 import Typed from "typed.js";
 
 export default {
+    props: ["user"],
+
     // script for Typed
     mounted: function() {
         var typed = new Typed(".tag", {

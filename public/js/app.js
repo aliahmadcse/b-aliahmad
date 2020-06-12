@@ -1989,6 +1989,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["user"],
   // script for Typed
   mounted: function mounted() {
     var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0___default.a(".tag", {
@@ -3128,6 +3129,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["blogs"],
   created: function created() {
+    console.log(this.blogs);
     this.$store.commit("SET_BLOGS", _.cloneDeep(this.blogs));
   },
   router: new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -42264,104 +42266,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "about" }, [
+    _c("section", { staticClass: "header-image" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "row-1 row d-flex flex-row justify-content-center align-items-center"
+        },
+        [
+          _c("div", [
+            _c("img", {
+              staticClass: "image rounded-circle img-fluid img-thumbnail",
+              attrs: { src: _vm.user.avatar, alt: "profile" }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "about" }, [
-      _c("section", { staticClass: "header-image" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "row-1 row d-flex flex-row justify-content-center align-items-center"
-          },
-          [
-            _c("div", [
-              _c("img", {
-                staticClass: "image rounded-circle img-fluid img-thumbnail",
-                attrs: { src: "/images/profile.jpg", alt: "profile" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("span", { staticClass: "tagline m-5" }, [
-                _c("p", { staticClass: "tag text-gray" })
-              ])
+    return _c("div", [
+      _c("span", { staticClass: "tagline m-5" }, [
+        _c("p", { staticClass: "tag text-gray" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "intro" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("article", { staticClass: "text-center mt-5" }, [
+            _c("p", [
+              _vm._v(
+                "\n                        Hi ✋, I am Ali Ahmad. I am a web developer 💻 and loves developing websites with\n                        "
+              ),
+              _c(
+                "a",
+                {
+                  staticClass: "text-link",
+                  attrs: { href: "https://laravel.com/", target: "_blank" }
+                },
+                [_vm._v("Laravel")]
+              ),
+              _vm._v(" and\n                        "),
+              _c(
+                "a",
+                {
+                  staticClass: "text-link",
+                  attrs: { href: "https://vuejs.org/", target: "_blank" }
+                },
+                [_vm._v("Vue.js")]
+              ),
+              _vm._v(
+                ".\n                        I have over an year of experience in development. You may want to have a look at my\n                        "
+              ),
+              _c(
+                "a",
+                { staticClass: "text-link", attrs: { href: "/portfolio" } },
+                [_vm._v("Portfolio")]
+              ),
+              _vm._v(
+                ".\n                        Besides this, I am an undergrad student in a well known univeristy of Pakistan, known\n                        as\n                        "
+              ),
+              _c(
+                "a",
+                {
+                  staticClass: "text-link",
+                  attrs: { href: "https://www.uet.edu.pk/", target: "_blank" }
+                },
+                [_vm._v("UET Lahore")]
+              ),
+              _vm._v(
+                " with majors in Computer Science 👨‍💻.\n                    "
+              )
             ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("section", { staticClass: "intro" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c("article", { staticClass: "text-center mt-5" }, [
-              _c("p", [
-                _vm._v(
-                  "\n                        Hi ✋, I am Ali Ahmad. I am a web developer 💻 and loves developing websites with\n                        "
-                ),
-                _c(
-                  "a",
-                  {
-                    staticClass: "text-link",
-                    attrs: { href: "https://laravel.com/", target: "_blank" }
-                  },
-                  [_vm._v("Laravel")]
-                ),
-                _vm._v(" and\n                        "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "text-link",
-                    attrs: { href: "https://vuejs.org/", target: "_blank" }
-                  },
-                  [_vm._v("Vue.js")]
-                ),
-                _vm._v(
-                  ".\n                        I have over an year of experience in development. You may want to have a look at my\n                        "
-                ),
-                _c(
-                  "a",
-                  { staticClass: "text-link", attrs: { href: "/portfolio" } },
-                  [_vm._v("Portfolio")]
-                ),
-                _vm._v(
-                  ".\n                        Besides this, I am an undergrad student in a well known univeristy of Pakistan, known\n                        as\n                        "
-                ),
-                _c(
-                  "a",
-                  {
-                    staticClass: "text-link",
-                    attrs: { href: "https://www.uet.edu.pk/", target: "_blank" }
-                  },
-                  [_vm._v("UET Lahore")]
-                ),
-                _vm._v(
-                  " with majors in Computer Science 👨‍💻.\n                    "
-                )
-              ])
-            ]),
+          ]),
+          _vm._v(" "),
+          _c("article", [
+            _c("p", [_vm._v("Below is the list of my top skill set:")]),
             _vm._v(" "),
-            _c("article", [
-              _c("p", [_vm._v("Below is the list of my top skill set:")]),
+            _c("ul", [
+              _c("li", [_vm._v("Laravel / Php")]),
               _vm._v(" "),
-              _c("ul", [
-                _c("li", [_vm._v("Laravel / Php")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Vue.js")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Relational Database (MySql)")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Version Control (Git / Github)")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Responsive Web Design")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Python")])
-              ])
+              _c("li", [_vm._v("Vue.js")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Relational Database (MySql)")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Version Control (Git / Github)")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Responsive Web Design")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Python")])
             ])
           ])
         ])
