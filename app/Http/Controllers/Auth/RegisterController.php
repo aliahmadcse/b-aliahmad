@@ -6,7 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Storage;
+use App\ManageStorage\s3;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -66,9 +66,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $dir = "xo1u1n70b8rq/public/avatar";
-        $path = $data['avatar']->store($dir, 's3');
-        $avatarUrl = Storage::disk('s3')->url($path);
+        $avatarUrl = s3::save($file = $data['avatar'], $dir = 'public/avatar');
+
         // $avatarUrl = $data['avatar'];
         return User::create([
             'name' => $data['name'],

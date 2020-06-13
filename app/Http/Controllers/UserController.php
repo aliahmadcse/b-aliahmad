@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\ManageStorage\s3;
 
 class UserController extends Controller
 {
@@ -84,15 +84,12 @@ class UserController extends Controller
 
         if ($request->has('avatar')) {
             //deleting old image
-            $imageURL = $user->avatar;
-            $imageName = basename($imageURL);
-            Storage::disk('s3')->delete('xo1u1n70b8rq/public/avatar/' . $imageName);
+            $imageName = basename($user->avatar);
+            s3::delete('public/avatar/' . $imageName);
 
             // uploading new image
-            $file = $validated_data['avatar'];
-            $dir = "xo1u1n70b8rq/public/avatar";
-            $path = $file->store($dir, 's3');
-            $validated_data['avatar'] = Storage::disk('s3')->url($path);
+            $fileUrl = s3::save($validated_data['avatar'], 'public/avatar');
+            $validated_data['avatar'] = $fileUrl;
         }
 
         $user->update($validated_data);
