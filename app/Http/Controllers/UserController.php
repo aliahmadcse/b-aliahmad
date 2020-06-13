@@ -84,7 +84,7 @@ class UserController extends Controller
 
         if ($request->has('avatar')) {
             //deleting old image
-            $imageURL = $user->image;
+            $imageURL = $user->avatar;
             $imageName = basename($imageURL);
             Storage::disk('s3')->delete('xo1u1n70b8rq/public/avatar/' . $imageName);
 

@@ -17,12 +17,15 @@
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <img
-                                        src="images/profile.jpg"
+                                        :src="blog.author.avatar"
                                         class="author-avatar img-fluid rounded-circle mr-2"
                                         alt
                                     />
                                     <p class="card-text">
-                                        <a href="/" class="author-name text-secondary">Ali Ahmad</a>
+                                        <a
+                                            href="/"
+                                            class="author-name text-secondary"
+                                        >{{ blog.author.name }}</a>
                                     </p>
                                 </div>
                                 <p class="card-text">

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Blog;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -14,6 +15,8 @@ class BlogController extends Controller
      */
     public function index()
     {
+        DB::enableQueryLog();
+
         $blogs = Blog::with([
             'tag' => function ($query) {
                 $query->select('id', 'tag');
@@ -24,6 +27,7 @@ class BlogController extends Controller
         ])->select(
             'id',
             'blog_tag_id',
+            'author_id',
             'title',
             'description',
             'image',
@@ -33,6 +37,13 @@ class BlogController extends Controller
         )->where('is_published', true)
             ->orderBy('created_at', 'desc')
             ->get();
+
+        // $queries = DB::getQueryLog();
+        // return dd($queries);
+
+        // $blogs = \App\User::with(['posts'])->get();
+
+
         return view('blog', compact('blogs'));
     }
 

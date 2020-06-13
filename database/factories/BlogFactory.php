@@ -10,7 +10,7 @@ $factory->define(Blog::class, function (Faker $faker) {
 
     return [
         'blog_tag_id' => $faker->randomElement($blog_tag_ids),
-        'author_id' => 3,
+        'author_id' => 1,
         'title' => $faker->sentence($nbWords = 8, $variableNbWords = true),
         'description' => $faker->realText($maxNbChar = 200, $indexSize = 1),
         'body' => $faker->realText($maxNbChar = 2500, $indexSize = 1),

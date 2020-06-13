@@ -3193,6 +3193,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     blogs: function blogs() {
@@ -43667,7 +43670,24 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "d-flex justify-content-between" }, [
-                  _vm._m(0, true),
+                  _c("div", { staticClass: "d-flex align-items-center" }, [
+                    _c("img", {
+                      staticClass:
+                        "author-avatar img-fluid rounded-circle mr-2",
+                      attrs: { src: blog.author.avatar, alt: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "author-name text-secondary",
+                          attrs: { href: "/" }
+                        },
+                        [_vm._v(_vm._s(blog.author.name))]
+                      )
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "card-text" }, [
                     _c("small", { staticClass: "text-muted" }, [
@@ -43684,27 +43704,7 @@ var render = function() {
     0
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex align-items-center" }, [
-      _c("img", {
-        staticClass: "author-avatar img-fluid rounded-circle mr-2",
-        attrs: { src: "images/profile.jpg", alt: "" }
-      }),
-      _vm._v(" "),
-      _c("p", { staticClass: "card-text" }, [
-        _c(
-          "a",
-          { staticClass: "author-name text-secondary", attrs: { href: "/" } },
-          [_vm._v("Ali Ahmad")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
