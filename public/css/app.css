@@ -207,7 +207,7 @@
 }
 
 .text-link:hover {
-  color: #555353;
+  color: #086972;
   -webkit-text-decoration-style: solid;
           text-decoration-style: solid;
 }
@@ -17192,10 +17192,22 @@ nav .navbar-brand {
   font-size: 1.5rem;
 }
 
+nav .navbar-brand:hover {
+  background: -webkit-linear-gradient(#086972, #17b978);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 nav .nav-item {
   font-size: 1.2rem;
   margin-left: 5px;
   font-family: "Montserrat", sans-serif;
+}
+
+nav .active {
+  background: -webkit-linear-gradient(#086972, #17b978);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 footer {

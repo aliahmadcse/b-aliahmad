@@ -1,6 +1,9 @@
 // Variables
 @import "variables";
 
+// mixins
+@import "mixins";
+
 //global styles
 @import "global";
 
@@ -22,10 +25,16 @@ nav {
         font-family: $font-family-lexend-deca;
         font-size: $font-size-base * 1.5;
     }
+    .navbar-brand:hover {
+        @include text-gradient;
+    }
     .nav-item {
         font-size: $font-size-base * 1.2;
         margin-left: 5px;
         font-family: $font-family-montserrat;
+    }
+    .active {
+        @include text-gradient;
     }
 }
 
@@ -137,4 +146,3 @@ footer {
         }
     }
 }
-

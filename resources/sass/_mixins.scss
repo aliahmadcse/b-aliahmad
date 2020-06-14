@@ -1,0 +1,8 @@
+
+
+
+@mixin text-gradient {
+    background: -webkit-linear-gradient($atoll, $mountain-meadow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

@@ -9,10 +9,14 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <p class="card-text tag">
-                                <small>#{{ blog.tag.tag }}</small>
+                                <a href="#" class="text-link">
+                                    <small>#{{ blog.tag.tag }}</small>
+                                </a>
                             </p>
 
-                            <h2 class="card-title">{{ blog.title }}</h2>
+                            <a href="#">
+                                <h2 class="card-title">{{ blog.title }}</h2>
+                            </a>
                             <p class="card-text card-description">{{ blog.description }}</p>
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
@@ -75,6 +79,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/variables.scss";
+@import "~@/mixins.scss";
 
 .card {
     .tag {
@@ -94,6 +99,9 @@ export default {
         color: $github;
         font-family: $font-family-montserrat;
         font-size: $font-size-base * 1.6;
+    }
+    .card-title:hover {
+        @include text-gradient;
     }
     .card-description {
         color: $text-light;

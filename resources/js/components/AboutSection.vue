@@ -85,7 +85,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "~@/variables";
+@import "~@/mixins";
+
+.tag {
+    @include text-gradient;
+}
+
 @media (max-width: 800px) {
     .row-1 {
         flex-direction: column !important;
