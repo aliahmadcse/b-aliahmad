@@ -12,26 +12,29 @@
 |
 */
 
-// project category routes
-Route::post('project/category/add', 'ProjectCategoryController@store');
+Route::middleware(['auth:api'])->group(function () {
 
-Route::delete('project/category/delete/{projectCategory}', 'ProjectCategoryController@destroy');
+    // project category routes
+    Route::post('project/category/add', 'ProjectCategoryController@store');
 
-Route::put('project/category/update/{projectCategory}', 'ProjectCategoryController@update');
+    Route::delete('project/category/delete/{projectCategory}', 'ProjectCategoryController@destroy');
 
-// project routes
-Route::get('projects', 'ProjectController@index');
+    Route::put('project/category/update/{projectCategory}', 'ProjectCategoryController@update');
 
-Route::delete('project/delete/{project}', 'ProjectController@destroy');
+    // project routes
+    Route::get('projects', 'ProjectController@index');
 
-Route::post('project/add', 'ProjectController@store');
+    Route::delete('project/delete/{project}', 'ProjectController@destroy');
 
-Route::put('project/update/{project}', 'ProjectController@update');
+    Route::post('project/add', 'ProjectController@store');
 
-Route::post('project/image/add', 'ProjectController@storeImage');
+    Route::put('project/update/{project}', 'ProjectController@update');
 
-Route::delete('project/image/delete', 'ProjectController@deleteImage');
+    Route::post('project/image/add', 'ProjectController@storeImage');
+
+    Route::delete('project/image/delete', 'ProjectController@deleteImage');
+});
 
 
-// blog route
+// blog public route
 Route::get('blogs', 'BlogController@paginateBlog');
