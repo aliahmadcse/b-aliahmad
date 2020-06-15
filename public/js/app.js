@@ -3200,6 +3200,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -3207,7 +3211,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
   data: function data() {
     return {
       blogs: {},
-      alignPagination: "right"
+      alignPosition: "right"
     };
   },
   components: {
@@ -7811,7 +7815,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Mo
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".admin-nav .nav-custom .nav-link[data-v-216b5324] {\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 1.1rem;\n}\n.admin-nav .nav-custom .active[data-v-216b5324] {\n  background: #17b978;\n  color: #fff;\n}", ""]);
+exports.push([module.i, ".admin-nav .nav-custom .nav-link[data-v-216b5324] {\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 1.1rem;\n}\n.admin-nav .nav-custom .active[data-v-216b5324] {\n  background: #086972;\n  color: #fff;\n}", ""]);
 
 // exports
 
@@ -44406,10 +44410,19 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _c("pagination", {
-        attrs: { align: _vm.alignPagination, data: _vm.blogs },
-        on: { "pagination-change-page": _vm.getBlogs }
-      })
+      _c("div", { staticClass: "col-12" }, [
+        _c(
+          "div",
+          { staticClass: "d-flex justify-content-end" },
+          [
+            _c("pagination", {
+              attrs: { "show-disabled": true, data: _vm.blogs },
+              on: { "pagination-change-page": _vm.getBlogs }
+            })
+          ],
+          1
+        )
+      ])
     ],
     2
   )

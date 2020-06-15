@@ -42,7 +42,11 @@
             </div>
         </div>
         <!-- laravel-vue-pagination -->
-        <pagination :align="alignPagination" :data="blogs" @pagination-change-page="getBlogs"></pagination>
+        <div class="col-12">
+            <div class="d-flex justify-content-end">
+                <pagination :show-disabled="true" :data="blogs" @pagination-change-page="getBlogs"></pagination>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -55,7 +59,7 @@ export default {
     data: function() {
         return {
             blogs: {},
-            alignPagination: "right"
+            alignPosition: "right"
         };
     },
 
