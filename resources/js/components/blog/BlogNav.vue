@@ -11,13 +11,6 @@ Vue.use(VueRouter);
 import ListBlogs from "./ListBlogs";
 
 export default {
-    props: ["blogs"],
-
-    created: function() {
-        // console.log(this.blogs);
-        this.$store.commit("SET_BLOGS", _.cloneDeep(this.blogs));
-    },
-
     router: new VueRouter({
         mode: "history",
         base: "blog",

@@ -1,6 +1,6 @@
 <template>
     <div class="row mt-4">
-        <div class="col-lg-9 offset-lg-2" v-for="blog in blogs" :key="blog.id">
+        <div class="col-lg-9 offset-lg-2" v-for="blog in blogs.data" :key="blog.id">
             <div class="card mb-5 border-0" style>
                 <div class="row no-gutters">
                     <div class="col-md-4">
@@ -41,18 +41,50 @@
                 </div>
             </div>
         </div>
+        <!-- laravel-vue-pagination -->
+        <pagination :align="alignPagination" :data="blogs" @pagination-change-page="getBlogs"></pagination>
     </div>
 </template>
 
 <script>
+import laravelVuePagination from "laravel-vue-pagination";
+import VueLoading from "vuejs-loading-plugin";
+Vue.use(VueLoading);
+
 export default {
-    computed: {
-        blogs: function() {
-            return this.$store.state.blogs;
-        }
+    data: function() {
+        return {
+            blogs: {},
+            alignPagination: "right"
+        };
+    },
+
+    components: {
+        pagination: laravelVuePagination
+    },
+
+    mounted: function() {
+        this.getBlogs();
     },
 
     methods: {
+        getBlogs: function(page = 1) {
+            this.$loading(true);
+            axios
+                .get("/api/blogs?page=" + page)
+                .then(res => {
+                    this.blogs = res.data;
+                    this.$loading(false);
+                    window.scroll({
+                        top: 0,
+                        behavior: "auto"
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+
         blogDate: function(ISODate) {
             var months = [
                 "January",

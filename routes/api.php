@@ -34,3 +34,4 @@ Route::delete('project/image/delete', 'ProjectController@deleteImage');
 
 
 // blog route
+Route::get('blogs', 'BlogController@paginateBlog');

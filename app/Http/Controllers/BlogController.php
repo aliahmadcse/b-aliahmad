@@ -14,6 +14,11 @@ class BlogController extends Controller
      */
     public function index()
     {
+        return view('blog');
+    }
+
+    public function paginateBlog()
+    {
         $blogs = Blog::with([
             'tag' => function ($query) {
                 $query->select('id', 'tag');
@@ -33,9 +38,9 @@ class BlogController extends Controller
             'updated_at'
         )->where('is_published', true)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(5);
 
-        return view('blog', compact('blogs'));
+        return response()->json($blogs, 200);
     }
 
     /**

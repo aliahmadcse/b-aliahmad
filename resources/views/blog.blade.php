@@ -3,7 +3,7 @@
 @section('title','Blog')
 
 @section('content')
-<blog-nav :blogs="{{ $blogs }}"></blog-nav>
+<blog-nav></blog-nav>
 @endsection
 
 @section('footer')
