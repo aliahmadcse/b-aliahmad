@@ -7,7 +7,7 @@ export default new Vuex.Store({
     state: {
         projectCategories: [],
         projects: [],
-        blogs: [],
+        blogs: {},
         blogTags: []
     },
 

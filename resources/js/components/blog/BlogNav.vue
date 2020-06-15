@@ -9,6 +9,7 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 import ListBlogs from "./ListBlogs";
+import DisplayBlog from "./DisplayBlog";
 
 export default {
     router: new VueRouter({
@@ -19,6 +20,12 @@ export default {
                 path: "/:page",
                 component: ListBlogs,
                 name: "blog.paginate",
+                props: true
+            },
+            {
+                path: "/:title",
+                component: DisplayBlog,
+                name: "blog.display",
                 props: true
             },
             {

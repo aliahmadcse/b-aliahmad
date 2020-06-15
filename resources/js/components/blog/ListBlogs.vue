@@ -14,9 +14,12 @@
                                 </a>
                             </p>
 
-                            <a href="#" class="text-decoration-none">
+                            <router-link
+                                :to="{name:'blog.display',params:{title:formatTitle(blog.title),id:blog.id}}"
+                                class="text-decoration-none"
+                            >
                                 <h2 class="card-title">{{ blog.title }}</h2>
-                            </a>
+                            </router-link>
                             <p class="card-text card-description">{{ blog.description }}</p>
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
@@ -57,9 +60,7 @@ Vue.use(VueLoading);
 
 export default {
     data: function() {
-        return {
-            blogs: {}
-        };
+        return {};
     },
 
     components: {
@@ -67,12 +68,18 @@ export default {
     },
 
     mounted: function() {
-        this.getBlogs();
+        if (!this.blogs.data) {
+            this.getBlogs();
+        }
     },
 
     computed: {
         page: function() {
             return this.$route.params.page ? this.$route.params.page : 1;
+        },
+
+        blogs: function() {
+            return this.$store.state.blogs;
         }
     },
 
@@ -82,7 +89,7 @@ export default {
             axios
                 .get("/api/blogs?page=" + page)
                 .then(res => {
-                    this.blogs = res.data;
+                    this.$store.commit("SET_BLOGS", res.data);
                     this.$loading(false);
 
                     this.$router
@@ -99,6 +106,10 @@ export default {
                 .catch(err => {
                     console.log(err);
                 });
+        },
+
+        formatTitle: function(title) {
+            return title.replace(/\s+/g, "-").toLowerCase();
         },
 
         blogDate: function(ISODate) {
