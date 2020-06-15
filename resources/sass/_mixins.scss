@@ -1,8 +1,17 @@
-
-
-
 @mixin text-gradient {
     background: -webkit-linear-gradient($atoll, $mountain-meadow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin text-gradient-2 {
+    background: -webkit-linear-gradient($mint-green, $atoll);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin text-gradient-3 {
+    background: -webkit-linear-gradient($mint-green, $mountain-meadow);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

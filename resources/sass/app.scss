@@ -118,31 +118,10 @@ footer {
         transition: all 0.3s ease;
     }
 
-    .card-link-github {
-        color: $github;
-    }
-
-    .card-link-live {
-        color: $blue;
-    }
-
     .card-link-github:hover,
     .card-link-live:hover {
         transform: translate3d(1px, 1px, 1px);
     }
 }
 
-// admin navbar
-.admin-nav {
-    .nav-custom {
-        .nav-link {
-            color: $indigo;
-            font-family: $font-family-montserrat;
-            font-size: $font-size-base * 1.1;
-        }
-        .active {
-            background: $purple;
-            color: $white;
-        }
-    }
-}
+

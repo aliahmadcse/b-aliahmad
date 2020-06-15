@@ -157,4 +157,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/variables";
+@import "~@/mixins";
+.admin-nav {
+    .nav-custom {
+        .nav-link {
+            font-family: $font-family-montserrat;
+            font-size: $font-size-base * 1.1;
+        }
+        .active {
+            background: $primary;
+            color: $white;
+        }
+    }
+}
 </style>

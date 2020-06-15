@@ -98,15 +98,26 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/variables";
+@import "~@/mixins";
+
 .portfolio-main {
     li {
         a {
             font-family: $font-family-montserrat;
-            color: $blue;
             font-size: $font-size-base * 1.2;
             cursor: pointer;
             text-transform: uppercase;
         }
+        .prlink {
+            @include text-gradient-2;
+        }
     }
+}
+.card-link-github {
+    @include text-gradient;
+}
+
+.card-link-live {
+    @include text-gradient;
 }
 </style>

@@ -14,7 +14,7 @@
                                 </a>
                             </p>
 
-                            <a href="#">
+                            <a href="#" class="text-decoration-none">
                                 <h2 class="card-title">{{ blog.title }}</h2>
                             </a>
                             <p class="card-text card-description">{{ blog.description }}</p>
@@ -28,7 +28,7 @@
                                     <p class="card-text">
                                         <a
                                             href="/"
-                                            class="author-name text-secondary"
+                                            class="author-name text-gray"
                                         >{{ blog.author.name }}</a>
                                     </p>
                                 </div>
@@ -98,11 +98,12 @@ export default {
     .card-title {
         color: $github;
         font-family: $font-family-montserrat;
-        font-size: $font-size-base * 1.6;
+        font-size: $font-size-base * 1.7;
     }
     .card-title:hover {
         @include text-gradient;
     }
+
     .card-description {
         color: $text-light;
         font-size: $font-size-base * 1.2;
