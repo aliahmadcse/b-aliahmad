@@ -3131,6 +3131,11 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
     mode: "history",
     base: "blog",
     routes: [{
+      path: "/:page",
+      component: _ListBlogs__WEBPACK_IMPORTED_MODULE_1__["default"],
+      name: "blog.paginate",
+      props: true
+    }, {
       path: "/",
       component: _ListBlogs__WEBPACK_IMPORTED_MODULE_1__["default"],
       name: "blog.list"
@@ -3210,8 +3215,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      blogs: {},
-      alignPosition: "right"
+      blogs: {}
     };
   },
   components: {
@@ -3220,20 +3224,32 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
   mounted: function mounted() {
     this.getBlogs();
   },
+  computed: {
+    page: function page() {
+      return this.$route.params.page ? this.$route.params.page : 1;
+    }
+  },
   methods: {
     getBlogs: function getBlogs() {
       var _this = this;
 
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
       this.$loading(true);
       axios.get("/api/blogs?page=" + page).then(function (res) {
         _this.blogs = res.data;
 
         _this.$loading(false);
 
+        _this.$router.push({
+          name: "blog.paginate",
+          params: {
+            page: page
+          }
+        })["catch"](function (err) {});
+
         window.scroll({
           top: 0,
-          behavior: "auto"
+          behavior: "smooth"
         });
       })["catch"](function (err) {
         console.log(err);

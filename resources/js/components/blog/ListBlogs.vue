@@ -58,8 +58,7 @@ Vue.use(VueLoading);
 export default {
     data: function() {
         return {
-            blogs: {},
-            alignPosition: "right"
+            blogs: {}
         };
     },
 
@@ -71,17 +70,30 @@ export default {
         this.getBlogs();
     },
 
+    computed: {
+        page: function() {
+            return this.$route.params.page ? this.$route.params.page : 1;
+        }
+    },
+
     methods: {
-        getBlogs: function(page = 1) {
+        getBlogs: function(page = this.page) {
             this.$loading(true);
             axios
                 .get("/api/blogs?page=" + page)
                 .then(res => {
                     this.blogs = res.data;
                     this.$loading(false);
+
+                    this.$router
+                        .push({
+                            name: "blog.paginate",
+                            params: { page }
+                        })
+                        .catch(err => {});
                     window.scroll({
                         top: 0,
-                        behavior: "auto"
+                        behavior: "smooth"
                     });
                 })
                 .catch(err => {

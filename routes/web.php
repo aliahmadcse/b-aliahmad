@@ -38,4 +38,6 @@ Route::get('portfolio', 'ProjectCategoryController@index')
     ->name('portfolio');
 
 // display blogs
-Route::get('blog', 'BlogController@index')->name('blog');
+Route::get('blog/{any?}', 'BlogController@index')
+    ->name('blog')
+    ->where('any', '.*');
