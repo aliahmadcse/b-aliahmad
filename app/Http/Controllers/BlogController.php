@@ -44,6 +44,18 @@ class BlogController extends Controller
     }
 
     /**
+     * Returns a single resource
+     *
+     * @param Blog $blog
+     * @return Response
+     */
+    public function blogById(Blog $blog)
+    {
+        // $blog = $blog->with('author');
+        return response()->json($blog, 200);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

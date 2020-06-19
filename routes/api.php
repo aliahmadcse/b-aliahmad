@@ -33,8 +33,12 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('project/image/add', 'ProjectController@storeImage');
 
     Route::delete('project/image/delete', 'ProjectController@deleteImage');
+
+    // blog private routes
 });
 
 
 // blog public route
 Route::get('blogs', 'BlogController@paginateBlog');
+
+Route::get('blog/{blog}', 'BlogController@blogById');

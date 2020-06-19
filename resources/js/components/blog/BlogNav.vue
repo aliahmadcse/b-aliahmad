@@ -23,7 +23,7 @@ export default {
                 props: true
             },
             {
-                path: "/:title",
+                path: "/:id/:title",
                 component: DisplayBlog,
                 name: "blog.display",
                 props: true

@@ -1,11 +1,15 @@
 <template>
-    <div>{{ id }}</div>
+    <div>{{ blog.id }}</div>
 </template>
 
 <script>
+import VueLoading from "vuejs-loading-plugin";
+Vue.use(VueLoading);
+
 export default {
     data: function() {
         return {
+            blog: {},
             blogId: 0
         };
     },
@@ -14,10 +18,18 @@ export default {
         this.blogId = this.$route.params.id;
     },
 
-    computed: {
-        id: function() {
-            return this.blogId;
-        }
+    mounted: function() {
+        this.$loading(true);
+        axios
+            .get("/api/blog/" + this.blogId)
+            .then(res => {
+                this.blog = res.data;
+                this.$loading(false);
+            })
+            .catch(err => {
+                console.log(err);
+                this.$loading(false);
+            });
     }
 };
 </script>
