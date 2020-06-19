@@ -110,27 +110,6 @@ export default {
 
         formatTitle: function(title) {
             return title.replace(/\s+/g, "-").toLowerCase();
-        },
-
-        blogDate: function(ISODate) {
-            var months = [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"
-            ];
-            let date = new Date(ISODate);
-            return `${
-                months[date.getMonth()]
-            }/${date.getDate()}/${date.getFullYear()}`;
         }
     }
 };

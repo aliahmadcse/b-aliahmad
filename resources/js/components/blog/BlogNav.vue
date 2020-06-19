@@ -17,7 +17,7 @@ export default {
         base: "blog",
         routes: [
             {
-                path: "/:page",
+                path: "/page/:page",
                 component: ListBlogs,
                 name: "blog.paginate",
                 props: true

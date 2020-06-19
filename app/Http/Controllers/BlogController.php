@@ -51,7 +51,14 @@ class BlogController extends Controller
      */
     public function blogById(Blog $blog)
     {
-        // $blog = $blog->with('author');
+        $blog->load([
+            'author' => function ($query) {
+                $query->select('id', 'name', 'avatar');
+            },
+            'tag' => function ($query) {
+                $query->select('id', 'tag');
+            }
+        ]);
         return response()->json($blog, 200);
     }
 

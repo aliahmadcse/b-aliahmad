@@ -60,6 +60,27 @@ Vue.mixin({
                 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
         },
 
+        blogDate: function(ISODate) {
+            const months = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ];
+            let date = new Date(ISODate);
+            return `${
+                months[date.getMonth()]
+            }/${date.getDate()}/${date.getFullYear()}`;
+        },
+
         /**
          * This function capitalize the first letter of string
          * @param {string} str string to capitalize

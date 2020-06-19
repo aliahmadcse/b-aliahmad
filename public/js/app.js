@@ -3133,7 +3133,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
     mode: "history",
     base: "blog",
     routes: [{
-      path: "/:page",
+      path: "/page/:page",
       component: _ListBlogs__WEBPACK_IMPORTED_MODULE_1__["default"],
       name: "blog.paginate",
       props: true
@@ -3166,13 +3166,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      blog: {},
-      blogId: 0
+      blogId: 0,
+      blog: {}
     };
   },
   created: function created() {
@@ -3314,11 +3346,6 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
     },
     formatTitle: function formatTitle(title) {
       return title.replace(/\s+/g, "-").toLowerCase();
-    },
-    blogDate: function blogDate(ISODate) {
-      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      var date = new Date(ISODate);
-      return "".concat(months[date.getMonth()], "/").concat(date.getDate(), "/").concat(date.getFullYear());
     }
   }
 });
@@ -7969,7 +7996,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Mo
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);", ""]);
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".blog-title[data-v-146da742] {\n  font-family: \"Lexend Deca\", sans-serif;\n  font-weight: bold;\n}\n.author-avatar[data-v-146da742] {\n  max-width: 30px;\n  max-height: 30px;\n}\n.author-name[data-v-146da742] {\n  text-decoration: none;\n}\n.blog-body[data-v-146da742] {\n  font-size: 1.3rem;\n}\n@media (max-width: 350px) {\n.blog-header[data-v-146da742] {\n    flex-direction: column;\n    align-items: center;\n}\n.blog-author[data-v-146da742] {\n    justify-content: center !important;\n}\n}", ""]);
 
 // exports
 
@@ -44450,7 +44477,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v(_vm._s(_vm.blog.id))])
+  return _c("div", [
+    Object.keys(_vm.blog).length > 0
+      ? _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-12 blog-header d-flex justify-content-around" },
+            [
+              _c(
+                "div",
+                { staticClass: "d-flex blog-author align-items-center" },
+                [
+                  _c("img", {
+                    staticClass: "author-avatar img-fluid rounded-circle mr-2",
+                    attrs: { src: _vm.blog.author.avatar, alt: "avatar" }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "author-name text-gray",
+                        attrs: { href: "/" }
+                      },
+                      [_vm._v(_vm._s(_vm.blog.author.name))]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("a", { staticClass: "text-link", attrs: { href: "#" } }, [
+                _c("small", [_vm._v("#" + _vm._s(_vm.blog.tag.tag))])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("p", [_vm._v(_vm._s(_vm.blogDate(_vm.blog.created_at)))])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 mt-2" }, [
+            _c(
+              "div",
+              { staticClass: "blog-title text-md-center text-sm-left" },
+              [
+                _c("h2", { attrs: { title: "" } }, [
+                  _vm._v(_vm._s(_vm.blog.title))
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-12 mt-2 d-flex justify-content-center" },
+            [
+              _c("img", {
+                staticClass: "img-fluid",
+                attrs: { src: _vm.blog.image, title: "", alt: "header image" }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-8 offset-md-2 text-left mt-3 blog-body" },
+            [
+              _c("p", { staticClass: "lead", attrs: { title: "" } }, [
+                _vm._v(_vm._s(_vm.blog.body))
+              ])
+            ]
+          )
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -61180,6 +61280,11 @@ Vue.mixin({
     formatDateTime: function formatDateTime(ISODate) {
       var date = new Date(ISODate);
       return "".concat(date.getFullYear(), "-").concat(date.getMonth() + 1, "-").concat(date.getDate(), " ").concat(date.getHours(), ":").concat(date.getMinutes());
+    },
+    blogDate: function blogDate(ISODate) {
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var date = new Date(ISODate);
+      return "".concat(months[date.getMonth()], "/").concat(date.getDate(), "/").concat(date.getFullYear());
     },
 
     /**
