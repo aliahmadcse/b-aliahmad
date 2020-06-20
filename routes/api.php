@@ -41,4 +41,6 @@ Route::middleware(['auth:api'])->group(function () {
 // blog public route
 Route::get('blogs', 'BlogController@paginateBlog');
 
+Route::get('blogsByTag/{tag}', 'BlogController@blogByTag');
+
 Route::get('blog/{blog}', 'BlogController@blogById');

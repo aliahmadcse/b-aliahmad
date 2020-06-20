@@ -12,9 +12,12 @@
                         <a href="/" class="author-name text-gray">{{ blog.author.name }}</a>
                     </p>
                 </div>
-                <a href="#" class="text-link">
+                <router-link
+                    class="text-link"
+                    :to="{name:'tag.blogs',params:{page:1,tag:blog.tag.tag,tagId:blog.tag.id}}"
+                >
                     <small>#{{ blog.tag.tag }}</small>
-                </a>
+                </router-link>
                 <div>
                     <p>{{ blogDate(blog.created_at) }}</p>
                 </div>

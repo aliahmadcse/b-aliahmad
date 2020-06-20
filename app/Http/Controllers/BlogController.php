@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Blog;
+use App\BlogTag;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -60,6 +61,32 @@ class BlogController extends Controller
             }
         ]);
         return response()->json($blog, 200);
+    }
+
+    public function blogByTag(BlogTag $tag)
+    {
+        $blogs = Blog::with([
+            'tag' => function ($query) {
+                $query->select('id', 'tag');
+            },
+            'author' => function ($query) {
+                $query->select('id', 'name', 'avatar');
+            }
+        ])->select(
+            'id',
+            'blog_tag_id',
+            'author_id',
+            'title',
+            'description',
+            'image',
+            'is_published',
+            'created_at',
+            'updated_at'
+        )->where('blog_tag_id', $tag->id)
+            ->where('is_published', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+        return response()->json($blogs, 200);
     }
 
     /**

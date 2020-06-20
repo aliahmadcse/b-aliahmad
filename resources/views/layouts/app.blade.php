@@ -55,7 +55,7 @@
                             <li class="nav-item {{ request()->is('portfolio') ? 'active':'' }}">
                                 <a class="nav-link" href="{{ route('portfolio') }}">Portfolio</a>
                             </li>
-                            <li class="nav-item {{ request()->is('blog/*') ? 'active':'' }}">
+                            <li class="nav-item {{ request()->is('blog') || request()->is('blog/*') ? 'active':'' }}">
                                 <a class="nav-link" href="{{ route('blog') }}">Blog</a>
                             </li>
                             @auth

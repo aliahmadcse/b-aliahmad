@@ -8,12 +8,16 @@ export default new Vuex.Store({
         projectCategories: [],
         projects: [],
         blogs: {},
-        blogTags: []
+        tagBlogs: {}
     },
 
     mutations: {
         SET_BLOGS(state, blogs) {
             state.blogs = blogs;
+        },
+
+        SET_TAG_BLOGS(state, tagBlogs) {
+            state.tagBlogs = tagBlogs;
         },
 
         SET_PROJECTS(state, projects) {

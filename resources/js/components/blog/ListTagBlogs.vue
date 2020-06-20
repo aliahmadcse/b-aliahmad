@@ -9,12 +9,9 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <p class="card-text tag">
-                                <router-link
-                                    class="text-link"
-                                    :to="{name:'tag.blogs',params:{page:1,tag:blog.tag.tag,tagId:blog.tag.id}}"
-                                >
+                                <a href="#" class="text-link">
                                     <small>#{{ blog.tag.tag }}</small>
-                                </router-link>
+                                </a>
                             </p>
 
                             <router-link
@@ -71,9 +68,7 @@ export default {
     },
 
     mounted: function() {
-        if (!this.blogs.data) {
-            this.getBlogs();
-        }
+        this.getBlogs();
     },
 
     computed: {
@@ -82,7 +77,15 @@ export default {
         },
 
         blogs: function() {
-            return this.$store.state.blogs;
+            return this.$store.state.tagBlogs;
+        },
+
+        tagId: function() {
+            return this.$route.params.tagId;
+        },
+
+        blogTag: function() {
+            return this.$route.params.tag;
         }
     },
 
@@ -92,9 +95,9 @@ export default {
         getBlogs: function(page = this.page) {
             this.$loading(true);
             axios
-                .get("/api/blogs?page=" + page)
+                .get("/api/blogsByTag/" + this.tagId + "?page=" + page)
                 .then(res => {
-                    this.$store.commit("SET_BLOGS", res.data);
+                    this.$store.commit("SET_TAG_BLOGS", res.data);
                     this.$loading(false);
                     this.routePush(page);
                     window.scroll({
@@ -110,8 +113,12 @@ export default {
         routePush: function(page) {
             this.$router
                 .push({
-                    name: "blog.paginate",
-                    params: { page }
+                    name: "tag.blogs",
+                    params: {
+                        page,
+                        tag: this.blogTag,
+                        tagId: this.tagId
+                    }
                 })
                 .catch(err => {});
         },
