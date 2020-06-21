@@ -24,11 +24,19 @@
 
                 <router-link
                     class="nav-link"
+                    :class="{active:isBlogTagRoute()}"
+                    data-toggle="pill"
+                    role="tab"
+                    :to="{name:'blog.tags'}"
+                >Blog Tags</router-link>
+
+                <router-link
+                    class="nav-link"
                     :class="{active:isBlogRoute()}"
                     data-toggle="pill"
                     role="tab"
-                    :to="{name:'blog.posts'}"
-                >Blog</router-link>
+                    :to="{name:'blogs.posts'}"
+                >Blogs</router-link>
             </div>
         </div>
         <div class="col-lg-9 col-md-6 mt-3">
@@ -50,6 +58,8 @@ import ViewCategories from "./portfolio/categories/ViewCategories";
 
 import BlogNav from "./blog/BlogNav";
 import ListPosts from "./blog/ListPosts";
+import ListTags from "./blog/tags/ListTags";
+import TagFields from "./blog/tags/TagFields";
 
 Vue.use(VueRouter);
 
@@ -68,7 +78,10 @@ export default {
             return this.$route.name.includes("projects");
         },
         isBlogRoute() {
-            return this.$route.name.includes("blog");
+            return this.$route.name.includes("blogs");
+        },
+        isBlogTagRoute() {
+            return this.$route.name.includes("blog.tags");
         },
         isCategoryRoute() {
             return this.$route.name.includes("project.categories");
@@ -141,8 +154,25 @@ export default {
                 children: [
                     {
                         path: "posts",
-                        name: "blog.posts",
+                        name: "blogs.posts",
                         component: ListPosts
+                    },
+                    // blog tags routes
+                    {
+                        path: "tags",
+                        name: "blog.tags",
+                        component: ListTags
+                    },
+                    {
+                        path: "tag/add",
+                        name: "blog.tags.add",
+                        component: TagFields
+                    },
+                    {
+                        path: "tag/edit/:id",
+                        name: "blog.tags.edit",
+                        component: TagFields,
+                        props: true
                     }
                 ]
             },
