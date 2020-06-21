@@ -35,6 +35,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::delete('project/image/delete', 'ProjectController@deleteImage');
 
     // blog private routes
+    Route::get('blog/tags', 'BlogTagController@index');
+
+    Route::delete('blog/tags/delete/{tag}', 'BlogTagController@destroy');
 });
 
 

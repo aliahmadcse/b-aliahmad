@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\BlogTag;
 
 class BlogTagController extends Controller
 {
@@ -13,7 +14,8 @@ class BlogTagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = BlogTag::get();
+        return response()->json($tags, 200);
     }
 
     /**
@@ -77,8 +79,9 @@ class BlogTagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BlogTag $tag)
     {
-        //
+        $tag->delete();
+        return response()->json('Tag was deleted successfully', 204);
     }
 }

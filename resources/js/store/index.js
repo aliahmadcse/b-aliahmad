@@ -7,11 +7,23 @@ export default new Vuex.Store({
     state: {
         projectCategories: [],
         projects: [],
+        // blogs are the paginated blogs returned from server
         blogs: {},
-        tagBlogs: {}
+        // tagBlogs are the blogs specific to a single tag
+        tagBlogs: {},
+        // blogTags are the blog tags returned from the server
+        blogTags: []
     },
 
     mutations: {
+        SET_BLOG_TAGS(state, blogTags) {
+            state.blogTags = blogTags;
+        },
+
+        REMOVE_BLOG_TAG(state, id) {
+            state.blogTags = state.blogTags.filter(tag => tag.id != id);
+        },
+
         SET_BLOGS(state, blogs) {
             state.blogs = blogs;
         },
