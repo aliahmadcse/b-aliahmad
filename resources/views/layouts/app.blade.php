@@ -60,14 +60,22 @@
                             </li>
                             @auth
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown"
+                                    class="nav-link dropdown-toggle {{ request()->is('home/*') || request()->is('home') || request()->is('user/*')  ? 'active':'' }}"
+                                    href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ route('user.edit',auth()->user()->id) }}">
+                                    <a class="dropdown-item {{ request()->is('home') ? 'active':'' }}"
+                                        href="{{ route('home') }}">
+                                        {{ __('Home') }}
+                                    </a>
+
+                                    <a class="dropdown-item {{ request()->is('user/*') ? 'active':'' }}"
+                                        href="{{ route('user.edit',auth()->user()->id) }}">
                                         {{ __('Profile') }}
                                     </a>
 
