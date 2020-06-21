@@ -157,6 +157,7 @@ export default {
                         name: "blogs.posts",
                         component: ListPosts
                     },
+                    
                     // blog tags routes
                     {
                         path: "tags",

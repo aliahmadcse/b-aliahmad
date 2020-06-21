@@ -93,10 +93,13 @@ export default {
             tag: ""
         };
     },
-    created() {
+    async created() {
+        this.$loading(true);
         if (this.$store.state.blogTags.length === 0) {
-            this.getBlogTags();
+            let promise = this.$store.dispatch("getBlogTags");
+            await promise;
         }
+        this.$loading(false);
     },
 
     computed: {
@@ -116,20 +119,6 @@ export default {
                         this.$store.commit("REMOVE_BLOG_TAG", id);
                         this.$loading(false);
                     }
-                })
-                .catch(err => {
-                    this.$loading(false);
-                    console.log(err);
-                });
-        },
-
-        getBlogTags() {
-            this.$loading(true);
-            axios
-                .get("/api/blog/tags")
-                .then(res => {
-                    this.$loading(false);
-                    this.$store.commit("SET_BLOG_TAGS", res.data);
                 })
                 .catch(err => {
                     this.$loading(false);

@@ -36,7 +36,11 @@ class BlogTagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated_data = $request->validate([
+            'tag' => 'required|max:50|alpha'
+        ]);
+        $tag = BlogTag::create($validated_data);
+        return response()->json($tag, 201);
     }
 
     /**
@@ -68,9 +72,14 @@ class BlogTagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, BlogTag $tag)
     {
-        //
+        $validated_data = $request->validate([
+            'tag' => 'required|max:50|alpha'
+        ]);
+
+        $tag->update($validated_data);
+        return ['status' => 204];
     }
 
     /**

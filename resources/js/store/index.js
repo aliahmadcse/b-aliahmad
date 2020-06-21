@@ -20,6 +20,20 @@ export default new Vuex.Store({
             state.blogTags = blogTags;
         },
 
+        ADD_BLOG_TAG(state, tag) {
+            state.blogTags.push(tag);
+        },
+
+        UPDATE_BLOG_TAG(state, { id, tag }) {
+            state.blogTags = state.blogTags.map(blogTag => {
+                if (blogTag.id == id) {
+                    blogTag["tag"] = tag;
+                    return blogTag;
+                }
+                return blogTag;
+            });
+        },
+
         REMOVE_BLOG_TAG(state, id) {
             state.blogTags = state.blogTags.filter(tag => tag.id != id);
         },
@@ -78,6 +92,10 @@ export default new Vuex.Store({
     },
 
     getters: {
+        blogTagById: state => id => {
+            return state.blogTags.filter(tag => tag.id == id);
+        },
+
         categories: state => {
             return _.cloneDeep(state.projectCategories).map(projectCategory => {
                 delete projectCategory.projects;
@@ -129,6 +147,22 @@ export default new Vuex.Store({
                     .get("/api/projects")
                     .then(res => {
                         commit("SET_PROJECTS", res.data);
+                        resolve("Success");
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        reject("Failed");
+                    });
+            });
+        },
+
+        // getting blog tags from server
+        getBlogTags({ commit, state }) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get("/api/blog/tags")
+                    .then(res => {
+                        commit("SET_BLOG_TAGS", res.data);
                         resolve("Success");
                     })
                     .catch(err => {
