@@ -18,6 +18,35 @@ class BlogController extends Controller
         return view('blog');
     }
 
+    /**
+     * This functions returns limited blog fields along with tag
+     * for backend blog posts list in tabular form
+     *
+     * @return Response
+     */
+    public function getBlogs()
+    {
+        $blogs = Blog::with([
+            'tag' => function ($query) {
+                $query->select('id', 'tag');
+            }
+        ])->select(
+            'id',
+            'blog_tag_id',
+            'title',
+            'is_published'
+        )->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($blogs, 200);
+    }
+
+    /**
+     * This method is used for api call, it returns the paginated blog
+     * posts data to the front end
+     *
+     * @return Response
+     */
     public function paginateBlog()
     {
         $blogs = Blog::with([
@@ -63,6 +92,12 @@ class BlogController extends Controller
         return response()->json($blog, 200);
     }
 
+    /**
+     * Finds and returns all the blogs related to single tag
+     *
+     * @param BlogTag $tag
+     * @return Response
+     */
     public function blogByTag(BlogTag $tag)
     {
         $blogs = Blog::with([
@@ -86,6 +121,7 @@ class BlogController extends Controller
             ->where('is_published', true)
             ->orderBy('created_at', 'desc')
             ->paginate(5);
+
         return response()->json($blogs, 200);
     }
 
@@ -94,6 +130,7 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //

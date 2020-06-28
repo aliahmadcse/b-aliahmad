@@ -60,6 +60,7 @@ import BlogNav from "./blog/BlogNav";
 import ListPosts from "./blog/ListPosts";
 import ListTags from "./blog/tags/ListTags";
 import TagFields from "./blog/tags/TagFields";
+import BlogFields from "./blog/BlogFields";
 
 Vue.use(VueRouter);
 
@@ -157,7 +158,18 @@ export default {
                         name: "blogs.posts",
                         component: ListPosts
                     },
-                    
+                    {
+                        path: "post/add",
+                        name: "blogs.add",
+                        component: BlogFields
+                    },
+                    {
+                        path: "post/edit/:id",
+                        name: "blogs.edit",
+                        component: BlogFields,
+                        props: true
+                    },
+
                     // blog tags routes
                     {
                         path: "tags",

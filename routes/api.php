@@ -42,6 +42,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('blog/tags/update/{tag}', 'BlogTagController@update');
 
     Route::delete('blog/tags/delete/{tag}', 'BlogTagController@destroy');
+
+    // blog routes
+    Route::get('blogs/all', 'BlogController@getBlogs');
 });
 
 
