@@ -1,9 +1,31 @@
 <template>
     <div>
-        <router-link
-            class="btn btn-outline-secondary mb-3 ml-3"
-            :to="{name:'blogs.add'}"
-        >Add New Blog</router-link>
+        <div class="row mb-3">
+            <div class="col-lg-3 col-md-12">
+                <router-link
+                    class="btn btn-outline-secondary mb-3 ml-3"
+                    :to="{name:'blogs.add'}"
+                >Add New Blog</router-link>
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search text-secondary"></i>
+                        </span>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search Blog..."
+                        aria-label="search blog"
+                        aria-describedby="search blog"
+                        v-model="search"
+                    />
+                </div>
+            </div>
+        </div>
+
         <!-- table for listing blog posts -->
         <div class="table-responsive">
             <table class="table table-striped text-center table-project-list">
@@ -15,9 +37,9 @@
                         <th scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr v-for="blog in blogs" :key="blog.id">
-                        <td scope="row">{{ blog.title }}</td>
+                <tbody id="table-body">
+                    <tr v-for="blog in blogs" :key="blog.id" id="table-row">
+                        <td scope="row" id="blog-title">{{ blog.title }}</td>
                         <td scope="row">{{ blog.tag.tag }}</td>
                         <td scope="row">{{ blog.is_published?'Yes':'No' }}</td>
                         <td scope="row">
@@ -37,6 +59,12 @@ import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
 
 export default {
+    data() {
+        return {
+            search: ""
+        };
+    },
+
     async created() {
         // using lodash method to check for an empty object
         if (_.isEmpty(this.$store.state.blogs)) {
@@ -64,12 +92,31 @@ export default {
 
     computed: {
         blogs() {
-            if (!_.isEmpty(this.$store.state.blogs))
-                return this.$store.state.blogs;
+            return this.$store.state.blogs;
+        }
+    },
+
+    watch: {
+        // on change of search data item, an event will cause this
+        // method to execute, passing the search term value to it
+        search: function(searchItem) {
+            // using jquery to filter the DOM for searched item
+            $("#table-body #blog-title").each(function() {
+                let titleStr = $(this)
+                    .text()
+                    .toLowerCase();
+
+                $(this)
+                    .closest("#table-row")
+                    [titleStr.includes(searchItem) ? "show" : "hide"]();
+            });
         }
     }
 };
 </script>
 
 <style lang="scss" scoped>
+.icon-edit:hover {
+    transform: scale(1.1);
+}
 </style>
