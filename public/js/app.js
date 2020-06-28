@@ -44278,7 +44278,7 @@ var render = function() {
             ],
             staticClass: "form-control",
             attrs: {
-              type: "text",
+              type: "search",
               placeholder: "Search Blog...",
               "aria-label": "search blog",
               "aria-describedby": "search blog"

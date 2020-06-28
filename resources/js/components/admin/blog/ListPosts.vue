@@ -15,7 +15,7 @@
                         </span>
                     </div>
                     <input
-                        type="text"
+                        type="search"
                         class="form-control"
                         placeholder="Search Blog..."
                         aria-label="search blog"
