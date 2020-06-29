@@ -2205,37 +2205,19 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-loading-plugin */ "./node_modules/vuejs-loading-plugin/index.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuejs-loading-plugin */ "./node_modules/vuejs-loading-plugin/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2346,11 +2328,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_2__["default"]);
+Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
+      // dropzone configurations
+      dropzoneOptions: {
+        url: "/api/project/image/add",
+        thumbnailWidth: 150,
+        maxFilesize: 1,
+        maxFiles: 1,
+        addRemoveLinks: true,
+        acceptedFiles: ".png,.gif,.jpg,.jpeg",
+        headers: {
+          "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content
+        }
+      },
       blog: {
         title: "",
         description: "",
@@ -2368,13 +2362,67 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_2__["default"]);
     };
   },
   components: {
-    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
+    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default.a
   },
-  created: {},
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (_this.$store.state.blogTags.length) {
+                _context.next = 5;
+                break;
+              }
+
+              _this.$loading(true);
+
+              _context.next = 4;
+              return _this.$store.dispatch("getBlogTags");
+
+            case 4:
+              _this.$loading(false);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
   methods: {
-    saveBlog: function saveBlog() {}
+    saveBlog: function saveBlog() {},
+    uploadImageSuccess: function uploadImageSuccess(file, res) {
+      this.project.image = res;
+    },
+    removeImage: function removeImage(file, error, xhr) {
+      var _this2 = this;
+
+      var imagePath = file.xhr.response; // console.log(imagePath);
+
+      axios["delete"]("/api/project/image/delete", {
+        data: {
+          imgPath: imagePath
+        }
+      }).then(function (res) {
+        // console.log(res);
+        _this2.project.image = "";
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   },
-  computed: {}
+  computed: {
+    customSlot: function customSlot() {
+      return this.id === 0 ? "Drop an image 📸 here to upload" : "Drop an image 📸 here to update";
+    },
+    tags: function tags() {
+      return this.$store.state.blogTags;
+    }
+  }
 });
 
 /***/ }),
@@ -44445,8 +44493,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.project.title,
-                  expression: "project.title"
+                  value: _vm.blog.title,
+                  expression: "blog.title"
                 }
               ],
               staticClass: "form-control",
@@ -44458,13 +44506,13 @@ var render = function() {
                 placeholder: "Title...",
                 autofocus: ""
               },
-              domProps: { value: _vm.project.title },
+              domProps: { value: _vm.blog.title },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.project, "title", $event.target.value)
+                  _vm.$set(_vm.blog, "title", $event.target.value)
                 }
               }
             }),
@@ -44476,7 +44524,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
             _c("label", { attrs: { for: "description" } }, [
-              _vm._v("Project Description")
+              _vm._v("Blog Description")
             ]),
             _vm._v(" "),
             _c("textarea", {
@@ -44484,8 +44532,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.project.description,
-                  expression: "project.description"
+                  value: _vm.blog.description,
+                  expression: "blog.description"
                 }
               ],
               staticClass: "form-control",
@@ -44493,16 +44541,16 @@ var render = function() {
               attrs: {
                 id: "description",
                 name: "description",
-                rows: "2",
+                rows: "3",
                 placeholder: "Description..."
               },
-              domProps: { value: _vm.project.description },
+              domProps: { value: _vm.blog.description },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.project, "description", $event.target.value)
+                  _vm.$set(_vm.blog, "description", $event.target.value)
                 }
               }
             }),
@@ -44514,7 +44562,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
             _c("label", { attrs: { for: "project_category_id" } }, [
-              _vm._v("Project Category")
+              _vm._v("Blog tag")
             ]),
             _vm._v(" "),
             _c(
@@ -44524,16 +44572,13 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.project.project_category_id,
-                    expression: "project.project_category_id"
+                    value: _vm.blog.blog_tag_id,
+                    expression: "blog.blog_tag_id"
                   }
                 ],
                 staticClass: "custom-select",
-                class: { "is-invalid": _vm.errors.project_category_id.length },
-                attrs: {
-                  id: "project_category_id",
-                  name: "project_category_id"
-                },
+                class: { "is-invalid": _vm.errors.blog_tag_id.length },
+                attrs: { id: "blog_tag_id", name: "blog_tag_id" },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -44545,147 +44590,25 @@ var render = function() {
                         return val
                       })
                     _vm.$set(
-                      _vm.project,
-                      "project_category_id",
+                      _vm.blog,
+                      "blog_tag_id",
                       $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
                   }
                 }
               },
-              _vm._l(_vm.categories, function(category) {
+              _vm._l(_vm.tags, function(tag) {
                 return _c(
                   "option",
-                  { key: category.id, domProps: { value: category.id } },
-                  [_vm._v(_vm._s(_vm.capitalize(category.category)))]
+                  { key: tag.id, domProps: { value: tag.id } },
+                  [_vm._v(_vm._s(_vm.capitalize(tag.tag)))]
                 )
               }),
               0
             ),
             _vm._v(" "),
             _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(_vm._s(_vm.errors.project_category_id[0]))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
-            _c("label", { attrs: { for: "github" } }, [_vm._v("Github Link")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.project.github,
-                  expression: "project.github"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "is-invalid": _vm.errors.github.length },
-              attrs: {
-                type: "text",
-                id: "github",
-                name: "github",
-                placeholder: "Github URL ..."
-              },
-              domProps: { value: _vm.project.github },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.project, "github", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(_vm._s(_vm.errors.github[0]))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
-            _c("label", { attrs: { for: "live" } }, [_vm._v("Live Link")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.project.live,
-                  expression: "project.live"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "is-invalid": _vm.errors.live.length },
-              attrs: {
-                type: "text",
-                id: "live",
-                name: "live",
-                placeholder: "Live URL ..."
-              },
-              domProps: { value: _vm.project.live },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.project, "live", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(_vm._s(_vm.errors.live[0]))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
-            _c("label", { attrs: { for: "display-order" } }, [
-              _vm._v("Display Order")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.project.display_order,
-                    expression: "project.display_order"
-                  }
-                ],
-                staticClass: "custom-select",
-                class: { "is-invalid": _vm.errors.display_order.length },
-                attrs: { id: "display-order", name: "display-order" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.project,
-                      "display_order",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              _vm._l(_vm.totalProjects, function(item) {
-                return _c("option", { key: item, domProps: { value: item } }, [
-                  _vm._v(_vm._s(item))
-                ])
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v(_vm._s(_vm.errors.display_order[0]))
+              _vm._v(_vm._s(_vm.errors.blog_tag_id[0]))
             ])
           ]),
           _vm._v(" "),
@@ -44697,10 +44620,10 @@ var render = function() {
                 _vm._v("Project Image")
               ]),
               _vm._v(" "),
-              _vm.id > 0 && _vm.project.image
+              _vm.id > 0 && _vm.blog.image
                 ? _c("img", {
                     staticClass: "img-fluid img-thumbnail rounded",
-                    attrs: { src: _vm.project.image, alt: _vm.project.title }
+                    attrs: { src: _vm.blog.image, alt: _vm.project.title }
                   })
                 : _vm._e(),
               _vm._v(" "),
@@ -44727,28 +44650,71 @@ var render = function() {
               ])
             ],
             1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-outline-primary text-center",
-              attrs: { type: "submit" },
-              on: { click: _vm.saveBlog }
-            },
-            [_vm._v("Save Draft")]
           ),
           _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
+            _c("label", { attrs: { for: "body" } }, [_vm._v("Blog Body")]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.blog.body,
+                  expression: "blog.body"
+                }
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.errors.body.length },
+              attrs: {
+                id: "body",
+                name: "body",
+                rows: "5",
+                placeholder: "Blog body ..."
+              },
+              domProps: { value: _vm.blog.body },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.blog, "body", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(_vm._s(_vm.errors.body[0]))
+            ])
+          ]),
+          _vm._v(" "),
           _c(
-            "button",
+            "div",
             {
-              staticClass: "btn btn-outline-primary text-center btn-update",
-              attrs: { type: "submit" },
-              on: { click: _vm.saveBlog }
+              staticClass:
+                "col-lg-10 col-md-10 col-sm-12 mb-3 d-flex justify-content-around"
             },
-            [_vm._v("Publish")]
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary text-center",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.saveBlog }
+                },
+                [_vm._v("Save Draft")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary text-center btn-update",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.saveBlog }
+                },
+                [_vm._v("Publish")]
+              )
+            ]
           )
         ])
       ]

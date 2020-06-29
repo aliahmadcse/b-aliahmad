@@ -14,91 +14,50 @@
                         id="category"
                         name="title"
                         placeholder="Title..."
-                        v-model="project.title"
+                        v-model="blog.title"
                         autofocus
                     />
                     <div class="invalid-feedback">{{ errors.title[0] }}</div>
                 </div>
                 <!-- description -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="description">Project Description</label>
+                    <label for="description">Blog Description</label>
                     <textarea
                         class="form-control"
                         :class="{ 'is-invalid' : errors.description.length }"
                         id="description"
                         name="description"
-                        rows="2"
+                        rows="3"
                         placeholder="Description..."
-                        v-model="project.description"
+                        v-model="blog.description"
                     ></textarea>
                     <div class="invalid-feedback">{{ errors.description[0] }}</div>
                 </div>
-                <!-- category -->
+                <!-- blog tag -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="project_category_id">Project Category</label>
+                    <label for="project_category_id">Blog tag</label>
                     <select
                         class="custom-select"
-                        :class="{ 'is-invalid' : errors.project_category_id.length }"
-                        id="project_category_id"
-                        name="project_category_id"
-                        v-model="project.project_category_id"
+                        :class="{ 'is-invalid' : errors.blog_tag_id.length }"
+                        id="blog_tag_id"
+                        name="blog_tag_id"
+                        v-model="blog.blog_tag_id"
                     >
                         <option
-                            v-for="category in categories"
-                            :key="category.id"
-                            :value="category.id"
-                        >{{ capitalize(category.category) }}</option>
+                            v-for="tag in tags"
+                            :key="tag.id"
+                            :value="tag.id"
+                        >{{ capitalize(tag.tag) }}</option>
                     </select>
-                    <div class="invalid-feedback">{{ errors.project_category_id[0] }}</div>
+                    <div class="invalid-feedback">{{ errors.blog_tag_id[0] }}</div>
                 </div>
-                <!-- github url -->
-                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="github">Github Link</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        :class="{ 'is-invalid' : errors.github.length }"
-                        id="github"
-                        name="github"
-                        placeholder="Github URL ..."
-                        v-model="project.github"
-                    />
-                    <div class="invalid-feedback">{{ errors.github[0] }}</div>
-                </div>
-                <!-- live url -->
-                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="live">Live Link</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        :class="{ 'is-invalid' : errors.live.length }"
-                        id="live"
-                        name="live"
-                        placeholder="Live URL ..."
-                        v-model="project.live"
-                    />
-                    <div class="invalid-feedback">{{ errors.live[0] }}</div>
-                </div>
-                <!-- display order -->
-                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="display-order">Display Order</label>
-                    <select
-                        class="custom-select"
-                        :class="{ 'is-invalid' : errors.display_order.length }"
-                        id="display-order"
-                        name="display-order"
-                        v-model="project.display_order"
-                    >
-                        <option v-for="item in totalProjects" :key="item" :value="item">{{ item }}</option>
-                    </select>
-                    <div class="invalid-feedback">{{ errors.display_order[0] }}</div>
-                </div>
+
                 <!-- Image -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
                     <label for="dropzone">Project Image</label>
                     <img
-                        v-if="id>0 && project.image"
-                        :src="project.image "
+                        v-if="id>0 && blog.image"
+                        :src="blog.image "
                         class="img-fluid img-thumbnail rounded"
                         :alt="project.title"
                     />
@@ -113,19 +72,34 @@
                     >{{ customSlot }}</vue-dropzone>
                     <div class="invalid-feedback">{{ errors.image[0] }}</div>
                 </div>
-            </div>
-            <!-- submit buttons -->
-            <div class="text-center">
-                <button
-                    @click="saveBlog"
-                    class="btn btn-outline-primary text-center"
-                    type="submit"
-                >Save Draft</button>
-                <button
-                    @click="saveBlog"
-                    class="btn btn-outline-primary text-center btn-update"
-                    type="submit"
-                >Publish</button>
+                <!-- Blog body -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
+                    <label for="body">Blog Body</label>
+                    <textarea
+                        class="form-control"
+                        :class="{ 'is-invalid' : errors.body.length }"
+                        id="body"
+                        name="body"
+                        rows="5"
+                        placeholder="Blog body ..."
+                        v-model="blog.body"
+                    ></textarea>
+                    <div class="invalid-feedback">{{ errors.body[0] }}</div>
+                </div>
+
+                <!-- submit buttons -->
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3 d-flex justify-content-around">
+                    <button
+                        @click="saveBlog"
+                        class="btn btn-primary text-center"
+                        type="submit"
+                    >Save Draft</button>
+                    <button
+                        @click="saveBlog"
+                        class="btn btn-primary text-center btn-update"
+                        type="submit"
+                    >Publish</button>
+                </div>
             </div>
         </form>
     </div>
@@ -141,6 +115,21 @@ export default {
     data() {
         return {
             id: 0,
+
+            // dropzone configurations
+            dropzoneOptions: {
+                url: "/api/project/image/add",
+                thumbnailWidth: 150,
+                maxFilesize: 1,
+                maxFiles: 1,
+                addRemoveLinks: true,
+                acceptedFiles: ".png,.gif,.jpg,.jpeg",
+                headers: {
+                    "X-CSRF-TOKEN": document.head.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content
+                }
+            },
 
             blog: {
                 title: "",
@@ -162,13 +151,51 @@ export default {
         vueDropzone: vue2Dropzone
     },
 
-    created: {},
-
-    methods: {
-        saveBlog() {}
+    async created() {
+        if (!this.$store.state.blogTags.length) {
+            this.$loading(true);
+            await this.$store.dispatch("getBlogTags");
+            this.$loading(false);
+        }
     },
 
-    computed: {}
+    methods: {
+        saveBlog() {},
+
+        uploadImageSuccess: function(file, res) {
+            this.project.image = res;
+        },
+
+        removeImage: function(file, error, xhr) {
+            const imagePath = file.xhr.response;
+            // console.log(imagePath);
+            axios
+                .delete("/api/project/image/delete", {
+                    data: {
+                        imgPath: imagePath
+                    }
+                })
+                .then(res => {
+                    // console.log(res);
+                    this.project.image = "";
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+
+    computed: {
+        customSlot: function() {
+            return this.id === 0
+                ? "Drop an image 📸 here to upload"
+                : "Drop an image 📸 here to update";
+        },
+
+        tags() {
+            return this.$store.state.blogTags;
+        }
+    }
 };
 </script>
 
