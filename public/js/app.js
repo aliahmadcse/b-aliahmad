@@ -2349,8 +2349,10 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         title: "",
         description: "",
         blog_tag_id: "",
+        author_id: null,
         image: "",
-        body: ""
+        body: "",
+        is_published: null
       },
       errors: {
         title: [],
@@ -2394,7 +2396,11 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
     }))();
   },
   methods: {
-    saveBlog: function saveBlog() {},
+    saveBlog: function saveBlog(status) {
+      this.blog.is_published = status === "save" ? 0 : 1; // this.$loading(true);
+
+      axios.post("/api/blogs/add", this.blog).then(function (res) {})["catch"](function (err) {});
+    },
     uploadImageSuccess: function uploadImageSuccess(file, res) {
       this.blog.image = res;
     },
@@ -44698,7 +44704,11 @@ var render = function() {
                 {
                   staticClass: "btn btn-primary text-center",
                   attrs: { type: "submit" },
-                  on: { click: _vm.saveBlog }
+                  on: {
+                    click: function($event) {
+                      return _vm.saveBlog((_vm.status = "save"))
+                    }
+                  }
                 },
                 [_vm._v("Save Draft")]
               ),
@@ -44708,7 +44718,11 @@ var render = function() {
                 {
                   staticClass: "btn btn-primary text-center btn-update",
                   attrs: { type: "submit" },
-                  on: { click: _vm.saveBlog }
+                  on: {
+                    click: function($event) {
+                      return _vm.saveBlog((_vm.status = "publish"))
+                    }
+                  }
                 },
                 [_vm._v("Publish")]
               )

@@ -90,12 +90,12 @@
                 <!-- submit buttons -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3 d-flex justify-content-around">
                     <button
-                        @click="saveBlog"
+                        @click="saveBlog(status='save')"
                         class="btn btn-primary text-center"
                         type="submit"
                     >Save Draft</button>
                     <button
-                        @click="saveBlog"
+                        @click="saveBlog(status='publish')"
                         class="btn btn-primary text-center btn-update"
                         type="submit"
                     >Publish</button>
@@ -135,8 +135,10 @@ export default {
                 title: "",
                 description: "",
                 blog_tag_id: "",
+                author_id: null,
                 image: "",
-                body: ""
+                body: "",
+                is_published: null
             },
             errors: {
                 title: [],
@@ -160,7 +162,14 @@ export default {
     },
 
     methods: {
-        saveBlog() {},
+        saveBlog(status) {
+            this.blog.is_published = status === "save" ? 0 : 1;
+            // this.$loading(true);
+            axios
+                .post("/api/blogs/add", this.blog)
+                .then(res => {})
+                .catch(err => {});
+        },
 
         uploadImageSuccess: function(file, res) {
             this.blog.image = res;

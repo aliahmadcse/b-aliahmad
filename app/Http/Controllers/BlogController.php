@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Blog;
 use App\BlogTag;
+use App\Http\Requests\UpsertBlog;
 use App\ManageStorage\s3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -162,9 +164,11 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UpsertBlog $request)
     {
-        //
+        $validated_data = $request->validated();
+        $validated_data['author_id'] = Auth::user()->id;
+        return response()->json($validated_data);
     }
 
     /**
