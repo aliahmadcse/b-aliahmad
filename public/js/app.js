@@ -2335,7 +2335,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
       id: 0,
       // dropzone configurations
       dropzoneOptions: {
-        url: "/api/project/image/add",
+        url: "/api/blogs/header/image/add",
         thumbnailWidth: 150,
         maxFilesize: 1,
         maxFiles: 1,
@@ -2396,20 +2396,18 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
   methods: {
     saveBlog: function saveBlog() {},
     uploadImageSuccess: function uploadImageSuccess(file, res) {
-      this.project.image = res;
+      this.blog.image = res;
     },
     removeImage: function removeImage(file, error, xhr) {
       var _this2 = this;
 
-      var imagePath = file.xhr.response; // console.log(imagePath);
-
-      axios["delete"]("/api/project/image/delete", {
+      var imagePath = file.xhr.response;
+      axios["delete"]("/api/blogs/header/image/delete", {
         data: {
           imgPath: imagePath
         }
       }).then(function (res) {
-        // console.log(res);
-        _this2.project.image = "";
+        _this2.blog.image = "";
       })["catch"](function (err) {
         console.log(err);
       });

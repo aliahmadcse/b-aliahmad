@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Blog;
 use App\BlogTag;
+use App\ManageStorage\s3;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -134,6 +135,25 @@ class BlogController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * Saves and returns the blog header image url
+     * 
+     * @param Request $request
+     * @return $fileUrl the saved image url
+     */
+    public function storeHeaderImage(Request $request)
+    {
+        $fileUrl = s3::save($request->file('file'), 'public/blogheader');
+        return $fileUrl;
+    }
+
+    public function deleteHeaderImage(Request $request)
+    {
+        $imgName = basename($request->input('imgPath'));
+        s3::delete('public/blogheader/' . $imgName);
+        return ['success' => 200];
     }
 
     /**

@@ -118,7 +118,7 @@ export default {
 
             // dropzone configurations
             dropzoneOptions: {
-                url: "/api/project/image/add",
+                url: "/api/blogs/header/image/add",
                 thumbnailWidth: 150,
                 maxFilesize: 1,
                 maxFiles: 1,
@@ -163,21 +163,19 @@ export default {
         saveBlog() {},
 
         uploadImageSuccess: function(file, res) {
-            this.project.image = res;
+            this.blog.image = res;
         },
 
         removeImage: function(file, error, xhr) {
             const imagePath = file.xhr.response;
-            // console.log(imagePath);
             axios
-                .delete("/api/project/image/delete", {
+                .delete("/api/blogs/header/image/delete", {
                     data: {
                         imgPath: imagePath
                     }
                 })
                 .then(res => {
-                    // console.log(res);
-                    this.project.image = "";
+                    this.blog.image = "";
                 })
                 .catch(err => {
                     console.log(err);

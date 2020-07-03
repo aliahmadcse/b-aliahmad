@@ -45,6 +45,10 @@ Route::middleware(['auth:api'])->group(function () {
 
     // blog routes
     Route::get('blogs/all', 'BlogController@getBlogs');
+
+    Route::post('blogs/header/image/add', 'BlogController@storeHeaderImage');
+
+    Route::delete('blogs/header/image/delete', 'BlogController@deleteHeaderImage');
 });
 
 
