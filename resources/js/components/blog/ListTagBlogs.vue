@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <p class="card-text tag">
                                 <a href="#" class="text-link">
-                                    <small>#{{ blog.tag.tag }}</small>
+                                    <small>#{{ blog.tag.tag.toUpperCase() }}</small>
                                 </a>
                             </p>
 

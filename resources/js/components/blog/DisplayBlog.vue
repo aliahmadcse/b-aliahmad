@@ -12,12 +12,19 @@
                         <a href="/" class="author-name text-gray">{{ blog.author.name }}</a>
                     </p>
                 </div>
+
                 <router-link
+                    v-if="!preview"
                     class="text-link"
                     :to="{name:'tag.blogs',params:{page:1,tag:blog.tag.tag,tagId:blog.tag.id}}"
                 >
-                    <small>#{{ blog.tag.tag }}</small>
+                    <small>#{{ blog.tag.tag.toUpperCase() }}</small>
                 </router-link>
+
+                <a href="#" class="text-link" v-if="preview">
+                    <small>#{{blog.tag.tag.toUpperCase()}}</small>
+                </a>
+
                 <div>
                     <p>{{ blogDate(blog.created_at) }}</p>
                 </div>
@@ -44,12 +51,17 @@ Vue.use(VueLoading);
 export default {
     data: function() {
         return {
+            // is it the blog preview mode
+            preview: false,
             blogId: 0
         };
     },
 
     created: function() {
         this.blogId = this.$route.params.id;
+        if (this.$route.name.includes("preview")) {
+            this.preview = true;
+        }
     },
 
     mounted: async function() {

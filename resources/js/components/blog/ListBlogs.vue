@@ -13,7 +13,7 @@
                                     class="text-link"
                                     :to="{name:'tag.blogs',params:{page:1,tag:blog.tag.tag,tagId:blog.tag.id}}"
                                 >
-                                    <small>#{{ blog.tag.tag }}</small>
+                                    <small>#{{ blog.tag.tag.toUpperCase() }}</small>
                                 </router-link>
                             </p>
 
@@ -114,10 +114,6 @@ export default {
                     params: { page }
                 })
                 .catch(err => {});
-        },
-
-        formatTitle: function(title) {
-            return title.replace(/\s+/g, "-").toLowerCase();
         }
     }
 };

@@ -61,6 +61,7 @@ import ListPosts from "./blog/ListPosts";
 import ListTags from "./blog/tags/ListTags";
 import TagFields from "./blog/tags/TagFields";
 import BlogFields from "./blog/BlogFields";
+import DisplayBlog from "../blog/DisplayBlog";
 
 Vue.use(VueRouter);
 
@@ -167,6 +168,12 @@ export default {
                         path: "post/edit/:id",
                         name: "blogs.edit",
                         component: BlogFields,
+                        props: true
+                    },
+                    {
+                        path: "preview/:id/:title",
+                        name: "blogs.preview",
+                        component: DisplayBlog,
                         props: true
                     },
 

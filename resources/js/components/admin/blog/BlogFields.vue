@@ -8,7 +8,13 @@
                 <div
                     class="col-lg-10 col-md-10 col-sm-12 mb-3 d-lg-flex justify-content-around flex-xl-row flex-lg-column"
                 >
-                    <button v-if="id>0" class="btn btn-primary m-2">Preview Blog</button>
+                    <router-link
+                        v-if="id>0 && fetched"
+                        :to="{name:'blogs.preview',params:{title:formatTitle(blog.title),id:id}}"
+                    >
+                        <button class="btn btn-primary">Preview Blog</button>
+                    </router-link>
+
                     <button
                         v-if="id>0"
                         data-toggle="modal"
@@ -150,7 +156,7 @@ export default {
     data() {
         return {
             id: 0,
-
+            fetched: false,
             // dropzone configurations
             dropzoneOptions: {
                 url: "/api/blogs/header/image/add",
@@ -202,6 +208,7 @@ export default {
         if (this.id > 0) {
             await this.$store.dispatch("getBlog", this.id);
             this.blog = this.$store.state.blog;
+            this.fetched = true;
         }
         this.$loading(false);
     },

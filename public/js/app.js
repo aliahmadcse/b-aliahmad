@@ -2025,6 +2025,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blog_tags_ListTags__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./blog/tags/ListTags */ "./resources/js/components/admin/blog/tags/ListTags.vue");
 /* harmony import */ var _blog_tags_TagFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./blog/tags/TagFields */ "./resources/js/components/admin/blog/tags/TagFields.vue");
 /* harmony import */ var _blog_BlogFields__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./blog/BlogFields */ "./resources/js/components/admin/blog/BlogFields.vue");
+/* harmony import */ var _blog_DisplayBlog__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../blog/DisplayBlog */ "./resources/js/components/blog/DisplayBlog.vue");
 //
 //
 //
@@ -2072,6 +2073,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2168,6 +2170,11 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
         path: "post/edit/:id",
         name: "blogs.edit",
         component: _blog_BlogFields__WEBPACK_IMPORTED_MODULE_12__["default"],
+        props: true
+      }, {
+        path: "preview/:id/:title",
+        name: "blogs.preview",
+        component: _blog_DisplayBlog__WEBPACK_IMPORTED_MODULE_13__["default"],
         props: true
       }, // blog tags routes
       {
@@ -2360,6 +2367,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2368,6 +2381,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
   data: function data() {
     return {
       id: 0,
+      fetched: false,
       // dropzone configurations
       dropzoneOptions: {
         url: "/api/blogs/header/image/add",
@@ -2441,7 +2455,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
             case 4:
               if (!(_this2.id > 0)) {
-                _context2.next = 8;
+                _context2.next = 9;
                 break;
               }
 
@@ -2450,11 +2464,12 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
             case 7:
               _this2.blog = _this2.$store.state.blog;
-
-            case 8:
-              _this2.$loading(false);
+              _this2.fetched = true;
 
             case 9:
+              _this2.$loading(false);
+
+            case 10:
             case "end":
               return _context2.stop();
           }
@@ -4078,16 +4093,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      // is it the blog preview mode
+      preview: false,
       blogId: 0
     };
   },
   created: function created() {
     this.blogId = this.$route.params.id;
+
+    if (this.$route.name.includes("preview")) {
+      this.preview = true;
+    }
   },
   mounted: function () {
     var _mounted = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -4248,9 +4276,6 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
           page: page
         }
       })["catch"](function (err) {});
-    },
-    formatTitle: function formatTitle(title) {
-      return title.replace(/\s+/g, "-").toLowerCase();
     }
   }
 });
@@ -44651,10 +44676,26 @@ var render = function() {
                 "col-lg-10 col-md-10 col-sm-12 mb-3 d-lg-flex justify-content-around flex-xl-row flex-lg-column"
             },
             [
-              _vm.id > 0
-                ? _c("button", { staticClass: "btn btn-primary m-2" }, [
-                    _vm._v("Preview Blog")
-                  ])
+              _vm.id > 0 && _vm.fetched
+                ? _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "blogs.preview",
+                          params: {
+                            title: _vm.formatTitle(_vm.blog.title),
+                            id: _vm.id
+                          }
+                        }
+                      }
+                    },
+                    [
+                      _c("button", { staticClass: "btn btn-primary" }, [
+                        _vm._v("Preview Blog")
+                      ])
+                    ]
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _vm.id > 0
@@ -44670,7 +44711,8 @@ var render = function() {
                     [_vm._v("Delete Blog")]
                   )
                 : _vm._e()
-            ]
+            ],
+            1
           ),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
@@ -46644,23 +46686,37 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass: "text-link",
-                  attrs: {
-                    to: {
-                      name: "tag.blogs",
-                      params: {
-                        page: 1,
-                        tag: _vm.blog.tag.tag,
-                        tagId: _vm.blog.tag.id
+              !_vm.preview
+                ? _c(
+                    "router-link",
+                    {
+                      staticClass: "text-link",
+                      attrs: {
+                        to: {
+                          name: "tag.blogs",
+                          params: {
+                            page: 1,
+                            tag: _vm.blog.tag.tag,
+                            tagId: _vm.blog.tag.id
+                          }
+                        }
                       }
-                    }
-                  }
-                },
-                [_c("small", [_vm._v("#" + _vm._s(_vm.blog.tag.tag))])]
-              ),
+                    },
+                    [
+                      _c("small", [
+                        _vm._v("#" + _vm._s(_vm.blog.tag.tag.toUpperCase()))
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.preview
+                ? _c("a", { staticClass: "text-link", attrs: { href: "#" } }, [
+                    _c("small", [
+                      _vm._v("#" + _vm._s(_vm.blog.tag.tag.toUpperCase()))
+                    ])
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("div", [
                 _c("p", [_vm._v(_vm._s(_vm.blogDate(_vm.blog.created_at)))])
@@ -46769,7 +46825,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_c("small", [_vm._v("#" + _vm._s(blog.tag.tag))])]
+                            [
+                              _c("small", [
+                                _vm._v("#" + _vm._s(blog.tag.tag.toUpperCase()))
+                              ])
+                            ]
                           )
                         ],
                         1
@@ -46910,7 +46970,11 @@ var render = function() {
                         _c(
                           "a",
                           { staticClass: "text-link", attrs: { href: "#" } },
-                          [_c("small", [_vm._v("#" + _vm._s(blog.tag.tag))])]
+                          [
+                            _c("small", [
+                              _vm._v("#" + _vm._s(blog.tag.tag.toUpperCase()))
+                            ])
+                          ]
                         )
                       ]),
                       _vm._v(" "),
@@ -63589,6 +63653,9 @@ Vue.mixin({
     formatDateTime: function formatDateTime(ISODate) {
       var date = new Date(ISODate);
       return "".concat(date.getFullYear(), "-").concat(date.getMonth() + 1, "-").concat(date.getDate(), " ").concat(date.getHours(), ":").concat(date.getMinutes());
+    },
+    formatTitle: function formatTitle(title) {
+      return title.replace(/\s+/g, "-").toLowerCase();
     },
     blogDate: function blogDate(ISODate) {
       var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

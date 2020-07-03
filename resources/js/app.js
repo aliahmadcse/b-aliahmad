@@ -60,6 +60,10 @@ Vue.mixin({
                 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
         },
 
+        formatTitle: function(title) {
+            return title.replace(/\s+/g, "-").toLowerCase();
+        },
+
         blogDate: function(ISODate) {
             const months = [
                 "January",
