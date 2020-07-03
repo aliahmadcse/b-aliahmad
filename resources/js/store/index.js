@@ -11,6 +11,8 @@ export default new Vuex.Store({
         blogs: {},
         // blogPosts are the unpaginated blogs
         blogPosts: [],
+        // blog is a single piece of blog returned by id
+        blog: {},
         // tagBlogs are the blogs specific to a single tag used on front end
         tagBlogs: {},
         // blogTags are the blog tags returned from the server
@@ -18,6 +20,11 @@ export default new Vuex.Store({
     },
 
     mutations: {
+        // blog
+        SET_BLOG(state, blog) {
+            state.blog = blog;
+        },
+
         // blogPosts
         SET_BLOG_POSTS(state, blogPosts) {
             state.blogPosts = blogPosts;
@@ -181,6 +188,21 @@ export default new Vuex.Store({
                     .get("/api/blog/tags")
                     .then(res => {
                         commit("SET_BLOG_TAGS", res.data);
+                        resolve("Success");
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        reject("Failed");
+                    });
+            });
+        },
+
+        getBlog({ commit, state }, blogId) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get("/api/blog/" + blogId)
+                    .then(res => {
+                        commit("SET_BLOG", res.data);
                         resolve("Success");
                     })
                     .catch(err => {

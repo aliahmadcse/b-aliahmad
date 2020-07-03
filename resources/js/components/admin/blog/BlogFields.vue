@@ -35,7 +35,7 @@
                 </div>
                 <!-- blog tag -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="project_category_id">Blog tag</label>
+                    <label for="blog_tag_id">Blog tag</label>
                     <select
                         class="custom-select"
                         :class="{ 'is-invalid' : errors.blog_tag_id.length }"
@@ -54,12 +54,12 @@
 
                 <!-- Image -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="dropzone">Project Image</label>
+                    <label for="dropzone">Blog Image</label>
                     <img
                         v-if="id>0 && blog.image"
                         :src="blog.image "
                         class="img-fluid img-thumbnail rounded"
-                        :alt="project.title"
+                        :alt="blog.title"
                     />
                     <vue-dropzone
                         ref="dropzone"
@@ -154,11 +154,21 @@ export default {
     },
 
     async created() {
-        if (!this.$store.state.blogTags.length) {
-            this.$loading(true);
-            await this.$store.dispatch("getBlogTags");
-            this.$loading(false);
+        if (this.$route.params.id) {
+            this.id = this.$route.params.id;
         }
+    },
+
+    async mounted() {
+        this.$loading(true);
+        if (!this.$store.state.blogTags.length) {
+            await this.$store.dispatch("getBlogTags");
+        }
+        if (this.id > 0) {
+            await this.$store.dispatch("getBlog", this.id);
+            this.blog = this.$store.state.blog;
+        }
+        this.$loading(false);
     },
 
     methods: {

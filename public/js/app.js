@@ -2374,20 +2374,11 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (_this.$store.state.blogTags.length) {
-                _context.next = 5;
-                break;
+              if (_this.$route.params.id) {
+                _this.id = _this.$route.params.id;
               }
 
-              _this.$loading(true);
-
-              _context.next = 4;
-              return _this.$store.dispatch("getBlogTags");
-
-            case 4:
-              _this.$loading(false);
-
-            case 5:
+            case 1:
             case "end":
               return _context.stop();
           }
@@ -2395,35 +2386,76 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
       }, _callee);
     }))();
   },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _this2.$loading(true);
+
+              if (_this2.$store.state.blogTags.length) {
+                _context2.next = 4;
+                break;
+              }
+
+              _context2.next = 4;
+              return _this2.$store.dispatch("getBlogTags");
+
+            case 4:
+              if (!(_this2.id > 0)) {
+                _context2.next = 8;
+                break;
+              }
+
+              _context2.next = 7;
+              return _this2.$store.dispatch("getBlog", _this2.id);
+
+            case 7:
+              _this2.blog = _this2.$store.state.blog;
+
+            case 8:
+              _this2.$loading(false);
+
+            case 9:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
   methods: {
     saveBlog: function saveBlog(status) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.blog.is_published = status === "save" ? 0 : 1;
       this.$loading(true);
       axios.post("/api/blogs/add", this.blog).then(function (res) {
         if (res.status === 201) {
-          _this2.$store.commit("ADD_BLOG_POST", res.data);
+          _this3.$store.commit("ADD_BLOG_POST", res.data);
 
-          _this2.$loading(false);
+          _this3.$loading(false);
 
-          _this2.$router.push({
+          _this3.$router.push({
             name: "blogs.posts"
           });
         }
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this2.assignErrors(err.response.data.errors);
+          _this3.assignErrors(err.response.data.errors);
         }
 
-        _this2.$loading(false);
+        _this3.$loading(false);
       });
     },
     uploadImageSuccess: function uploadImageSuccess(file, res) {
       this.blog.image = res;
     },
     removeImage: function removeImage(file, error, xhr) {
-      var _this3 = this;
+      var _this4 = this;
 
       var imagePath = file.xhr.response;
       axios["delete"]("/api/blogs/header/image/delete", {
@@ -2431,7 +2463,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
           imgPath: imagePath
         }
       }).then(function (res) {
-        _this3.blog.image = "";
+        _this4.blog.image = "";
       })["catch"](function (err) {
         console.log(err);
       });
@@ -3942,7 +3974,15 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-loading-plugin */ "./node_modules/vuejs-loading-plugin/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-loading-plugin */ "./node_modules/vuejs-loading-plugin/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -3983,30 +4023,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_0__["default"]);
+Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      blogId: 0,
-      blog: {}
+      blogId: 0
     };
   },
   created: function created() {
     this.blogId = this.$route.params.id;
   },
-  mounted: function mounted() {
-    var _this = this;
+  mounted: function () {
+    var _mounted = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              this.$loading(true);
+              _context.next = 3;
+              return this.$store.dispatch("getBlog", this.blogId);
 
-    this.$loading(true);
-    axios.get("/api/blog/" + this.blogId).then(function (res) {
-      _this.blog = res.data;
+            case 3:
+              this.$loading(false);
 
-      _this.$loading(false);
-    })["catch"](function (err) {
-      console.log(err);
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
 
-      _this.$loading(false);
-    });
+    function mounted() {
+      return _mounted.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
+  computed: {
+    blog: function blog() {
+      return this.$store.state.blog;
+    }
   }
 });
 
@@ -44607,7 +44664,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
-            _c("label", { attrs: { for: "project_category_id" } }, [
+            _c("label", { attrs: { for: "blog_tag_id" } }, [
               _vm._v("Blog tag")
             ]),
             _vm._v(" "),
@@ -44663,13 +44720,13 @@ var render = function() {
             { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" },
             [
               _c("label", { attrs: { for: "dropzone" } }, [
-                _vm._v("Project Image")
+                _vm._v("Blog Image")
               ]),
               _vm._v(" "),
               _vm.id > 0 && _vm.blog.image
                 ? _c("img", {
                     staticClass: "img-fluid img-thumbnail rounded",
-                    attrs: { src: _vm.blog.image, alt: _vm.project.title }
+                    attrs: { src: _vm.blog.image, alt: _vm.blog.title }
                   })
                 : _vm._e(),
               _vm._v(" "),
@@ -46402,7 +46459,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    Object.keys(_vm.blog).length > 0
+    Object.keys(_vm.$store.state.blog).length > 0
       ? _c("div", { staticClass: "row" }, [
           _c(
             "div",
@@ -65052,12 +65109,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     blogs: {},
     // blogPosts are the unpaginated blogs
     blogPosts: [],
+    // blog is a single piece of blog returned by id
+    blog: {},
     // tagBlogs are the blogs specific to a single tag used on front end
     tagBlogs: {},
     // blogTags are the blog tags returned from the server
     blogTags: []
   },
   mutations: {
+    // blog
+    SET_BLOG: function SET_BLOG(state, blog) {
+      state.blog = blog;
+    },
     // blogPosts
     SET_BLOG_POSTS: function SET_BLOG_POSTS(state, blogPosts) {
       state.blogPosts = blogPosts;
@@ -65215,6 +65278,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       return new Promise(function (resolve, reject) {
         axios.get("/api/blog/tags").then(function (res) {
           commit("SET_BLOG_TAGS", res.data);
+          resolve("Success");
+        })["catch"](function (err) {
+          console.log(err);
+          reject("Failed");
+        });
+      });
+    },
+    getBlog: function getBlog(_ref5, blogId) {
+      var commit = _ref5.commit,
+          state = _ref5.state;
+      return new Promise(function (resolve, reject) {
+        axios.get("/api/blog/" + blogId).then(function (res) {
+          commit("SET_BLOG", res.data);
           resolve("Success");
         })["catch"](function (err) {
           console.log(err);

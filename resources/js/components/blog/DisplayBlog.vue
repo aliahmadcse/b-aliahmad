@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row" v-if="Object.keys(blog).length>0">
+        <div class="row" v-if="Object.keys($store.state.blog).length>0">
             <div class="col-12 blog-header d-flex justify-content-around">
                 <div class="d-flex blog-author align-items-center">
                     <img
@@ -44,8 +44,7 @@ Vue.use(VueLoading);
 export default {
     data: function() {
         return {
-            blogId: 0,
-            blog: {}
+            blogId: 0
         };
     },
 
@@ -53,18 +52,15 @@ export default {
         this.blogId = this.$route.params.id;
     },
 
-    mounted: function() {
+    mounted: async function() {
         this.$loading(true);
-        axios
-            .get("/api/blog/" + this.blogId)
-            .then(res => {
-                this.blog = res.data;
-                this.$loading(false);
-            })
-            .catch(err => {
-                console.log(err);
-                this.$loading(false);
-            });
+        await this.$store.dispatch("getBlog", this.blogId);
+        this.$loading(false);
+    },
+    computed: {
+        blog() {
+            return this.$store.state.blog;
+        }
     }
 };
 </script>
