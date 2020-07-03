@@ -51,6 +51,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::delete('blogs/header/image/delete', 'BlogController@deleteHeaderImage');
 
     Route::post('blogs/add', 'BlogController@store');
+
+    Route::delete('blogs/delete/{blog}', 'BlogController@destroy');
 });
 
 

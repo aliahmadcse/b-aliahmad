@@ -217,8 +217,11 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Blog $blog)
     {
-        //
+        $imgName = basename($blog->image);
+        s3::delete('public/blogheader/' . $imgName);
+        $blog->delete();
+        return response()->json('Blog deleted successfully', 204);
     }
 }

@@ -35,6 +35,10 @@ export default new Vuex.Store({
             state.blogPosts.unshift(blogPost);
         },
 
+        REMOVE_BLOG_POST(state, id) {
+            state.blogPosts = state.blogPosts.filter(post => post.id != id);
+        },
+
         // blog tags
         SET_BLOG_TAGS(state, blogTags) {
             state.blogTags = blogTags;

@@ -4,6 +4,18 @@
         <h2 v-if="id>0" class="text-center">Edit your blog below</h2>
         <form @submit.prevent class="mt-5">
             <div class="form-row justify-content-center">
+                <!-- preview and delete buttons -->
+                <div
+                    class="col-lg-10 col-md-10 col-sm-12 mb-3 d-lg-flex justify-content-around flex-xl-row flex-lg-column"
+                >
+                    <button v-if="id>0" class="btn btn-primary m-2">Preview Blog</button>
+                    <button
+                        v-if="id>0"
+                        data-toggle="modal"
+                        data-target="#confirmModel"
+                        class="btn btn-danger m-2"
+                    >Delete Blog</button>
+                </div>
                 <!-- title -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
                     <label for="title">Blog title</label>
@@ -55,12 +67,6 @@
                 <!-- Image -->
                 <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
                     <label for="dropzone">Blog Image</label>
-                    <img
-                        v-if="id>0 && blog.image"
-                        :src="blog.image "
-                        class="img-fluid img-thumbnail rounded"
-                        :alt="blog.title"
-                    />
                     <vue-dropzone
                         ref="dropzone"
                         id="dropzone"
@@ -102,6 +108,35 @@
                 </div>
             </div>
         </form>
+
+        <!-- Model for delete confirmation -->
+        <div
+            class="modal fade"
+            id="confirmModel"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete ❌ ?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure, You want to delete blog
+                        <strong>{{ blog.title }}</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" @click="deleteBlog">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -192,6 +227,24 @@ export default {
                 });
         },
 
+        deleteBlog() {
+            $("#confirmModel").modal("hide");
+            this.$loading(true);
+            axios
+                .delete("/api/blogs/delete/" + this.id)
+                .then(res => {
+                    if (res.status === 204) {
+                        this.$store.commit("REMOVE_BLOG_POST", this.id);
+                        this.$loading(false);
+                        this.$router.push({ name: "blogs.posts" });
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.$loading(false);
+                });
+        },
+
         uploadImageSuccess: function(file, res) {
             this.blog.image = res;
         },
@@ -218,7 +271,6 @@ export default {
          * @param {object} errors the errors object returned from server
          * @returns void
          */
-
         assignErrors: function(errors) {
             // removing old errors
             for (const error in this.errors) {

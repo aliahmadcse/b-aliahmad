@@ -2325,6 +2325,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2451,11 +2486,32 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         _this3.$loading(false);
       });
     },
+    deleteBlog: function deleteBlog() {
+      var _this4 = this;
+
+      $("#confirmModel").modal("hide");
+      this.$loading(true);
+      axios["delete"]("/api/blogs/delete/" + this.id).then(function (res) {
+        if (res.status === 204) {
+          _this4.$store.commit("REMOVE_BLOG_POST", _this4.id);
+
+          _this4.$loading(false);
+
+          _this4.$router.push({
+            name: "blogs.posts"
+          });
+        }
+      })["catch"](function (err) {
+        console.log(err);
+
+        _this4.$loading(false);
+      });
+    },
     uploadImageSuccess: function uploadImageSuccess(file, res) {
       this.blog.image = res;
     },
     removeImage: function removeImage(file, error, xhr) {
-      var _this4 = this;
+      var _this5 = this;
 
       var imagePath = file.xhr.response;
       axios["delete"]("/api/blogs/header/image/delete", {
@@ -2463,7 +2519,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
           imgPath: imagePath
         }
       }).then(function (res) {
-        _this4.blog.image = "";
+        _this5.blog.image = "";
       })["catch"](function (err) {
         console.log(err);
       });
@@ -44588,6 +44644,35 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "form-row justify-content-center" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-lg-10 col-md-10 col-sm-12 mb-3 d-lg-flex justify-content-around flex-xl-row flex-lg-column"
+            },
+            [
+              _vm.id > 0
+                ? _c("button", { staticClass: "btn btn-primary m-2" }, [
+                    _vm._v("Preview Blog")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.id > 0
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger m-2",
+                      attrs: {
+                        "data-toggle": "modal",
+                        "data-target": "#confirmModel"
+                      }
+                    },
+                    [_vm._v("Delete Blog")]
+                  )
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
           _c("div", { staticClass: "col-lg-10 col-md-10 col-sm-12 mb-3" }, [
             _c("label", { attrs: { for: "title" } }, [_vm._v("Blog title")]),
             _vm._v(" "),
@@ -44723,13 +44808,6 @@ var render = function() {
                 _vm._v("Blog Image")
               ]),
               _vm._v(" "),
-              _vm.id > 0 && _vm.blog.image
-                ? _c("img", {
-                    staticClass: "img-fluid img-thumbnail rounded",
-                    attrs: { src: _vm.blog.image, alt: _vm.blog.title }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
               _c(
                 "vue-dropzone",
                 {
@@ -44829,10 +44907,89 @@ var render = function() {
           )
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "confirmModel",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm._v(
+                  "\n                    Are you sure, You want to delete blog\n                    "
+                ),
+                _c("strong", [_vm._v(_vm._s(_vm.blog.title))])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.deleteBlog }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Confirm Delete ❌ ?")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -65128,6 +65285,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     ADD_BLOG_POST: function ADD_BLOG_POST(state, blogPost) {
       // adding a blog post at the beginning of array
       state.blogPosts.unshift(blogPost);
+    },
+    REMOVE_BLOG_POST: function REMOVE_BLOG_POST(state, id) {
+      state.blogPosts = state.blogPosts.filter(function (post) {
+        return post.id != id;
+      });
     },
     // blog tags
     SET_BLOG_TAGS: function SET_BLOG_TAGS(state, blogTags) {
