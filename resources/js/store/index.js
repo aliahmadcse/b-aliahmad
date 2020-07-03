@@ -9,6 +9,8 @@ export default new Vuex.Store({
         projects: [],
         // blogs are the paginated blogs returned from server
         blogs: {},
+        // blogPosts are the unpaginated blogs
+        blogPosts: [],
         // tagBlogs are the blogs specific to a single tag used on front end
         tagBlogs: {},
         // blogTags are the blog tags returned from the server
@@ -16,6 +18,17 @@ export default new Vuex.Store({
     },
 
     mutations: {
+        // blogPosts
+        SET_BLOG_POSTS(state, blogPosts) {
+            state.blogPosts = blogPosts;
+        },
+
+        ADD_BLOG_POST(state, blogPost) {
+            // adding a blog post at the beginning of array
+            state.blogPosts.unshift(blogPost);
+        },
+
+        // blog tags
         SET_BLOG_TAGS(state, blogTags) {
             state.blogTags = blogTags;
         },
@@ -38,6 +51,8 @@ export default new Vuex.Store({
             state.blogTags = state.blogTags.filter(tag => tag.id != id);
         },
 
+        // blogs
+
         SET_BLOGS(state, blogs) {
             state.blogs = blogs;
         },
@@ -45,6 +60,8 @@ export default new Vuex.Store({
         SET_TAG_BLOGS(state, tagBlogs) {
             state.tagBlogs = tagBlogs;
         },
+
+        //projects
 
         SET_PROJECTS(state, projects) {
             state.projects = projects;
@@ -60,12 +77,13 @@ export default new Vuex.Store({
             state.projects = state.projects.filter(proj => proj.id !== id);
         },
 
-        SET_PROJECT_CATEGORIES(state, categories) {
-            state.projectCategories = categories;
-        },
-
         ADD_PROJECT(state, project) {
             state.projects.push(project);
+        },
+
+        // project categories
+        SET_PROJECT_CATEGORIES(state, categories) {
+            state.projectCategories = categories;
         },
 
         ADD_PROJECT_CATEGORY(state, category) {

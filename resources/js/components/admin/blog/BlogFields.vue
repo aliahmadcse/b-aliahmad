@@ -164,11 +164,22 @@ export default {
     methods: {
         saveBlog(status) {
             this.blog.is_published = status === "save" ? 0 : 1;
-            // this.$loading(true);
+            this.$loading(true);
             axios
                 .post("/api/blogs/add", this.blog)
-                .then(res => {})
-                .catch(err => {});
+                .then(res => {
+                    if (res.status === 201) {
+                        this.$store.commit("ADD_BLOG_POST", res.data);
+                        this.$loading(false);
+                        this.$router.push({ name: "blogs.posts" });
+                    }
+                })
+                .catch(err => {
+                    if (err.response.status === 422) {
+                        this.assignErrors(err.response.data.errors);
+                    }
+                    this.$loading(false);
+                });
         },
 
         uploadImageSuccess: function(file, res) {
@@ -189,6 +200,26 @@ export default {
                 .catch(err => {
                     console.log(err);
                 });
+        },
+
+        /**
+         * Assign errors to the errors data object
+         *
+         * @param {object} errors the errors object returned from server
+         * @returns void
+         */
+
+        assignErrors: function(errors) {
+            // removing old errors
+            for (const error in this.errors) {
+                this.errors[error] = [];
+            }
+            // assigning new errors
+            for (const error in errors) {
+                if (errors.hasOwnProperty(error)) {
+                    this.errors[error] = errors[error];
+                }
+            }
         }
     },
 
@@ -207,5 +238,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/variables";
+// @import "~@/variables";
+.invalid-feedback {
+    display: block;
+}
 </style>

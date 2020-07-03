@@ -293,6 +293,11 @@ export default {
          */
 
         assignErrors: function(errors) {
+            // removing old errors
+            for (const error in this.errors) {
+                this.errors[error] = [];
+            }
+            // assigning new errors
             for (const error in errors) {
                 if (errors.hasOwnProperty(error)) {
                     this.errors[error] = errors[error];

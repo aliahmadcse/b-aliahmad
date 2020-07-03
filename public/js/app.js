@@ -2397,15 +2397,33 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
   },
   methods: {
     saveBlog: function saveBlog(status) {
-      this.blog.is_published = status === "save" ? 0 : 1; // this.$loading(true);
+      var _this2 = this;
 
-      axios.post("/api/blogs/add", this.blog).then(function (res) {})["catch"](function (err) {});
+      this.blog.is_published = status === "save" ? 0 : 1;
+      this.$loading(true);
+      axios.post("/api/blogs/add", this.blog).then(function (res) {
+        if (res.status === 201) {
+          _this2.$store.commit("ADD_BLOG_POST", res.data);
+
+          _this2.$loading(false);
+
+          _this2.$router.push({
+            name: "blogs.posts"
+          });
+        }
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this2.assignErrors(err.response.data.errors);
+        }
+
+        _this2.$loading(false);
+      });
     },
     uploadImageSuccess: function uploadImageSuccess(file, res) {
       this.blog.image = res;
     },
     removeImage: function removeImage(file, error, xhr) {
-      var _this2 = this;
+      var _this3 = this;
 
       var imagePath = file.xhr.response;
       axios["delete"]("/api/blogs/header/image/delete", {
@@ -2413,10 +2431,30 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
           imgPath: imagePath
         }
       }).then(function (res) {
-        _this2.blog.image = "";
+        _this3.blog.image = "";
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+
+    /**
+     * Assign errors to the errors data object
+     *
+     * @param {object} errors the errors object returned from server
+     * @returns void
+     */
+    assignErrors: function assignErrors(errors) {
+      // removing old errors
+      for (var error in this.errors) {
+        this.errors[error] = [];
+      } // assigning new errors
+
+
+      for (var _error in errors) {
+        if (errors.hasOwnProperty(_error)) {
+          this.errors[_error] = errors[_error];
+        }
+      }
     }
   },
   computed: {
@@ -2540,7 +2578,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!_.isEmpty(_this.$store.state.blogs)) {
+              if (!(_this.$store.state.blogPosts.length == 0)) {
                 _context.next = 5;
                 break;
               }
@@ -2567,7 +2605,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
       return new Promise(function (resolve, reject) {
         axios.get("/api/blogs/all").then(function (res) {
-          _this2.$store.commit("SET_BLOGS", res.data);
+          _this2.$store.commit("SET_BLOG_POSTS", res.data);
 
           resolve();
         })["catch"](function (err) {
@@ -2579,7 +2617,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]);
   },
   computed: {
     blogs: function blogs() {
-      return this.$store.state.blogs;
+      return this.$store.state.blogPosts;
     }
   },
   watch: {
@@ -3361,9 +3399,15 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
      * @returns void
      */
     assignErrors: function assignErrors(errors) {
-      for (var error in errors) {
-        if (errors.hasOwnProperty(error)) {
-          this.errors[error] = errors[error];
+      // removing old errors
+      for (var error in this.errors) {
+        this.errors[error] = [];
+      } // assigning new errors
+
+
+      for (var _error in errors) {
+        if (errors.hasOwnProperty(_error)) {
+          this.errors[_error] = errors[_error];
         }
       }
     }
@@ -8817,12 +8861,10 @@ exports.push([module.i, ".admin-nav .nav-custom .nav-link[data-v-216b5324] {\n  
 
 exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap);", ""]);
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap);", ""]);
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);", ""]);
+
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".invalid-feedback[data-v-13aeeca6] {\n  display: block;\n}", ""]);
 
 // exports
 
@@ -65008,12 +65050,23 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     projects: [],
     // blogs are the paginated blogs returned from server
     blogs: {},
+    // blogPosts are the unpaginated blogs
+    blogPosts: [],
     // tagBlogs are the blogs specific to a single tag used on front end
     tagBlogs: {},
     // blogTags are the blog tags returned from the server
     blogTags: []
   },
   mutations: {
+    // blogPosts
+    SET_BLOG_POSTS: function SET_BLOG_POSTS(state, blogPosts) {
+      state.blogPosts = blogPosts;
+    },
+    ADD_BLOG_POST: function ADD_BLOG_POST(state, blogPost) {
+      // adding a blog post at the beginning of array
+      state.blogPosts.unshift(blogPost);
+    },
+    // blog tags
     SET_BLOG_TAGS: function SET_BLOG_TAGS(state, blogTags) {
       state.blogTags = blogTags;
     },
@@ -65037,12 +65090,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         return tag.id != id;
       });
     },
+    // blogs
     SET_BLOGS: function SET_BLOGS(state, blogs) {
       state.blogs = blogs;
     },
     SET_TAG_BLOGS: function SET_TAG_BLOGS(state, tagBlogs) {
       state.tagBlogs = tagBlogs;
     },
+    //projects
     SET_PROJECTS: function SET_PROJECTS(state, projects) {
       state.projects = projects;
     },
@@ -65058,11 +65113,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         return proj.id !== id;
       });
     },
-    SET_PROJECT_CATEGORIES: function SET_PROJECT_CATEGORIES(state, categories) {
-      state.projectCategories = categories;
-    },
     ADD_PROJECT: function ADD_PROJECT(state, project) {
       state.projects.push(project);
+    },
+    // project categories
+    SET_PROJECT_CATEGORIES: function SET_PROJECT_CATEGORIES(state, categories) {
+      state.projectCategories = categories;
     },
     ADD_PROJECT_CATEGORY: function ADD_PROJECT_CATEGORY(state, category) {
       state.projectCategories.push(category);

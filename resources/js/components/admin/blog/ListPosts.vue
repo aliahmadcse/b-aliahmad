@@ -67,7 +67,7 @@ export default {
 
     async created() {
         // using lodash method to check for an empty object
-        if (_.isEmpty(this.$store.state.blogs)) {
+        if (this.$store.state.blogPosts.length == 0) {
             this.$loading(true);
             await this.getBlogs();
             this.$loading(false);
@@ -79,7 +79,7 @@ export default {
                 axios
                     .get("/api/blogs/all")
                     .then(res => {
-                        this.$store.commit("SET_BLOGS", res.data);
+                        this.$store.commit("SET_BLOG_POSTS", res.data);
                         resolve();
                     })
                     .catch(err => {
@@ -92,7 +92,7 @@ export default {
 
     computed: {
         blogs() {
-            return this.$store.state.blogs;
+            return this.$store.state.blogPosts;
         }
     },
 

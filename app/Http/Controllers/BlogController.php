@@ -168,7 +168,13 @@ class BlogController extends Controller
     {
         $validated_data = $request->validated();
         $validated_data['author_id'] = Auth::user()->id;
-        return response()->json($validated_data);
+        $blog = Blog::create($validated_data);
+        $blog->load([
+            'tag' => function ($query) {
+                $query->select('id', 'tag');
+            }
+        ]);
+        return response()->json($blog, 201);
     }
 
     /**
