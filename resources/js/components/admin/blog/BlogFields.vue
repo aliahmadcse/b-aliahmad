@@ -100,7 +100,10 @@
                 </div>
 
                 <!-- submit buttons -->
-                <div class="col-lg-10 col-md-10 col-sm-12 mb-3 d-flex justify-content-around">
+                <div
+                    v-if="id==0"
+                    class="col-lg-10 col-md-10 col-sm-12 mb-3 d-flex justify-content-around"
+                >
                     <button
                         @click="saveBlog(status='save')"
                         class="btn btn-primary text-center"
@@ -111,6 +114,21 @@
                         class="btn btn-primary text-center btn-update"
                         type="submit"
                     >Publish</button>
+                </div>
+                <div
+                    v-if="id>0"
+                    class="col-lg-10 col-md-10 col-sm-12 mb-3 d-lg-flex flex-lg-row flex-md-col justify-content-around"
+                >
+                    <button
+                        @click="updateBlog(status='save')"
+                        class="btn btn-primary text-center m-2"
+                        type="submit"
+                    >Update Draft</button>
+                    <button
+                        @click="updateBlog(status='publish')"
+                        class="btn btn-primary text-center btn-update m-2"
+                        type="submit"
+                    >Update &amp; Publish</button>
                 </div>
             </div>
         </form>

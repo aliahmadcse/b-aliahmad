@@ -2373,6 +2373,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -44911,42 +44929,83 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "col-lg-10 col-md-10 col-sm-12 mb-3 d-flex justify-content-around"
-            },
-            [
-              _c(
-                "button",
+          _vm.id == 0
+            ? _c(
+                "div",
                 {
-                  staticClass: "btn btn-primary text-center",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      return _vm.saveBlog((_vm.status = "save"))
-                    }
-                  }
+                  staticClass:
+                    "col-lg-10 col-md-10 col-sm-12 mb-3 d-flex justify-content-around"
                 },
-                [_vm._v("Save Draft")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary text-center btn-update",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      return _vm.saveBlog((_vm.status = "publish"))
-                    }
-                  }
-                },
-                [_vm._v("Publish")]
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary text-center",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          return _vm.saveBlog((_vm.status = "save"))
+                        }
+                      }
+                    },
+                    [_vm._v("Save Draft")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary text-center btn-update",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          return _vm.saveBlog((_vm.status = "publish"))
+                        }
+                      }
+                    },
+                    [_vm._v("Publish")]
+                  )
+                ]
               )
-            ]
-          )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.id > 0
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "col-lg-10 col-md-10 col-sm-12 mb-3 d-lg-flex flex-lg-row flex-md-col justify-content-around"
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary text-center m-2",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          return _vm.updateBlog((_vm.status = "save"))
+                        }
+                      }
+                    },
+                    [_vm._v("Update Draft")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary text-center btn-update m-2",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          return _vm.updateBlog((_vm.status = "publish"))
+                        }
+                      }
+                    },
+                    [_vm._v("Update & Publish")]
+                  )
+                ]
+              )
+            : _vm._e()
         ])
       ]
     ),
