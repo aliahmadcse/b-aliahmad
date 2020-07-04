@@ -85,18 +85,12 @@
                     <div class="invalid-feedback">{{ errors.image[0] }}</div>
                 </div>
                 <!-- Blog body -->
-                <div class="col-lg-10 col-md-10 col-sm-12 mb-3">
-                    <label for="body">Blog Body</label>
-                    <textarea
-                        class="form-control"
-                        :class="{ 'is-invalid' : errors.body.length }"
-                        id="body"
-                        name="body"
-                        rows="5"
-                        placeholder="Blog body ..."
-                        v-model="blog.body"
-                    ></textarea>
+                <div class="col-lg-10 col-md-10 col-sm-12 mb-3 editorjs-wrapper">
+                    <label for="body">Blog Body Goes here...</label>
+
                     <div class="invalid-feedback">{{ errors.body[0] }}</div>
+
+                    <div id="editorjs" class="editorjs"></div>
                 </div>
 
                 <!-- submit buttons -->
@@ -169,6 +163,7 @@ import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
+import EditorJS from "@editorjs/editorjs";
 
 export default {
     data() {
@@ -219,6 +214,7 @@ export default {
     },
 
     async mounted() {
+        this.myEditor();
         this.$loading(true);
         if (!this.$store.state.blogTags.length) {
             await this.$store.dispatch("getBlogTags");
@@ -232,6 +228,14 @@ export default {
     },
 
     methods: {
+        myEditor() {
+            window.editor = new EditorJS({
+                /**
+                 * Id of Element that should contain Editor instance
+                 */
+                holder: "editorjs"
+            });
+        },
         saveBlog(status) {
             this.blog.is_published = status === "save" ? 0 : 1;
             this.$loading(true);
@@ -349,5 +353,12 @@ export default {
 // @import "~@/variables";
 .invalid-feedback {
     display: block;
+}
+.editorjs-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+}
+.editorjs {
+    color: rgb(37, 35, 35);
 }
 </style>
