@@ -206,9 +206,15 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpsertBlog $request, Blog $blog)
     {
-        //
+        $validated_data = $request->validated();
+        // deleting old image if it's been updated
+        if ($blog->image != $validated_data['image']) {
+            s3::delete('public/blogheader/' . basename($blog->image));
+        }
+        $blog->update($validated_data);
+        return ['success' => 204];
     }
 
     /**

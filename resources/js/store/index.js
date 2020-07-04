@@ -35,6 +35,15 @@ export default new Vuex.Store({
             state.blogPosts.unshift(blogPost);
         },
 
+        UPDATE_BLOG_POSTS(state, blogPost) {
+            state.blogPosts = state.blogPosts.map(blog => {
+                if (blog.id == blogPost.id) {
+                    return blogPost;
+                }
+                return blog;
+            });
+        },
+
         REMOVE_BLOG_POST(state, id) {
             state.blogPosts = state.blogPosts.filter(post => post.id != id);
         },

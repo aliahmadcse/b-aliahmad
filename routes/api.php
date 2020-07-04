@@ -52,6 +52,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::post('blogs/add', 'BlogController@store');
 
+    Route::put('blogs/update/{blog}', 'BlogController@update');
+
     Route::delete('blogs/delete/{blog}', 'BlogController@destroy');
 });
 

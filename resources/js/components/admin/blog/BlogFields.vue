@@ -252,6 +252,27 @@ export default {
                 });
         },
 
+        updateBlog(status) {
+            this.blog.is_published = status == "save" ? 0 : 1;
+            this.$loading(true);
+            axios
+                .put("/api/blogs/update/" + this.id, this.blog)
+                .then(res => {
+                    if (this.$store.state.blogPosts.length > 0) {
+                        this.blog["id"] = this.id;
+                        this.$store.commit("UPDATE_BLOG_POSTS", this.blog);
+                    }
+                    this.$loading(false);
+                    this.$router.push({ name: "blogs.posts" });
+                })
+                .catch(err => {
+                    if (err.response.status === 422) {
+                        this.assignErrors(err.response.data.errors);
+                        this.$loading(false);
+                    }
+                });
+        },
+
         deleteBlog() {
             $("#confirmModel").modal("hide");
             this.$loading(true);

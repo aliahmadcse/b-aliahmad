@@ -2519,32 +2519,57 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
         _this3.$loading(false);
       });
     },
-    deleteBlog: function deleteBlog() {
+    updateBlog: function updateBlog(status) {
       var _this4 = this;
+
+      this.blog.is_published = status == "save" ? 0 : 1;
+      this.$loading(true);
+      axios.put("/api/blogs/update/" + this.id, this.blog).then(function (res) {
+        if (_this4.$store.state.blogPosts.length > 0) {
+          _this4.blog["id"] = _this4.id;
+
+          _this4.$store.commit("UPDATE_BLOG_POSTS", _this4.blog);
+        }
+
+        _this4.$loading(false);
+
+        _this4.$router.push({
+          name: "blogs.posts"
+        });
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this4.assignErrors(err.response.data.errors);
+
+          _this4.$loading(false);
+        }
+      });
+    },
+    deleteBlog: function deleteBlog() {
+      var _this5 = this;
 
       $("#confirmModel").modal("hide");
       this.$loading(true);
       axios["delete"]("/api/blogs/delete/" + this.id).then(function (res) {
         if (res.status === 204) {
-          _this4.$store.commit("REMOVE_BLOG_POST", _this4.id);
+          _this5.$store.commit("REMOVE_BLOG_POST", _this5.id);
 
-          _this4.$loading(false);
+          _this5.$loading(false);
 
-          _this4.$router.push({
+          _this5.$router.push({
             name: "blogs.posts"
           });
         }
       })["catch"](function (err) {
         console.log(err);
 
-        _this4.$loading(false);
+        _this5.$loading(false);
       });
     },
     uploadImageSuccess: function uploadImageSuccess(file, res) {
       this.blog.image = res;
     },
     removeImage: function removeImage(file, error, xhr) {
-      var _this5 = this;
+      var _this6 = this;
 
       var imagePath = file.xhr.response;
       axios["delete"]("/api/blogs/header/image/delete", {
@@ -2552,7 +2577,7 @@ Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_3__["default"]);
           imgPath: imagePath
         }
       }).then(function (res) {
-        _this5.blog.image = "";
+        _this6.blog.image = "";
       })["catch"](function (err) {
         console.log(err);
       });
@@ -65411,6 +65436,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     ADD_BLOG_POST: function ADD_BLOG_POST(state, blogPost) {
       // adding a blog post at the beginning of array
       state.blogPosts.unshift(blogPost);
+    },
+    UPDATE_BLOG_POSTS: function UPDATE_BLOG_POSTS(state, blogPost) {
+      state.blogPosts = state.blogPosts.map(function (blog) {
+        if (blog.id == blogPost.id) {
+          return blogPost;
+        }
+
+        return blog;
+      });
     },
     REMOVE_BLOG_POST: function REMOVE_BLOG_POST(state, id) {
       state.blogPosts = state.blogPosts.filter(function (post) {
