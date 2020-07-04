@@ -167,6 +167,7 @@ Vue.use(VueLoading);
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
+import Embed from "@editorjs/embed";
 
 export default {
     data() {
@@ -249,6 +250,19 @@ export default {
                     list: {
                         class: List,
                         inlineToolbar: true
+                    },
+                    embed: {
+                        class: Embed,
+                        inlineToolbar: true,
+                        config: {
+                            services: {
+                                gist: {
+                                    regex: /<script src="https?:\/\/gist.github.com\/\w+\/\w+.js"><\/script>/,
+                                    embedUrl: "https://gist.github.com",
+                                    html: "script"
+                                }
+                            }
+                        }
                     }
                 },
                 /**
