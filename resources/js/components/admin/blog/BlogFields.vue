@@ -163,7 +163,10 @@ import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
+
 import EditorJS from "@editorjs/editorjs";
+import Header from "@editorjs/header";
+import List from "@editorjs/list";
 
 export default {
     data() {
@@ -191,7 +194,7 @@ export default {
                 blog_tag_id: "",
                 author_id: null,
                 image: "",
-                body: "",
+                body: {},
                 is_published: null
             },
             errors: {
@@ -214,7 +217,6 @@ export default {
     },
 
     async mounted() {
-        this.myEditor();
         this.$loading(true);
         if (!this.$store.state.blogTags.length) {
             await this.$store.dispatch("getBlogTags");
@@ -224,6 +226,7 @@ export default {
             this.blog = this.$store.state.blog;
             this.fetched = true;
         }
+        this.myEditor();
         this.$loading(false);
     },
 
@@ -233,11 +236,48 @@ export default {
                 /**
                  * Id of Element that should contain Editor instance
                  */
-                holder: "editorjs"
+                holder: "editorjs",
+                /**
+                 * Available Tools list.
+                 * Pass Tool's class or Settings object for each Tool you want to use
+                 */
+                tools: {
+                    header: {
+                        class: Header,
+                        inlineToolbar: ["link"]
+                    },
+                    list: {
+                        class: List,
+                        inlineToolbar: true
+                    }
+                },
+                /**
+                 * Previously saved data that should be rendered
+                 */
+                data: this.blog.body,
+                /**
+                 * What is shown in the console
+                 */
+                logLevel: "ERROR"
             });
         },
-        saveBlog(status) {
+        saveEditorData() {
+            return new Promise((resolve, reject) => {
+                editor
+                    .save()
+                    .then(outputData => {
+                        this.blog.body = outputData;
+                        resolve("Success");
+                    })
+                    .catch(error => {
+                        console.log("Saving failed: ", error);
+                        reject("Failed");
+                    });
+            });
+        },
+        async saveBlog(status) {
             this.blog.is_published = status === "save" ? 0 : 1;
+            await this.saveEditorData();
             this.$loading(true);
             axios
                 .post("/api/blogs/add", this.blog)
@@ -256,8 +296,9 @@ export default {
                 });
         },
 
-        updateBlog(status) {
+        async updateBlog(status) {
             this.blog.is_published = status == "save" ? 0 : 1;
+            await this.saveEditorData();
             this.$loading(true);
             axios
                 .put("/api/blogs/update/" + this.id, this.blog)

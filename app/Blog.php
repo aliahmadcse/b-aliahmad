@@ -17,6 +17,15 @@ class Blog extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'body' => 'array',
+    ];
+
+    /**
      * Defines an inverse of one to many relationship with BlogTag model
      *
      * @return Relationship inverse of One to Many
