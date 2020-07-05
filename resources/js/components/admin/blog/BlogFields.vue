@@ -168,6 +168,8 @@ import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
 import CodeTool from "@editorjs/code";
+import InlineCode from "@editorjs/inline-code";
+import Delimiter from "@editorjs/delimiter";
 
 export default {
     data() {
@@ -254,6 +256,13 @@ export default {
                     code: {
                         class: CodeTool,
                         inlineToolbar: true
+                    },
+                    inlineCode: {
+                        class: InlineCode,
+                        shortcut: "CMD+SHIFT+M"
+                    },
+                    delimiter: {
+                        class: Delimiter
                     }
                 },
                 /**

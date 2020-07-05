@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row" v-if="Object.keys($store.state.blog).length>0">
+        <div class="row" v-if="Object.keys($store.state.blog).length>0" title>
             <div class="col-12 blog-header d-flex justify-content-around">
                 <div class="d-flex blog-author align-items-center">
                     <img
@@ -61,11 +61,15 @@
                     >{{ block.data.text }}</h6>
 
                     <!-- paragraph -->
-                    <p v-else-if="block.type=='paragraph'">{{ block.data.text }}</p>
+                    <p v-else-if="block.type=='paragraph'" v-html="block.data.text"></p>
 
                     <!-- ordered list -->
                     <ol v-else-if="block.type=='list' && block.data.style=='ordered'">
-                        <li v-for="(item,indexOrder) in block.data.items" :key="indexOrder">{{item}}</li>
+                        <li
+                            v-for="(item,indexOrder) in block.data.items"
+                            :key="indexOrder"
+                            v-html="item"
+                        ></li>
                     </ol>
 
                     <!-- unordered list -->
@@ -73,11 +77,15 @@
                         <li
                             v-for="(item,indexUnOrder) in block.data.items"
                             :key="indexUnOrder"
-                        >{{item}}</li>
+                            v-html="item"
+                        ></li>
                     </ul>
 
                     <!-- code -->
                     <pre v-else-if="block.type=='code'" v-highlightjs="block.data.code"><code></code></pre>
+
+                    <!-- delimiter -->
+                    <div class="ce-delimiter cdx-block" v-if="block.type=='delimiter'"></div>
                 </section>
             </div>
         </div>
@@ -151,10 +159,12 @@ export default {
 <style lang="scss" scoped>
 @import "~@/variables";
 @import "~@/mixins";
+
 .blog-title {
     font-family: $font-family-lexend-deca;
     font-weight: bold;
 }
+
 .author-avatar {
     max-width: 30px;
     max-height: 30px;
@@ -168,6 +178,7 @@ export default {
 pre {
     font-size: $font-size-base * 1.1;
 }
+
 @media (max-width: 350px) {
     .blog-header {
         flex-direction: column;
