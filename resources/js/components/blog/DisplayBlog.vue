@@ -44,31 +44,41 @@
                 <section v-for="(block,index) in blog.body.blocks" :key="index">
                     <!-- header -->
                     <h1 v-if="block.type=='header' && block.data.level==1">{{ block.data.text }}</h1>
-                    <h2 v-if="block.type=='header' && block.data.level==2">{{ block.data.text }}</h2>
-                    <h3 v-if="block.type=='header' && block.data.level==3">{{ block.data.text }}</h3>
-                    <h4 v-if="block.type=='header' && block.data.level==4">{{ block.data.text }}</h4>
-                    <h5 v-if="block.type=='header' && block.data.level==5">{{ block.data.text }}</h5>
-                    <h6 v-if="block.type=='header' && block.data.level==6">{{ block.data.text }}</h6>
+                    <h2
+                        v-else-if="block.type=='header' && block.data.level==2"
+                    >{{ block.data.text }}</h2>
+                    <h3
+                        v-else-if="block.type=='header' && block.data.level==3"
+                    >{{ block.data.text }}</h3>
+                    <h4
+                        v-else-if="block.type=='header' && block.data.level==4"
+                    >{{ block.data.text }}</h4>
+                    <h5
+                        v-else-if="block.type=='header' && block.data.level==5"
+                    >{{ block.data.text }}</h5>
+                    <h6
+                        v-else-if="block.type=='header' && block.data.level==6"
+                    >{{ block.data.text }}</h6>
 
                     <!-- paragraph -->
-                    <p v-if="block.type=='paragraph'">{{ block.data.text }}</p>
+                    <p v-else-if="block.type=='paragraph'">{{ block.data.text }}</p>
 
                     <!-- ordered list -->
-                    <ol v-if="block.type=='list' && block.data.style=='ordered'">
+                    <ol v-else-if="block.type=='list' && block.data.style=='ordered'">
                         <li v-for="(item,indexOrder) in block.data.items" :key="indexOrder">{{item}}</li>
                     </ol>
 
                     <!-- unordered list -->
-                    <ul v-if="block.type=='list' && block.data.style=='unordered'">
+                    <ul v-else-if="block.type=='list' && block.data.style=='unordered'">
                         <li
                             v-for="(item,indexUnOrder) in block.data.items"
                             :key="indexUnOrder"
                         >{{item}}</li>
                     </ul>
+
+                    <!-- code -->
+                    <pre v-else-if="block.type=='code'" v-highlightjs="block.data.code"><code></code></pre>
                 </section>
-                <script
-                    src="https://gist.github.com/aliahmadcse/b5094aaff2bb7433959675ad057994c8.js"
-                ><script>
             </div>
         </div>
     </div>
@@ -77,6 +87,35 @@
 <script>
 import VueLoading from "vuejs-loading-plugin";
 Vue.use(VueLoading);
+import hljs from "highlight.js";
+import "highlight.js/styles/shades-of-purple.css";
+
+// vue custom directive for heighlight js
+Vue.directive("highlightjs", {
+    deep: true,
+    bind: function(el, binding) {
+        // on first bind, highlight all targets
+        let targets = el.querySelectorAll("code");
+        targets.forEach(target => {
+            // if a value is directly assigned to the directive, use this
+            // instead of the element content.
+            if (binding.value) {
+                target.textContent = binding.value;
+            }
+            hljs.highlightBlock(target);
+        });
+    },
+    componentUpdated: function(el, binding) {
+        // after an update, re-fill the content and then highlight
+        let targets = el.querySelectorAll("code");
+        targets.forEach(target => {
+            if (binding.value) {
+                target.textContent = binding.value;
+                hljs.highlightBlock(target);
+            }
+        });
+    }
+});
 
 export default {
     data: function() {
@@ -99,6 +138,7 @@ export default {
         await this.$store.dispatch("getBlog", this.blogId);
         this.$loading(false);
     },
+
     computed: {
         blog() {
             console.log(this.$store.state.blog);
@@ -124,6 +164,9 @@ export default {
 }
 .blog-body {
     font-size: $font-size-base;
+}
+pre {
+    font-size: $font-size-base * 1.1;
 }
 @media (max-width: 350px) {
     .blog-header {
