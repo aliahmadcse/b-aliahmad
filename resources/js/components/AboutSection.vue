@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <article class="text-center mt-5">
                         <p>
-                            Hi ✋, I am Ali Ahmad. I am a web developer 💻 and loves developing websites with
+                            Hi ✋, I am Ali Ahmad. I am a web developer 💻 and love developing websites with
                             <a
                                 href="https://laravel.com/"
                                 class="text-link"
@@ -47,7 +47,7 @@
                         </p>
                     </article>
                     <article>
-                        <p>Below is the list of my top skill set:</p>
+                        <p>My Expertise are:</p>
                         <ul>
                             <li>Laravel / Php</li>
                             <li>Vue.js</li>
@@ -73,9 +73,9 @@ export default {
     mounted: function() {
         var typed = new Typed(".tag", {
             strings: [
-                "Web Developer.",
-                "Laravel and Vue.js.",
-                "Undergrad Student."
+                "Web Developer...",
+                "Laravel and Vue.js...",
+                "Undergrad Student..."
             ],
             typeSpeed: 30,
             backSpeed: 100,
