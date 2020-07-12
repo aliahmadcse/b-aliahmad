@@ -35,7 +35,7 @@
                     <h2>{{ blog.title }}</h2>
                 </div>
             </div>
-            <div class="col-12 mt-2 d-flex justify-content-center">
+            <div class="col-12 my-3 d-flex justify-content-center">
                 <img :src="blog.image" title alt="header image" class="img-fluid" />
             </div>
 

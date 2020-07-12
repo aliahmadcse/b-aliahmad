@@ -61,7 +61,10 @@ Vue.mixin({
         },
 
         formatTitle: function(title) {
-            return title.replace(/\s+/g, "-").toLowerCase();
+            return title
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]+/g, "")
+                .toLowerCase();
         },
 
         blogDate: function(ISODate) {
