@@ -173,7 +173,7 @@ export default {
     text-decoration: none;
 }
 .blog-body {
-    font-size: $font-size-base;
+    font-size: $font-size-base * 1.2;
 }
 pre {
     font-size: $font-size-base * 1.1;
