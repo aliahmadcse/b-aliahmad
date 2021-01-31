@@ -19,8 +19,8 @@ Route::get('/', 'HomeController@index')->name('about');
 // here, we modify authentications routes, It will not let user
 // registeration or password reset
 Auth::routes([
-    'register' => true,
-    'reset' => true
+    'register' => false,
+    'reset' => false
 ]);
 
 // User resource controller routes
