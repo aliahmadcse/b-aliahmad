@@ -2,9 +2,9 @@
 
 ## Credential
 
-username: user@test.com
+<!-- username: user@test.com
 
-password: 12345678
+password: 12345678 -->
 
 
 ## Description
