@@ -14,6 +14,7 @@ const path = require("path");
 
 //  here, I configure the webpack to to resolve the path to sass
 // partials, so I can include them in vue components
+
 mix.js("resources/js/app.js", "public/js")
     .sass("resources/sass/app.scss", "public/css")
     .webpackConfig({
@@ -25,12 +26,13 @@ mix.js("resources/js/app.js", "public/js")
     });
 
 //versioning of assets in production for better experience
-if (mix.inProduction()) {
-    mix.version();
-}
+
+// if (mix.inProduction()) {
+//     mix.version();
+// }
 
 //hot reloading
-mix.browserSync("aliahmad.test");
+mix.browserSync("b-aliahmad.test");
 
 // disabling mix compile notifications, which might be headache
 mix.disableNotifications();

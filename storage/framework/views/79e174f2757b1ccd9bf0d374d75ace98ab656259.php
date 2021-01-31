@@ -31,4 +31,4 @@
     <div class="copy-right text-center">
         <p>Copyright &copy; Ali Ahmad 2020</p>
     </div>
-</footer><?php /**PATH C:\laragon\www\aliahmad\resources\views\layouts\footer.blade.php ENDPATH**/ ?>
+</footer><?php /**PATH C:\laragon\www\b-aliahmad\resources\views\layouts\footer.blade.php ENDPATH**/ ?>

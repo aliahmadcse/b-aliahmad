@@ -74,4 +74,4 @@
 <?php unset($__componentOriginal2dab26517731ed1416679a121374450d5cff5e0d); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
-<?php /**PATH C:\laragon\www\aliahmad\vendor\laravel\framework\src\Illuminate\Notifications\resources\views\email.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\b-aliahmad\vendor\laravel\framework\src\Illuminate\Notifications\resources\views\email.blade.php ENDPATH**/ ?>

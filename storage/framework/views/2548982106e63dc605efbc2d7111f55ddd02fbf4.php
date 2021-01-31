@@ -91,4 +91,4 @@
     </div>
 </body>
 </html>
-<?php /**PATH C:\laragon\www\aliahmad\vendor\laravel\passport\resources\views\authorize.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\b-aliahmad\vendor\laravel\passport\resources\views\authorize.blade.php ENDPATH**/ ?>

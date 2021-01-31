@@ -4,6 +4,7 @@
 
 use App\Blog;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 
 $factory->define(Blog::class, function (Faker $faker) {
     $blog_tag_ids = DB::table('blog_tags')->pluck('id')->all();
